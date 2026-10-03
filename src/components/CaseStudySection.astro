@@ -1,0 +1,177 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { Check } from '@lucide/astro';
+
+interface Props {
+  project: CollectionEntry<'caseStudies'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<div class="space-y-16 sm:space-y-24">
+  
+  <!-- Narrative: Challenge, Approach & Solution (2-column editorial layout) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+    
+    <!-- Left Sticky Sidebar: Services & Technologies (4 cols) -->
+    <div class="lg:col-span-4 space-y-8 lg:sticky lg:top-28 self-start">
+      
+      {data.services.length > 0 && (
+        <div class="rounded-2xl p-6 bg-surface-bg border border-surface-border space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
+            Scope &amp; Services
+          </h3>
+          <ul class="space-y-2 text-sm font-medium text-text-primary">
+            {data.services.map((service) => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
+                <span>{service}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {data.platforms.length > 0 && (
+        <div class="rounded-2xl p-6 bg-surface-bg border border-surface-border space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
+            Technology &amp; Platforms
+          </h3>
+          <div class="flex flex-wrap gap-1.5">
+            {data.platforms.map((tech) => (
+              <span class="text-xs font-medium px-2.5 py-1 rounded bg-white text-text-secondary border border-surface-border">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+
+    <!-- Right Main Narrative (8 cols) -->
+    <div class="lg:col-span-8 space-y-12 sm:space-y-16">
+      
+      <!-- Challenge Block -->
+      <section class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-4 h-0.5 bg-brand-green"></span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
+            The Challenge
+          </h2>
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+          What the business needed
+        </h3>
+        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+          {data.challenge}
+        </p>
+      </section>
+
+      <!-- Approach Block -->
+      <section class="space-y-4 pt-8 border-t border-surface-border">
+        <div class="flex items-center gap-2">
+          <span class="w-4 h-0.5 bg-brand-green"></span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
+            Our Approach
+          </h2>
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+          How we approached the problem
+        </h3>
+        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+          {data.approach}
+        </p>
+      </section>
+
+      <!-- Solution Block -->
+      <section class="space-y-4 pt-8 border-t border-surface-border">
+        <div class="flex items-center gap-2">
+          <span class="w-4 h-0.5 bg-brand-green"></span>
+          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
+            The Solution
+          </h2>
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+          What was built &amp; improved
+        </h3>
+        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+          {data.solution}
+        </p>
+      </section>
+
+      <!-- MDX Body (Implementation details) -->
+      <div class="prose prose-neutral max-w-none pt-8 border-t border-surface-border">
+        <slot />
+      </div>
+
+      <!-- Qualitative Outcomes / Results -->
+      <section class="rounded-2xl p-8 sm:p-10 bg-white border border-surface-border space-y-6">
+        <div class="space-y-2">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
+            Business Impact
+          </span>
+          <h3 class="text-2xl font-bold text-text-primary tracking-tight">
+            Key Outcomes &amp; Deliverables
+          </h3>
+          <p class="text-xs text-text-muted">
+            * We only report honest qualitative outcomes and verified operational changes.
+          </p>
+        </div>
+
+        <ul class="space-y-3.5 pt-2" role="list">
+          {data.outcome.map((item) => (
+            <li class="flex items-start gap-3 text-sm sm:text-base text-text-secondary">
+              <div class="w-5 h-5 rounded-full bg-brand-green-light text-brand-green flex items-center justify-center shrink-0 mt-0.5">
+                <Check class="w-3.5 h-3.5" />
+              </div>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+    </div>
+
+  </div>
+
+  <!-- Visual Gallery -->
+  {data.gallery && data.gallery.length > 0 && (
+    <section class="space-y-8 pt-8 border-t border-surface-border">
+      <div class="space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
+          Visual Gallery
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+          Selected Project Details
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {data.gallery.map((item) => (
+          <figure class="space-y-3">
+            <div class="rounded-2xl overflow-hidden bg-neutral-100 border border-surface-border shadow-md">
+              <Image
+                src={item.image}
+                alt={item.alt}
+                width={800}
+                height={500}
+                class="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+            {item.caption && (
+              <figcaption class="text-xs text-text-muted font-medium px-1">
+                {item.caption}
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+</div>

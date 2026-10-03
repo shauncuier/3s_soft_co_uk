@@ -1,0 +1,152 @@
+---
+import { site, footerNavigation, contactLinks, activeSocials } from '../data/site';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/brand/3s-soft-logo.png';
+import { ArrowUpRight, MessageCircle, Mail, Phone } from '@lucide/astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[#121514] text-white border-t border-[#232825] mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+      
+      <!-- Brand & Summary (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <a href="/" class="inline-flex items-center gap-3 group focus:outline-none" aria-label="3s-Soft Homepage">
+          <!-- White background pill to render official logo crisp on dark background -->
+          <div class="bg-white/95 px-3 py-1.5 rounded-lg border border-white/20 transition-transform duration-200 group-hover:scale-[1.02]">
+            <Image
+              src={logoImg}
+              alt="3s-Soft Logo"
+              width={140}
+              height={64}
+              class="h-8 w-auto object-contain"
+            />
+          </div>
+          <span class="inline-flex items-center text-xs font-semibold tracking-wider text-neutral-300 uppercase px-2 py-0.5 rounded border border-neutral-700 bg-neutral-800/80">
+            UK
+          </span>
+        </a>
+
+        <p class="text-sm font-medium text-neutral-300 tracking-wide uppercase">
+          {site.positioning}
+        </p>
+
+        <p class="text-sm text-neutral-400 max-w-sm leading-relaxed">
+          {site.tagline}
+        </p>
+
+        <div class="pt-2">
+          <a
+            href={site.mainSiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors"
+          >
+            <span>Visit 3s-Soft Global (3s-soft.com)</span>
+            <ArrowUpRight class="w-3.5 h-3.5 text-neutral-500" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation (3 cols) -->
+      <div class="lg:col-span-3 space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Navigation</p>
+        <ul class="space-y-3" role="list">
+          {footerNavigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-1"
+              >
+                <span>{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact & UK Office Info (4 cols) -->
+      <div class="lg:col-span-4 space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Direct Contact</p>
+        
+        <ul class="space-y-3 text-sm" role="list">
+          {contactLinks.whatsapp && (
+            <li>
+              <a
+                href={contactLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+              >
+                <MessageCircle class="w-4 h-4 text-brand-green shrink-0" />
+                <span>WhatsApp: Start a Conversation</span>
+              </a>
+            </li>
+          )}
+
+          {contactLinks.email && (
+            <li>
+              <a
+                href={contactLinks.email}
+                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+              >
+                <Mail class="w-4 h-4 text-neutral-400 shrink-0" />
+                <span>{site.contact.email}</span>
+              </a>
+            </li>
+          )}
+
+          {contactLinks.phone && (
+            <li>
+              <a
+                href={contactLinks.phone}
+                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+              >
+                <Phone class="w-4 h-4 text-neutral-400 shrink-0" />
+                <span>{site.contact.phoneDisplay} (UK)</span>
+              </a>
+            </li>
+          )}
+        </ul>
+
+        {activeSocials.length > 0 && (
+          <div class="pt-4 border-t border-[#232825]">
+            <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-2">Social</p>
+            <div class="flex flex-wrap gap-4">
+              {activeSocials.map((social) => (
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-xs text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1"
+                >
+                  <span>{social.label}</span>
+                  <ArrowUpRight class="w-3 h-3 text-neutral-600" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+    </div>
+
+    <!-- Bottom Legal Bar -->
+    <div class="mt-16 pt-8 border-t border-[#232825] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+      <p>© {year} {site.name}. All rights reserved.</p>
+      
+      <div class="flex items-center gap-6">
+        <a href="/about/#uk-presence" class="hover:text-neutral-300 transition-colors">
+          UK Presence
+        </a>
+        <span class="text-neutral-700">·</span>
+        <span class="text-neutral-600">
+          UK Client Communication &amp; Global Delivery
+        </span>
+      </div>
+    </div>
+
+  </div>
+</footer>

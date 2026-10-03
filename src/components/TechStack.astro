@@ -1,0 +1,41 @@
+---
+import { technologyGroups } from '../data/content';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section class="py-16 sm:py-24 bg-white border-y border-surface-border" aria-labelledby="tech-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="max-w-3xl mb-12">
+      <SectionHeading
+        id="tech-heading"
+        eyebrow="Capabilities & Platforms"
+        title="Technology Behind the Work"
+        subtitle="We select technologies based on business practicality, maintenance longevity, and performance rather than industry hype."
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {technologyGroups.map((group) => (
+        <div class="rounded-2xl p-6 sm:p-8 bg-surface-bg border border-surface-border space-y-4">
+          <h3 class="text-base font-bold text-text-primary tracking-tight">
+            {group.title}
+          </h3>
+
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-surface-border text-xs font-semibold text-text-secondary shadow-2xs">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8 text-xs text-text-muted">
+      <p>* Technologies are deployed thoughtfully according to project requirements and operational scale.</p>
+    </div>
+
+  </div>
+</section>

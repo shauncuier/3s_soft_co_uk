@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ArrowLeft, ArrowRight } from '@lucide/astro';
+---
+
+<Layout
+  title="Page Not Found (404)"
+  description="The page you are looking for does not exist or may have been moved."
+  noindex={true}
+>
+  <div class="min-h-[70vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl mx-auto text-center space-y-6">
+      
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-surface-border text-xs font-mono font-semibold text-text-muted">
+        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+        <span>Error 404</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+        This page doesn't exist.
+      </h1>
+
+      <p class="text-base sm:text-lg text-text-secondary leading-relaxed text-pretty">
+        The page you're looking for may have moved or is no longer available.
+      </p>
+
+      <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-text-primary text-white hover:bg-brand-graphite transition-colors shadow-sm"
+        >
+          <ArrowLeft class="w-4 h-4" />
+          <span>Back Home</span>
+        </a>
+
+        <a
+          href="/work/"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-white text-text-primary border border-surface-border hover:bg-surface-bg transition-colors shadow-xs"
+        >
+          <span>View Our Work</span>
+          <ArrowRight class="w-4 h-4 text-text-muted" />
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>

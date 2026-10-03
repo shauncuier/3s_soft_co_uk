@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site, contactLinks, activeSocials } from '../data/site';
+import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@lucide/astro';
+---
+
+<Layout
+  title="Contact Us — Start a Conversation"
+  description="Contact 3s-Soft UK directly via WhatsApp, email or phone to discuss your digital commerce, Shopify, or web technology project."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 space-y-16">
+    
+    <!-- Breadcrumbs -->
+    <Breadcrumbs items={[{ label: 'Contact' }]} />
+
+    <!-- Page Header -->
+    <div class="max-w-3xl space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="w-4 h-0.5 bg-brand-green"></span>
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
+          Get in Touch
+        </span>
+      </div>
+      
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+        Have a project in mind?
+      </h1>
+      
+      <p class="text-lg sm:text-2xl text-text-secondary leading-relaxed text-pretty font-normal">
+        Tell us what you're working on. We'll get back to you to discuss the next step.
+      </p>
+    </div>
+
+    <!-- Direct Contact Methods (Primary Conversion Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- 1. WhatsApp Card (Primary Preferred) -->
+      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-brand-green/40 transition-colors">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-brand-green-light text-brand-green flex items-center justify-center">
+            <MessageCircle class="w-6 h-6" />
+          </div>
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-green font-semibold">Fastest Response</span>
+            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">WhatsApp</h2>
+            <p class="text-xs text-text-secondary leading-relaxed mt-2">
+              Direct chat with our UK team. Ideal for quick questions, project scope outlines, or scheduling a call.
+            </p>
+          </div>
+        </div>
+
+        {contactLinks.whatsapp ? (
+          <a
+            href={contactLinks.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-brand-green text-white hover:bg-brand-green-hover transition-colors shadow-xs"
+          >
+            <MessageCircle class="w-4 h-4" />
+            <span>Chat on WhatsApp</span>
+          </a>
+        ) : (
+          <span class="text-xs text-text-muted italic">WhatsApp contact updating</span>
+        )}
+      </div>
+
+      <!-- 2. Email Card -->
+      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-neutral-300 transition-colors">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-surface-bg text-text-primary border border-surface-border flex items-center justify-center">
+            <Mail class="w-6 h-6" />
+          </div>
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold">Detailed Briefs</span>
+            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">Email</h2>
+            <p class="text-xs text-text-secondary leading-relaxed mt-2">
+              Send us RFP documents, catalogue links, or a detailed breakdown of your requirements.
+            </p>
+          </div>
+        </div>
+
+        {contactLinks.email ? (
+          <a
+            href={contactLinks.email}
+            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-text-primary text-white hover:bg-brand-graphite transition-colors shadow-xs"
+          >
+            <Mail class="w-4 h-4" />
+            <span>Email Us</span>
+          </a>
+        ) : (
+          <span class="text-xs text-text-muted italic">Email updating</span>
+        )}
+      </div>
+
+      <!-- 3. Direct UK Phone Card -->
+      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-neutral-300 transition-colors">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-surface-bg text-text-primary border border-surface-border flex items-center justify-center">
+            <Phone class="w-6 h-6" />
+          </div>
+          <div>
+            <span class="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold">UK Phone</span>
+            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">Direct Call</h2>
+            <p class="text-xs text-text-secondary leading-relaxed mt-2">
+              Speak directly with our UK business development contact during normal UK business hours.
+            </p>
+          </div>
+        </div>
+
+        {contactLinks.phone ? (
+          <a
+            href={contactLinks.phone}
+            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-surface-bg text-text-primary border border-surface-border hover:bg-neutral-100 transition-colors"
+          >
+            <Phone class="w-4 h-4 text-text-muted" />
+            <span>{site.contact.phoneDisplay}</span>
+          </a>
+        ) : (
+          <span class="text-xs text-text-muted italic">Phone updating</span>
+        )}
+      </div>
+
+    </div>
+
+    <!-- Reassurance / What Happens Next Banner -->
+    <div class="rounded-3xl p-8 sm:p-10 bg-surface-bg border border-surface-border grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-brand-green">
+          <Clock class="w-4 h-4" />
+          <h3 class="text-sm font-bold text-text-primary">Prompt Response</h3>
+        </div>
+        <p class="text-xs text-text-secondary leading-relaxed">
+          We typically acknowledge project enquiries within one business day during UK working hours (Mon–Fri).
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-brand-green">
+          <ShieldCheck class="w-4 h-4" />
+          <h3 class="text-sm font-bold text-text-primary">No High-Pressure Sales</h3>
+        </div>
+        <p class="text-xs text-text-secondary leading-relaxed">
+          Direct, practical communication focused on technical feasibility and straightforward recommendations.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-brand-green">
+          <MessageCircle class="w-4 h-4" />
+          <h3 class="text-sm font-bold text-text-primary">Direct Conversation</h3>
+        </div>
+        <p class="text-xs text-text-secondary leading-relaxed">
+          Connect directly with someone who understands both e-commerce operations and software development.
+        </p>
+      </div>
+    </div>
+
+    <!-- Active Social Channels -->
+    {activeSocials.length > 0 && (
+      <div class="pt-8 border-t border-surface-border space-y-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
+          Connect on Social Platforms
+        </h3>
+        <div class="flex flex-wrap gap-4">
+          {activeSocials.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-surface-border text-xs font-semibold text-text-primary hover:border-neutral-300 transition-colors shadow-2xs"
+            >
+              <span>{social.label}</span>
+              <ArrowUpRight class="w-3.5 h-3.5 text-text-muted" />
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+  </div>
+</Layout>

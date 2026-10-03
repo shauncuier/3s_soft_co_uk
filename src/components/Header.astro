@@ -1,0 +1,215 @@
+---
+import { site, navigation, contactLinks } from '../data/site';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/brand/3s-soft-logo.png';
+import { ArrowUpRight, Menu, X, MessageCircle } from '@lucide/astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const isCurrent = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header id="site-header" class="sticky top-0 z-40 w-full transition-all duration-300 bg-surface-bg/85 backdrop-blur-md border-b border-surface-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group focus:outline-none" aria-label="3s-Soft UK Homepage">
+        <Image
+          src={logoImg}
+          alt="3s-Soft Logo"
+          width={150}
+          height={68}
+          class="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+          loading="eager"
+        />
+        <span class="inline-flex items-center text-xs font-semibold tracking-wider text-text-secondary uppercase px-2 py-0.5 rounded border border-surface-border bg-white/60">
+          UK
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+        {navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'text-sm font-medium transition-colors duration-150 relative py-1 focus-visible:rounded',
+              isCurrent(item.href)
+                ? 'text-text-primary font-semibold'
+                : 'text-text-secondary hover:text-text-primary',
+            ]}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+            {isCurrent(item.href) && (
+              <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-green rounded-full" />
+            )}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Desktop Right CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        {contactLinks.whatsapp && (
+          <a
+            href={contactLinks.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium text-text-secondary hover:text-brand-green flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-md hover:bg-brand-green-light"
+            aria-label="Chat with 3s-Soft on WhatsApp"
+          >
+            <MessageCircle class="w-3.5 h-3.5 text-brand-green" />
+            <span>WhatsApp</span>
+          </a>
+        )}
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-text-primary hover:bg-brand-graphite px-4 py-2 rounded-full transition-all duration-200 hover:shadow-sm"
+        >
+          <span>Let's Talk</span>
+          <ArrowUpRight class="w-4 h-4" />
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="flex items-center md:hidden">
+        <button
+          type="button"
+          id="mobile-menu-toggle"
+          class="inline-flex items-center justify-center p-2 rounded-md text-text-primary hover:bg-surface-border focus:outline-none focus:ring-2 focus:ring-brand-green"
+          aria-expanded="false"
+          aria-controls="mobile-menu-overlay"
+          aria-label="Toggle navigation menu"
+        >
+          <Menu id="menu-icon-open" class="w-6 h-6 block" />
+          <X id="menu-icon-close" class="w-6 h-6 hidden" />
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Fullscreen / Slide Navigation Overlay -->
+  <div
+    id="mobile-menu-overlay"
+    class="fixed inset-x-0 top-20 bottom-0 bg-surface-bg/95 backdrop-blur-xl border-t border-surface-border z-50 flex-col justify-between p-6 overflow-y-auto hidden md:hidden"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col space-y-4 pt-2">
+      <span class="text-xs font-semibold tracking-wider text-text-muted uppercase mb-2">Navigation</span>
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'text-2xl font-semibold transition-colors py-2 flex items-center justify-between border-b border-surface-border/60',
+            isCurrent(item.href) ? 'text-brand-green' : 'text-text-primary',
+          ]}
+        >
+          <span>{item.label}</span>
+          <ArrowUpRight class="w-5 h-5 text-text-muted" />
+        </a>
+      ))}
+      <a
+        href="/contact/"
+        class:list={[
+          'text-2xl font-semibold transition-colors py-2 flex items-center justify-between border-b border-surface-border/60',
+          isCurrent('/contact/') ? 'text-brand-green' : 'text-text-primary',
+        ]}
+      >
+        <span>Contact</span>
+        <ArrowUpRight class="w-5 h-5 text-text-muted" />
+      </a>
+    </div>
+
+    <!-- Mobile Contact CTAs -->
+    <div class="pt-8 pb-4 space-y-3">
+      <span class="text-xs font-semibold tracking-wider text-text-muted uppercase block">Start a Conversation</span>
+      
+      {contactLinks.whatsapp && (
+        <a
+          href={contactLinks.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand-green text-white font-semibold text-sm transition-colors hover:bg-brand-green-hover shadow-sm"
+        >
+          <MessageCircle class="w-4 h-4" />
+          <span>Chat on WhatsApp</span>
+        </a>
+      )}
+
+      {contactLinks.email && (
+        <a
+          href={contactLinks.email}
+          class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white border border-surface-border text-text-primary font-semibold text-sm transition-colors hover:bg-surface-bg"
+        >
+          <span>Email: {site.contact.email}</span>
+        </a>
+      )}
+
+      {contactLinks.phone && (
+        <a
+          href={contactLinks.phone}
+          class="w-full inline-flex items-center justify-center gap-2 py-2 text-center text-xs font-medium text-text-secondary"
+        >
+          <span>UK Phone: {site.contact.phoneDisplay}</span>
+        </a>
+      )}
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  if (toggleBtn && overlay && iconOpen && iconClose) {
+    let isOpen = false;
+
+    const toggleMenu = (open?: boolean) => {
+      isOpen = typeof open === 'boolean' ? open : !isOpen;
+      toggleBtn.setAttribute('aria-expanded', String(isOpen));
+      overlay.setAttribute('aria-hidden', String(!isOpen));
+
+      if (isOpen) {
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    };
+
+    toggleBtn.addEventListener('click', () => toggleMenu());
+
+    // Close menu when clicking internal links
+    overlay.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    // Close on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) toggleMenu(false);
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && isOpen) toggleMenu(false);
+    });
+  }
+</script>

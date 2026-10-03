@@ -1,0 +1,39 @@
+---
+title: "Order & Inventory Sync Automation"
+tagline: "Resilient backend integration orchestrating multi-warehouse fulfillment and multi-channel inventory."
+summary: "Custom middleware and webhook automation pipeline bridging e-commerce storefronts, 3PL fulfillment, and enterprise ERP."
+categories: ["technology"]
+categoryLabel: "Custom Technology · Automation"
+client: "[Speciality Equipment Merchant]"
+industry: "Specialist Tools & Equipment"
+year: "2025"
+platforms: ["Node.js", "TypeScript", "Redis", "REST & GraphQL APIs", "Docker"]
+services: ["API Integration", "Queue Architecture", "Webhook Handling", "Telemetry & Alerting"]
+heroImage: "../../assets/projects/automation.jpg"
+heroAlt: "Automation workflow interface showing active webhook stages and real-time synchronization log"
+featured: true
+order: 6
+placeholder: true
+challenge: "Manual order export routines and batch file transfers between Shopify, trade wholesale portals, and an off-site 3PL warehouse created 4-hour synchronization lags, stock discrepancies, and delayed shipping confirmation emails."
+approach: "We architected an event-driven integration service that listens for real-time webhooks, validates payload data against schema contracts, safely enqueues tasks with automatic retry handling, and updates inventory across all channels in seconds."
+solution: "A lightweight, secure Node.js integration engine featuring automated idempotency checks, end-to-end payload auditing, and instant Slack/email alerts if third-party carrier APIs experience unexpected downtime."
+outcome:
+  - "Reduced inventory synchronisation latency from hours to under 30 seconds."
+  - "Virtually eliminated human data-entry mistakes in customer address and order fulfillment files."
+  - "Automated backorder routing rules preventing orders for products awaiting customs clearance."
+  - "Complete auditable log trail for every transaction, SKU adjustment, and carrier tracking update."
+gallery:
+  - image: "../../assets/projects/automation-detail.jpg"
+    alt: "Diagram view of workflow nodes and event dispatch queues"
+    caption: "Event-driven workflow visualising order validation, inventory allocation, and channel sync"
+---
+
+### Architecture & Reliability
+
+When handling live customer orders, data integrity is paramount. Rather than fragile point-to-point cron jobs, we built an event-driven message queue architecture with exponential backoff retries and dead-letter queues.
+
+### Engineering Deliverables
+
+- **Idempotent Webhook Processing**: Safeguards ensuring repeated webhook deliveries from upstream channels never duplicate orders or customer charges.
+- **Stock Rate Limiting**: Intelligent throttling respecting channel API quotas during high-velocity promotional sales periods.
+- **Observable Logs**: Structured JSON logging and status monitoring giving the operations team instant visibility into feed health.

@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  projects: CollectionEntry<'caseStudies'>[];
+  featuredFirst?: boolean;
+}
+
+const { projects, featuredFirst = true } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+  {projects.map((project, index) => {
+    const isFeatured = featuredFirst && index === 0;
+    return (
+      <ProjectCard
+        project={project}
+        variant={isFeatured ? 'featured' : 'standard'}
+      />
+    );
+  })}
+</div>

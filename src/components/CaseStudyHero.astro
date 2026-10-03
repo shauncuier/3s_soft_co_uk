@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'caseStudies'>;
+}
+
+const { project } = Astro.props;
+const { data, id } = project;
+---
+
+<section class="pt-8 pb-12 sm:pt-12 sm:pb-16 border-b border-surface-border bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    
+    <!-- Breadcrumbs -->
+    <Breadcrumbs
+      items={[
+        { label: 'Work', href: '/work/' },
+        { label: 'Case Studies', href: '/case-studies/' },
+        { label: data.title },
+      ]}
+    />
+
+    <!-- Eyebrow & Category -->
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-green-light text-brand-green">
+        {data.categoryLabel}
+      </span>
+      {data.placeholder && (
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-neutral-100 text-neutral-600 border border-neutral-200">
+          Demo Case Study
+        </span>
+      )}
+    </div>
+
+    <!-- Title & Tagline -->
+    <div class="max-w-4xl space-y-4">
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+        {data.title}
+      </h1>
+      <p class="text-lg sm:text-xl lg:text-2xl text-text-secondary leading-relaxed text-pretty">
+        {data.tagline}
+      </p>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 pb-2 border-t border-surface-border text-sm">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Client</p>
+        <p class="mt-1 font-semibold text-text-primary">{data.client}</p>
+      </div>
+
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Industry</p>
+        <p class="mt-1 font-semibold text-text-primary">{data.industry}</p>
+      </div>
+
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Year</p>
+        <p class="mt-1 font-semibold text-text-primary">{data.year}</p>
+      </div>
+
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Primary Platform</p>
+        <p class="mt-1 font-semibold text-text-primary">{data.platforms[0] || 'Web'}</p>
+      </div>
+    </div>
+
+    <!-- Main Hero Visual -->
+    <div class="rounded-2xl overflow-hidden bg-neutral-100 border border-surface-border shadow-xl">
+      <Image
+        src={data.heroImage}
+        alt={data.heroAlt}
+        width={1400}
+        height={850}
+        class="w-full h-auto object-cover max-h-[640px]"
+        loading="eager"
+      />
+    </div>
+
+  </div>
+</section>

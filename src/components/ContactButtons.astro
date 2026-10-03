@@ -1,0 +1,62 @@
+---
+import { site, contactLinks } from '../data/site';
+import { MessageCircle, Mail, Phone, ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  includePhone?: boolean;
+  class?: string;
+}
+
+const { size = 'md', includePhone = false, class: className = '' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'px-4 py-2 text-xs',
+  md: 'px-6 py-3 text-sm',
+  lg: 'px-8 py-4 text-base',
+}[size];
+---
+
+<div class:list={['flex flex-wrap items-center gap-3', className]}>
+  {contactLinks.whatsapp && (
+    <a
+      href={contactLinks.whatsapp}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        'inline-flex items-center gap-2 rounded-full font-semibold text-white bg-brand-green hover:bg-brand-green-hover transition-all duration-200 shadow-sm hover:shadow',
+        sizeClasses,
+      ]}
+    >
+      <MessageCircle class="w-4 h-4 shrink-0" />
+      <span>WhatsApp Us</span>
+    </a>
+  )}
+
+  {contactLinks.email && (
+    <a
+      href={contactLinks.email}
+      class:list={[
+        'inline-flex items-center gap-2 rounded-full font-semibold text-text-primary bg-white border border-surface-border hover:bg-surface-bg hover:border-neutral-300 transition-all duration-200 shadow-xs',
+        sizeClasses,
+      ]}
+    >
+      <Mail class="w-4 h-4 text-text-secondary shrink-0" />
+      <span>Email Us</span>
+      <ArrowUpRight class="w-3.5 h-3.5 text-text-muted" />
+    </a>
+  )}
+
+  {includePhone && contactLinks.phone && (
+    <a
+      href={contactLinks.phone}
+      class:list={[
+        'inline-flex items-center gap-2 rounded-full font-semibold text-text-secondary hover:text-text-primary transition-colors',
+        sizeClasses,
+      ]}
+    >
+      <Phone class="w-4 h-4 shrink-0" />
+      <span>{site.contact.phoneDisplay}</span>
+    </a>
+  )}
+</div>

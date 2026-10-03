@@ -1,0 +1,39 @@
+---
+title: "Retail Catalogue & PIM Architecture"
+tagline: "Structuring complex product attributes for high-volume multichannel distribution."
+summary: "Design and deployment of a structured product information management system for an expansive consumer goods catalogue."
+categories: ["ecommerce", "technology"]
+categoryLabel: "Product Data · Digital Technology"
+client: "[Lifestyle & Apparel Group]"
+industry: "Retail & Apparel"
+year: "2024"
+platforms: ["Custom PIM", "PostgreSQL", "Node.js", "REST APIs"]
+services: ["Information Architecture", "Data Cleansing", "Attribute Schema Design", "Export Feeds"]
+heroImage: "../../assets/projects/product-data.jpg"
+heroAlt: "Product attribute management screen showing variant rows, completeness metrics, and swatch palettes"
+featured: true
+order: 3
+placeholder: true
+challenge: "The group managed over 15,000 active variants across seasonal collections. Inconsistent spreadsheets, scattered photography assets, and fragmented naming conventions caused delays in launching new season catalogues across UK and European retail partners."
+approach: "We designed a normalised product attribute schema, built custom data validation routines, and introduced a unified media naming and variant mapping protocol that integrated with their ERP and digital channels."
+solution: "A bespoke lightweight Product Information Management (PIM) interface that serves as the single reference for copywriting, technical specifications, imagery links, and multilingual translations."
+outcome:
+  - "Consistent taxonomy and completeness scores across 100% of seasonal product drops."
+  - "Significantly shortened time-to-market for onboarding new seasonal lines onto retailer feeds."
+  - "Eliminated data duplication and attribute discrepancies between B2B line sheets and D2C storefronts."
+  - "Robust export presets generating formatted CSV/XML feeds tailored to partner specifications."
+gallery:
+  - image: "../../assets/projects/product-data-detail.jpg"
+    alt: "Attribute completeness scorecard and product spec preview"
+    caption: "Live attribute completeness validation ensuring no SKU is exported with missing data"
+---
+
+### System Design & Data Modeling
+
+Retailers frequently struggle when spreadsheets become the default product database. We introduced a relational data model separating abstract products (styles) from specific physical items (SKU, colour, size, barcode).
+
+### Key Technical Deliverables
+
+- **Completeness Guardrails**: Configurable mandatory field rules based on product category (e.g. garments require fiber composition and wash care; homeware requires dimensions and weight).
+- **Asset Association**: Automated mapping of high-resolution studio assets and lifestyle crops directly to specific colorway variants.
+- **Auditable History**: Full revision tracking showing when attributes were updated and by whom before syncing to live production channels.

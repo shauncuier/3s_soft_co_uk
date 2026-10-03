@@ -1,0 +1,40 @@
+---
+import { contactLinks } from '../data/site';
+import { MessageCircle } from '@lucide/astro';
+
+const isConfigured = Boolean(contactLinks.whatsapp);
+---
+
+{isConfigured && (
+  <aside
+    id="whatsapp-floating-widget"
+    aria-label="Direct WhatsApp contact"
+    class="fixed bottom-6 right-6 z-40 print:hidden select-none"
+  >
+    <a
+      href={contactLinks.whatsapp}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group flex items-center gap-3 bg-white text-text-primary pl-4 pr-5 py-3 rounded-full shadow-lg border border-surface-border hover:shadow-xl hover:border-brand-green/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-green"
+      aria-label="Chat with 3s-Soft UK on WhatsApp"
+    >
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-green"></span>
+      </span>
+
+      <div class="flex flex-col text-left">
+        <span class="text-xs font-semibold leading-tight text-text-primary group-hover:text-brand-green transition-colors">
+          Chat on WhatsApp
+        </span>
+        <span class="text-[11px] text-text-muted leading-tight">
+          Direct UK consultation
+        </span>
+      </div>
+
+      <div class="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 ml-1 group-hover:scale-105 transition-transform">
+        <MessageCircle class="w-4 h-4 fill-current" />
+      </div>
+    </a>
+  </aside>
+)}

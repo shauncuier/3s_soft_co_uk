@@ -1,0 +1,101 @@
+---
+import Layout from './Layout.astro';
+import CaseStudyHero from '../components/CaseStudyHero.astro';
+import CaseStudySection from '../components/CaseStudySection.astro';
+import CTA from '../components/CTA.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { site } from '../data/site';
+
+interface Props {
+  project: CollectionEntry<'caseStudies'>;
+}
+
+const { project } = Astro.props;
+const { data, id } = project;
+
+// Query related work (same category or next projects, excluding current)
+const allProjects = await getCollection('caseStudies');
+const relatedProjects = allProjects
+  .filter((p) => p.id !== id)
+  .sort((a, b) => {
+    // Prioritise projects sharing a category
+    const aShares = a.data.categories.some((cat) => data.categories.includes(cat));
+    const bShares = b.data.categories.some((cat) => data.categories.includes(cat));
+    if (aShares && !bShares) return -1;
+    if (!aShares && bShares) return 1;
+    return a.data.order - b.data.order;
+  })
+  .slice(0, 2);
+
+// Structured Data for Case Study (CreativeWork)
+const caseStudySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  headline: data.title,
+  description: data.summary,
+  author: {
+    '@type': 'Organization',
+    name: site.ukName,
+    url: site.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+  about: data.industry,
+  genre: data.categoryLabel,
+};
+---
+
+<Layout
+  title={`${data.title} — Case Study`}
+  description={data.summary}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+
+  <!-- Hero Section -->
+  <CaseStudyHero project={project} />
+
+  <!-- Content & Analysis Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <CaseStudySection project={project}>
+      <slot />
+    </CaseStudySection>
+
+    <!-- Related Work Section -->
+    {relatedProjects.length > 0 && (
+      <section class="mt-24 pt-16 border-t border-surface-border space-y-8" aria-labelledby="related-heading">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
+              Portfolio
+            </span>
+            <h2 id="related-heading" class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight mt-1">
+              Related Case Studies
+            </h2>
+          </div>
+          <a
+            href="/work/"
+            class="text-sm font-semibold text-text-primary hover:text-brand-green transition-colors"
+          >
+            View All Work →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {relatedProjects.map((p) => (
+            <ProjectCard project={p} />
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+
+  <!-- Final Contact CTA -->
+  <CTA
+    title="Ready to discuss your digital commerce project?"
+    subtitle="Connect with our UK team to review your store, marketplace operations, or web architecture."
+  />
+</Layout>

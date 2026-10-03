@@ -1,0 +1,82 @@
+---
+import { site, contactLinks } from '../data/site';
+import HeroVisual from './HeroVisual.astro';
+import { ArrowRight, ArrowUpRight, MessageCircle } from '@lucide/astro';
+---
+
+<section class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 overflow-hidden border-b border-surface-border">
+  
+  <!-- Subtle Background Grid Pattern -->
+  <div class="absolute inset-0 brand-grid-pattern opacity-40 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
+      
+      <!-- Eyebrow Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-surface-border shadow-xs text-xs font-semibold text-text-secondary tracking-wide">
+        <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+        <span>{site.ukName}</span>
+        <span class="text-text-muted">·</span>
+        <span class="text-text-primary">Digital Commerce &amp; Technology Partner</span>
+      </div>
+
+      <!-- Main Display Heading -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary text-balance leading-[1.08]">
+        Digital Commerce &amp; Technology, <span class="text-neutral-900 underline decoration-brand-green/40 decoration-4 underline-offset-8">Built for Business.</span>
+      </h1>
+
+      <!-- Supporting Copy -->
+      <p class="text-lg sm:text-xl lg:text-2xl text-text-secondary max-w-2xl mx-auto font-normal leading-relaxed text-pretty">
+        We create digital experiences, e-commerce solutions and technology systems that help businesses operate and grow online.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <a
+          href="/work/"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-text-primary text-white hover:bg-brand-graphite transition-all duration-200 shadow-sm"
+        >
+          <span>View Our Work</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-white text-text-primary border border-surface-border hover:bg-surface-bg hover:border-neutral-300 transition-all duration-200 shadow-xs"
+        >
+          <span>Let's Talk</span>
+          <ArrowUpRight class="w-4 h-4 text-text-muted" />
+        </a>
+
+        {contactLinks.whatsapp && (
+          <a
+            href={contactLinks.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full font-semibold text-sm text-brand-green hover:bg-brand-green-light transition-colors"
+            aria-label="Direct WhatsApp Consultation"
+          >
+            <MessageCircle class="w-4 h-4" />
+            <span>WhatsApp Us</span>
+          </a>
+        )}
+      </div>
+
+      <!-- Subtle Supporting Capability Strip -->
+      <div class="pt-4 text-xs font-semibold uppercase tracking-widest text-text-muted">
+        <span>E-commerce</span>
+        <span class="mx-2 text-surface-border font-bold">/</span>
+        <span>Web Development</span>
+        <span class="mx-2 text-surface-border font-bold">/</span>
+        <span>Marketplace Operations</span>
+        <span class="mx-2 text-surface-border font-bold">/</span>
+        <span>Custom Technology</span>
+      </div>
+
+    </div>
+
+    <!-- Hero Multi-Layered Visual Composition -->
+    <HeroVisual />
+
+  </div>
+</section>

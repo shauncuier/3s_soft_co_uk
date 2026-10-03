@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CTA from '../../components/CTA.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { categories, type CategoryKey } from '../../data/content';
+
+const allProjects = await getCollection('caseStudies');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+const categoryFilters = [
+  { key: 'all', label: 'All Work' },
+  { key: 'ecommerce', label: categories.ecommerce.label },
+  { key: 'shopify', label: categories.shopify.label },
+  { key: 'web', label: categories.web.label },
+  { key: 'technology', label: categories.technology.label },
+];
+---
+
+<Layout
+  title="Our Work — Selected Projects"
+  description="Explore selected digital commerce, Shopify, marketplace operations, and web development projects delivered by 3s-Soft."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 space-y-12">
+    
+    <!-- Breadcrumbs -->
+    <Breadcrumbs items={[{ label: 'Our Work' }]} />
+
+    <!-- Page Header -->
+    <div class="max-w-3xl space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="w-4 h-0.5 bg-brand-green"></span>
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
+          Selected Portfolio
+        </span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary">
+        Our Work
+      </h1>
+      <p class="text-lg sm:text-xl text-text-secondary leading-relaxed">
+        A selection of digital commerce, technology and web experiences delivered by 3s-Soft for modern businesses.
+      </p>
+    </div>
+
+    <!-- Category Filter Pills (Client-side interactive filter) -->
+    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-surface-border pb-6" role="tablist" aria-label="Filter projects by category">
+      {categoryFilters.map((filter, index) => (
+        <button
+          type="button"
+          class:list={[
+            'filter-pill px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-green',
+            index === 0
+              ? 'active bg-text-primary text-white shadow-xs'
+              : 'bg-white text-text-secondary border border-surface-border hover:border-neutral-300 hover:text-text-primary',
+          ]}
+          data-filter={filter.key}
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project Grid -->
+    <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+      {sortedProjects.map((project, index) => (
+        <div
+          class="project-item transition-all duration-300"
+          data-categories={JSON.stringify(project.data.categories)}
+        >
+          <ProjectCard
+            project={project}
+            variant={index === 0 ? 'featured' : 'standard'}
+          />
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <CTA
+    title="Have a similar project in mind?"
+    subtitle="Let's review your store or platform requirements and suggest a clear path forward."
+  />
+</Layout>
+
+<script>
+  const pills = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const selected = pill.dataset.filter || 'all';
+
+      // Update pill active states
+      pills.forEach((p) => {
+        p.classList.remove('active', 'bg-text-primary', 'text-white', 'shadow-xs');
+        p.classList.add('bg-white', 'text-text-secondary', 'border', 'border-surface-border');
+        p.setAttribute('aria-selected', 'false');
+      });
+
+      pill.classList.add('active', 'bg-text-primary', 'text-white', 'shadow-xs');
+      pill.classList.remove('bg-white', 'text-text-secondary', 'border');
+      pill.setAttribute('aria-selected', 'true');
+
+      // Filter project cards
+      items.forEach((item) => {
+        const itemCategories: string[] = JSON.parse(item.dataset.categories || '[]');
+        if (selected === 'all' || itemCategories.includes(selected)) {
+          item.style.display = '';
+          item.style.opacity = '1';
+        } else {
+          item.style.display = 'none';
+          item.style.opacity = '0';
+        }
+      });
+    });
+  });
+</script>

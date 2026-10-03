@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://3s-soft.co.uk/sitemap-index.xml

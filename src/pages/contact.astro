@@ -9,25 +9,23 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
   title="Contact Us — Start a Conversation"
   description="Contact 3s-Soft UK directly via WhatsApp, email or phone to discuss your digital commerce, Shopify, or web technology project."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 space-y-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-20">
     
     <!-- Breadcrumbs -->
     <Breadcrumbs items={[{ label: 'Contact' }]} />
 
     <!-- Page Header -->
-    <div class="max-w-3xl space-y-4">
-      <div class="flex items-center gap-2">
-        <span class="w-4 h-0.5 bg-brand-green"></span>
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          Get in Touch
-        </span>
+    <div class="max-w-4xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>[ 01 // INITIATE DIALOGUE ]</span>
       </div>
       
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white text-balance leading-[1.05]">
         Have a project in mind?
       </h1>
       
-      <p class="text-lg sm:text-2xl text-text-secondary leading-relaxed text-pretty font-normal">
+      <p class="text-xl sm:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-normal text-pretty">
         Tell us what you're working on. We'll get back to you to discuss the next step.
       </p>
     </div>
@@ -36,16 +34,18 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
       <!-- 1. WhatsApp Card (Primary Preferred) -->
-      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-brand-green/40 transition-colors">
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-brand-green-light text-brand-green flex items-center justify-center">
-            <MessageCircle class="w-6 h-6" />
+      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-emerald-500/30 shadow-2xl flex flex-col justify-between space-y-8 hover:border-emerald-500/60 transition-colors relative overflow-hidden group">
+        <div class="absolute -right-12 -top-12 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="space-y-4 relative z-10">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+            <MessageCircle class="w-6 h-6 fill-current" />
           </div>
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-brand-green font-semibold">Fastest Response</span>
-            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">WhatsApp</h2>
-            <p class="text-xs text-text-secondary leading-relaxed mt-2">
-              Direct chat with our UK team. Ideal for quick questions, project scope outlines, or scheduling a call.
+            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Fastest Route</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">WhatsApp</h2>
+            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
+              Direct chat with our UK team. Ideal for project outlines, quick questions, or scheduling a technical consultation.
             </p>
           </div>
         </div>
@@ -55,27 +55,27 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
             href={contactLinks.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-brand-green text-white hover:bg-brand-green-hover transition-colors shadow-xs"
+            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-emerald-500 text-neutral-950 hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20 relative z-10"
           >
-            <MessageCircle class="w-4 h-4" />
+            <MessageCircle class="w-4 h-4 fill-current" />
             <span>Chat on WhatsApp</span>
           </a>
         ) : (
-          <span class="text-xs text-text-muted italic">WhatsApp contact updating</span>
+          <span class="text-xs font-mono text-neutral-500 italic">WhatsApp updating</span>
         )}
       </div>
 
       <!-- 2. Email Card -->
-      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-neutral-300 transition-colors">
+      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-white/[0.08] shadow-2xl flex flex-col justify-between space-y-8 hover:border-white/[0.2] transition-colors">
         <div class="space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-surface-bg text-text-primary border border-surface-border flex items-center justify-center">
+          <div class="w-12 h-12 rounded-2xl bg-white/[0.04] text-white border border-white/[0.08] flex items-center justify-center">
             <Mail class="w-6 h-6" />
           </div>
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold">Detailed Briefs</span>
-            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">Email</h2>
-            <p class="text-xs text-text-secondary leading-relaxed mt-2">
-              Send us RFP documents, catalogue links, or a detailed breakdown of your requirements.
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">Detailed Briefs</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Email</h2>
+            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
+              Send us RFP documents, catalogue links, or a detailed breakdown of your technical requirements.
             </p>
           </div>
         </div>
@@ -83,27 +83,27 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
         {contactLinks.email ? (
           <a
             href={contactLinks.email}
-            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-text-primary text-white hover:bg-brand-graphite transition-colors shadow-xs"
+            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-200 transition-colors shadow-sm"
           >
             <Mail class="w-4 h-4" />
-            <span>Email Us</span>
+            <span>Email Brief</span>
           </a>
         ) : (
-          <span class="text-xs text-text-muted italic">Email updating</span>
+          <span class="text-xs font-mono text-neutral-500 italic">Email updating</span>
         )}
       </div>
 
       <!-- 3. Direct UK Phone Card -->
-      <div class="rounded-3xl p-8 bg-white border border-surface-border shadow-sm flex flex-col justify-between space-y-8 hover:border-neutral-300 transition-colors">
+      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-white/[0.08] shadow-2xl flex flex-col justify-between space-y-8 hover:border-white/[0.2] transition-colors">
         <div class="space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-surface-bg text-text-primary border border-surface-border flex items-center justify-center">
+          <div class="w-12 h-12 rounded-2xl bg-white/[0.04] text-white border border-white/[0.08] flex items-center justify-center">
             <Phone class="w-6 h-6" />
           </div>
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-text-muted font-semibold">UK Phone</span>
-            <h2 class="text-2xl font-bold text-text-primary tracking-tight mt-1">Direct Call</h2>
-            <p class="text-xs text-text-secondary leading-relaxed mt-2">
-              Speak directly with our UK business development contact during normal UK business hours.
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">UK Phone</span>
+            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Direct Call</h2>
+            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
+              Speak directly with our UK business development contact during normal UK business hours (Mon–Fri).
             </p>
           </div>
         </div>
@@ -111,55 +111,55 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
         {contactLinks.phone ? (
           <a
             href={contactLinks.phone}
-            class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-semibold text-sm bg-surface-bg text-text-primary border border-surface-border hover:bg-neutral-100 transition-colors"
+            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-mono text-xs font-semibold bg-white/[0.04] text-white border border-white/[0.1] hover:bg-white/[0.08] transition-colors"
           >
-            <Phone class="w-4 h-4 text-text-muted" />
+            <Phone class="w-4 h-4 text-neutral-400" />
             <span>{site.contact.phoneDisplay}</span>
           </a>
         ) : (
-          <span class="text-xs text-text-muted italic">Phone updating</span>
+          <span class="text-xs font-mono text-neutral-500 italic">Phone updating</span>
         )}
       </div>
 
     </div>
 
-    <!-- Reassurance / What Happens Next Banner -->
-    <div class="rounded-3xl p-8 sm:p-10 bg-surface-bg border border-surface-border grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Reassurance / Communication Standards -->
+    <div class="rounded-3xl p-8 sm:p-12 bg-[#0c0e0d] border border-white/[0.08] grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-brand-green">
+        <div class="flex items-center gap-2 text-emerald-400">
           <Clock class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-text-primary">Prompt Response</h3>
+          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Prompt Response</h3>
         </div>
-        <p class="text-xs text-text-secondary leading-relaxed">
+        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
           We typically acknowledge project enquiries within one business day during UK working hours (Mon–Fri).
         </p>
       </div>
 
       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-brand-green">
+        <div class="flex items-center gap-2 text-emerald-400">
           <ShieldCheck class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-text-primary">No High-Pressure Sales</h3>
+          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">No Agency Theater</h3>
         </div>
-        <p class="text-xs text-text-secondary leading-relaxed">
+        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
           Direct, practical communication focused on technical feasibility and straightforward recommendations.
         </p>
       </div>
 
       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-brand-green">
-          <MessageCircle class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-text-primary">Direct Conversation</h3>
+        <div class="flex items-center gap-2 text-emerald-400">
+          <MessageCircle class="w-4 h-4 fill-current" />
+          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Direct Conversation</h3>
         </div>
-        <p class="text-xs text-text-secondary leading-relaxed">
-          Connect directly with someone who understands both e-commerce operations and software development.
+        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
+          Connect directly with experienced professionals who understand digital commerce and systems architecture.
         </p>
       </div>
     </div>
 
     <!-- Active Social Channels -->
     {activeSocials.length > 0 && (
-      <div class="pt-8 border-t border-surface-border space-y-4">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
+      <div class="pt-10 border-t border-white/[0.08] space-y-4">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
           Connect on Social Platforms
         </h3>
         <div class="flex flex-wrap gap-4">
@@ -168,10 +168,10 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-surface-border text-xs font-semibold text-text-primary hover:border-neutral-300 transition-colors shadow-2xs"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#111413] border border-white/[0.08] text-xs font-mono text-neutral-300 hover:text-white hover:border-white/[0.2] transition-colors"
             >
               <span>{social.label}</span>
-              <ArrowUpRight class="w-3.5 h-3.5 text-text-muted" />
+              <ArrowUpRight class="w-3.5 h-3.5 text-neutral-500" />
             </a>
           ))}
         </div>

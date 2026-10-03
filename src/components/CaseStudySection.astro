@@ -11,7 +11,7 @@ const { project } = Astro.props;
 const { data } = project;
 ---
 
-<div class="space-y-16 sm:space-y-24">
+<div class="space-y-20 sm:space-y-28">
   
   <!-- Narrative: Challenge, Approach & Solution (2-column editorial layout) -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
@@ -20,14 +20,14 @@ const { data } = project;
     <div class="lg:col-span-4 space-y-8 lg:sticky lg:top-28 self-start">
       
       {data.services.length > 0 && (
-        <div class="rounded-2xl p-6 bg-surface-bg border border-surface-border space-y-3">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
-            Scope &amp; Services
+        <div class="rounded-3xl p-8 bg-[#111413] border border-white/[0.08] space-y-4">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
+            [ SCOPE &amp; SERVICES ]
           </h3>
-          <ul class="space-y-2 text-sm font-medium text-text-primary">
+          <ul class="space-y-2.5 text-sm font-medium text-neutral-200">
             {data.services.map((service) => (
-              <li class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 <span>{service}</span>
               </li>
             ))}
@@ -36,13 +36,13 @@ const { data } = project;
       )}
 
       {data.platforms.length > 0 && (
-        <div class="rounded-2xl p-6 bg-surface-bg border border-surface-border space-y-3">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">
-            Technology &amp; Platforms
+        <div class="rounded-3xl p-8 bg-[#111413] border border-white/[0.08] space-y-4">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
+            [ TECHNOLOGIES ]
           </h3>
-          <div class="flex flex-wrap gap-1.5">
+          <div class="flex flex-wrap gap-2">
             {data.platforms.map((tech) => (
-              <span class="text-xs font-medium px-2.5 py-1 rounded bg-white text-text-secondary border border-surface-border">
+              <span class="text-xs font-mono px-3 py-1.5 rounded-xl bg-white/[0.04] text-neutral-300 border border-white/[0.08]">
                 {tech}
               </span>
             ))}
@@ -53,82 +53,73 @@ const { data } = project;
     </div>
 
     <!-- Right Main Narrative (8 cols) -->
-    <div class="lg:col-span-8 space-y-12 sm:space-y-16">
+    <div class="lg:col-span-8 space-y-14 sm:space-y-18 text-neutral-300">
       
       <!-- Challenge Block -->
       <section class="space-y-4">
-        <div class="flex items-center gap-2">
-          <span class="w-4 h-0.5 bg-brand-green"></span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
-            The Challenge
-          </h2>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+          <span>01 // THE CHALLENGE</span>
         </div>
-        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
           What the business needed
-        </h3>
-        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+        </h2>
+        <p class="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
           {data.challenge}
         </p>
       </section>
 
       <!-- Approach Block -->
-      <section class="space-y-4 pt-8 border-t border-surface-border">
-        <div class="flex items-center gap-2">
-          <span class="w-4 h-0.5 bg-brand-green"></span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
-            Our Approach
-          </h2>
+      <section class="space-y-4 pt-10 border-t border-white/[0.08]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+          <span>02 // OUR APPROACH</span>
         </div>
-        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
           How we approached the problem
-        </h3>
-        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+        </h2>
+        <p class="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
           {data.approach}
         </p>
       </section>
 
       <!-- Solution Block -->
-      <section class="space-y-4 pt-8 border-t border-surface-border">
-        <div class="flex items-center gap-2">
-          <span class="w-4 h-0.5 bg-brand-green"></span>
-          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-green">
-            The Solution
-          </h2>
+      <section class="space-y-4 pt-10 border-t border-white/[0.08]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+          <span>03 // THE SOLUTION</span>
         </div>
-        <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
           What was built &amp; improved
-        </h3>
-        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+        </h2>
+        <p class="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
           {data.solution}
         </p>
       </section>
 
       <!-- MDX Body (Implementation details) -->
-      <div class="prose prose-neutral max-w-none pt-8 border-t border-surface-border">
+      <div class="prose prose-invert prose-emerald max-w-none pt-10 border-t border-white/[0.08]">
         <slot />
       </div>
 
       <!-- Qualitative Outcomes / Results -->
-      <section class="rounded-2xl p-8 sm:p-10 bg-white border border-surface-border space-y-6">
+      <section class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-white/[0.1] space-y-6">
         <div class="space-y-2">
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-            Business Impact
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
+            [ OUTCOMES &amp; DELIVERABLES ]
           </span>
-          <h3 class="text-2xl font-bold text-text-primary tracking-tight">
-            Key Outcomes &amp; Deliverables
+          <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Key Business Outcomes
           </h3>
-          <p class="text-xs text-text-muted">
-            * We only report honest qualitative outcomes and verified operational changes.
+          <p class="text-xs font-mono text-neutral-400">
+            * Verified qualitative operational outcomes and commercial improvements.
           </p>
         </div>
 
-        <ul class="space-y-3.5 pt-2" role="list">
+        <ul class="space-y-4 pt-2" role="list">
           {data.outcome.map((item) => (
-            <li class="flex items-start gap-3 text-sm sm:text-base text-text-secondary">
-              <div class="w-5 h-5 rounded-full bg-brand-green-light text-brand-green flex items-center justify-center shrink-0 mt-0.5">
-                <Check class="w-3.5 h-3.5" />
+            <li class="flex items-start gap-3.5 text-sm sm:text-base text-neutral-300">
+              <div class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                <Check class="w-3.5 h-3.5 stroke-[2.5]" />
               </div>
-              <span>{item}</span>
+              <span class="leading-snug">{item}</span>
             </li>
           ))}
         </ul>
@@ -140,12 +131,12 @@ const { data } = project;
 
   <!-- Visual Gallery -->
   {data.gallery && data.gallery.length > 0 && (
-    <section class="space-y-8 pt-8 border-t border-surface-border">
+    <section class="space-y-8 pt-12 border-t border-white/[0.08]">
       <div class="space-y-2">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          Visual Gallery
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
+          [ 04 // GALLERY ]
         </span>
-        <h2 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           Selected Project Details
         </h2>
       </div>
@@ -153,18 +144,18 @@ const { data } = project;
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {data.gallery.map((item) => (
           <figure class="space-y-3">
-            <div class="rounded-2xl overflow-hidden bg-neutral-100 border border-surface-border shadow-md">
+            <div class="rounded-3xl overflow-hidden bg-black border border-white/[0.1] shadow-xl">
               <Image
                 src={item.image}
                 alt={item.alt}
-                width={800}
-                height={500}
+                width={900}
+                height={600}
                 class="w-full h-auto object-cover"
                 loading="lazy"
               />
             </div>
             {item.caption && (
-              <figcaption class="text-xs text-text-muted font-medium px-1">
+              <figcaption class="text-xs font-mono text-neutral-400 px-2">
                 {item.caption}
               </figcaption>
             )}

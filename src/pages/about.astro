@@ -14,136 +14,132 @@ import { MapPin, Globe, CheckCircle2, MessageCircle, Mail, Phone, ArrowUpRight }
   title="About Us — Technology With a Practical Mindset"
   description="Learn about 3s-Soft UK, our operating model combining local UK client communication with global technology delivery capability."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 space-y-16 sm:space-y-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-20 sm:space-y-32">
     
     <!-- Breadcrumbs -->
     <Breadcrumbs items={[{ label: 'About' }]} />
 
     <!-- Hero Header -->
-    <div class="max-w-4xl space-y-6">
-      <div class="flex items-center gap-2">
-        <span class="w-4 h-0.5 bg-brand-green"></span>
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          About 3s-Soft UK
-        </span>
+    <div class="max-w-5xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>[ 01 // ABOUT 3S-SOFT UK ]</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white text-balance leading-[1.05]">
         Technology With a Practical Mindset.
       </h1>
 
-      <p class="text-lg sm:text-2xl text-text-secondary leading-relaxed text-pretty font-normal">
+      <p class="text-xl sm:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-normal text-pretty">
         3s-Soft is a digital technology and e-commerce company focused on building practical, scalable solutions for businesses operating online.
       </p>
     </div>
 
     <!-- Operating Model Section -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8 border-t border-surface-border" aria-labelledby="model-heading">
-      <div class="lg:col-span-6 space-y-6">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          Our Structure
-        </span>
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pt-10 border-t border-white/[0.08]" aria-labelledby="model-heading">
+      <div class="lg:col-span-6 space-y-8">
+        <div class="space-y-4">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
+            [ 02 // OPERATING STRUCTURE ]
+          </span>
 
-        <h2 id="model-heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary text-balance">
-          Local communication with global delivery capability.
-        </h2>
+          <h2 id="model-heading" class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-white text-balance leading-[1.08]">
+            Local communication with global delivery capability.
+          </h2>
+        </div>
 
-        <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
+        <p class="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
           UK businesses require reliable day-to-day communication, quick response times, and an understanding of British commerce standards. At the same time, scaling digital commerce and technology operations requires disciplined engineering resources.
         </p>
 
-        <p class="text-base text-text-secondary leading-relaxed">
+        <p class="text-base text-neutral-400 leading-relaxed">
           Our structure delivers both: a direct, local relationship right here in the UK backed by the delivery strength of our wider technology and digital operations teams.
         </p>
 
         <div class="space-y-4 pt-2">
-          <div class="flex items-start gap-3">
-            <div class="w-5 h-5 rounded-full bg-brand-green-light text-brand-green flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 class="w-3.5 h-3.5" />
+          <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400">
+              <MapPin class="w-4 h-4" />
+              <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">UK Client Connection</h3>
             </div>
-            <div>
-              <h3 class="text-sm font-bold text-text-primary">UK Client Connection</h3>
-              <p class="text-xs text-text-secondary mt-0.5">
-                3s-Soft UK provides a local point of contact, strategic alignment, and ongoing account support in your timezone.
-              </p>
-            </div>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              3s-Soft UK provides a local point of contact, strategic alignment, and dedicated account support in the UK timezone.
+            </p>
           </div>
 
-          <div class="flex items-start gap-3">
-            <div class="w-5 h-5 rounded-full bg-brand-green-light text-brand-green flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 class="w-3.5 h-3.5" />
+          <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400">
+              <Globe class="w-4 h-4" />
+              <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Technology &amp; Delivery</h3>
             </div>
-            <div>
-              <h3 class="text-sm font-bold text-text-primary">Technology &amp; Delivery</h3>
-              <p class="text-xs text-text-secondary mt-0.5">
-                The wider 3s-Soft team provides specialized technology, marketplace operations, and full-stack software delivery.
-              </p>
-            </div>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              The wider 3s-Soft engineering team provides high-capacity technology, e-commerce operations, and continuous digital delivery.
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Visual Showcase of Work & Systems -->
       <div class="lg:col-span-6 space-y-4">
-        <div class="rounded-2xl overflow-hidden bg-neutral-100 border border-surface-border shadow-lg">
+        <div class="rounded-3xl overflow-hidden bg-black border border-white/[0.12] shadow-2xl">
           <Image
             src={storefrontImg}
             alt="E-commerce digital delivery example"
-            width={700}
-            height={460}
+            width={800}
+            height={520}
             class="w-full h-auto object-cover"
           />
         </div>
-        <div class="p-4 rounded-xl bg-white border border-surface-border text-xs text-text-secondary flex items-center justify-between">
-          <span class="font-medium text-text-primary">Built on proven engineering discipline</span>
-          <span class="text-text-muted">Shopify · Web Platforms · Data APIs</span>
+        <div class="p-4 rounded-2xl bg-[#111413] border border-white/[0.08] text-xs font-mono text-neutral-400 flex items-center justify-between">
+          <span class="text-neutral-200">Engineering Rigor &amp; Practicality</span>
+          <span>Shopify · Marketplaces · Web Platforms</span>
         </div>
       </div>
     </section>
 
     <!-- UK Presence / Leadership Profile Section -->
-    <section id="uk-presence" class="pt-12 border-t border-surface-border space-y-8" aria-labelledby="leadership-heading">
-      <div class="max-w-2xl space-y-2">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          UK Presence
+    <section id="uk-presence" class="pt-12 border-t border-white/[0.08] space-y-10" aria-labelledby="leadership-heading">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
+          [ 03 // UK POINT OF CONTACT ]
         </span>
-        <h2 id="leadership-heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary">
+        <h2 id="leadership-heading" class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-white">
           Your Point of Contact in the UK
         </h2>
-        <p class="text-sm sm:text-base text-text-secondary">
+        <p class="text-base text-neutral-300">
           Available directly for exploratory calls, technical consultations, and scoping discussions.
         </p>
       </div>
 
-      <div class="max-w-2xl rounded-3xl bg-white border border-surface-border p-8 sm:p-10 space-y-6 shadow-sm">
+      <div class="max-w-2xl rounded-3xl bg-[#111413] border border-white/[0.12] p-8 sm:p-12 space-y-8 shadow-2xl">
         <div class="flex items-start justify-between gap-4">
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded bg-surface-bg text-text-secondary border border-surface-border">
-              <MapPin class="w-3 h-3 text-brand-green" />
-              <span>United Kingdom</span>
+            <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full bg-white/[0.04] text-neutral-300 border border-white/[0.08]">
+              <MapPin class="w-3.5 h-3.5 text-emerald-400" />
+              <span>UNITED KINGDOM</span>
             </span>
-            <h3 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight pt-2">
+            <h3 class="text-3xl font-extrabold text-white tracking-tight pt-3">
               {site.ukPresence.name}
             </h3>
-            <p class="text-sm font-semibold text-brand-green">
+            <p class="text-sm font-mono text-emerald-400">
               {site.ukPresence.role}
             </p>
           </div>
         </div>
 
-        <p class="text-sm text-text-secondary leading-relaxed">
+        <p class="text-sm text-neutral-300 leading-relaxed font-normal">
           {site.ukPresence.summary}
         </p>
 
-        <div class="pt-4 border-t border-surface-border flex flex-wrap items-center gap-4">
+        <div class="pt-6 border-t border-white/[0.08] flex flex-wrap items-center gap-4">
           {contactLinks.whatsapp && (
             <a
               href={contactLinks.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-xs bg-brand-green text-white hover:bg-brand-green-hover transition-colors shadow-xs"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-xs bg-emerald-500 text-neutral-950 hover:bg-emerald-400 transition-colors shadow-md"
             >
-              <MessageCircle class="w-4 h-4" />
+              <MessageCircle class="w-4 h-4 fill-current" />
               <span>WhatsApp Direct</span>
             </a>
           )}
@@ -151,9 +147,9 @@ import { MapPin, Globe, CheckCircle2, MessageCircle, Mail, Phone, ArrowUpRight }
           {contactLinks.email && (
             <a
               href={contactLinks.email}
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-xs bg-white text-text-primary border border-surface-border hover:bg-surface-bg transition-colors"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs bg-white/[0.04] text-white border border-white/[0.1] hover:bg-white/[0.08] transition-colors"
             >
-              <Mail class="w-3.5 h-3.5 text-text-secondary" />
+              <Mail class="w-4 h-4 text-neutral-400" />
               <span>{site.contact.email}</span>
             </a>
           )}
@@ -161,9 +157,9 @@ import { MapPin, Globe, CheckCircle2, MessageCircle, Mail, Phone, ArrowUpRight }
           {contactLinks.phone && (
             <a
               href={contactLinks.phone}
-              class="inline-flex items-center gap-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
+              class="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
             >
-              <Phone class="w-3.5 h-3.5" />
+              <Phone class="w-4 h-4" />
               <span>{site.contact.phoneDisplay}</span>
             </a>
           )}
@@ -172,10 +168,10 @@ import { MapPin, Globe, CheckCircle2, MessageCircle, Mail, Phone, ArrowUpRight }
     </section>
 
     <!-- Global Connection Link -->
-    <section class="p-8 rounded-3xl bg-surface-bg border border-surface-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-      <div class="space-y-1 max-w-xl">
-        <h3 class="text-lg font-bold text-text-primary">3s-Soft Global Network</h3>
-        <p class="text-xs sm:text-sm text-text-secondary leading-relaxed">
+    <section class="p-8 sm:p-12 rounded-3xl bg-[#111413] border border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="space-y-2 max-w-xl">
+        <h3 class="text-xl font-bold text-white tracking-tight">3s-Soft Global Network</h3>
+        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">
           3s-Soft UK is part of 3s-Soft, delivering full-stack development, marketplace services, and digital solutions globally.
         </p>
       </div>
@@ -183,10 +179,10 @@ import { MapPin, Globe, CheckCircle2, MessageCircle, Mail, Phone, ArrowUpRight }
         href={site.mainSiteUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold bg-white border border-surface-border text-text-primary hover:border-neutral-300 transition-colors shadow-2xs shrink-0"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold bg-white text-neutral-950 hover:bg-neutral-200 transition-colors shrink-0"
       >
         <span>Visit 3s-soft.com</span>
-        <ArrowUpRight class="w-3.5 h-3.5 text-text-muted" />
+        <ArrowUpRight class="w-3.5 h-3.5" />
       </a>
     </section>
 

@@ -1,6 +1,7 @@
 ---
 interface Props {
   eyebrow?: string;
+  tag?: string;
   title: string;
   subtitle?: string;
   align?: 'left' | 'center';
@@ -10,6 +11,7 @@ interface Props {
 
 const {
   eyebrow,
+  tag,
   title,
   subtitle,
   align = 'left',
@@ -21,26 +23,26 @@ const {
 <div
   id={id}
   class:list={[
-    'space-y-3',
-    align === 'center' ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl',
+    'space-y-4',
+    align === 'center' ? 'text-center mx-auto max-w-3xl' : 'max-w-3xl',
     className,
   ]}
 >
-  {eyebrow && (
-    <div class:list={['flex items-center gap-2', align === 'center' && 'justify-center']}>
-      <span class="inline-block w-4 h-0.5 bg-brand-green"></span>
-      <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-        {eyebrow}
+  {(eyebrow || tag) && (
+    <div class:list={['flex items-center gap-3', align === 'center' && 'justify-center']}>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.1] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>{eyebrow || tag}</span>
       </span>
     </div>
   )}
 
-  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary text-balance">
+  <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter text-white text-balance leading-[1.08]">
     {title}
   </h2>
 
   {subtitle && (
-    <p class="text-base sm:text-lg text-text-secondary leading-relaxed text-pretty pt-1">
+    <p class="text-base sm:text-lg lg:text-xl text-neutral-400 leading-relaxed text-pretty font-normal">
       {subtitle}
     </p>
   )}

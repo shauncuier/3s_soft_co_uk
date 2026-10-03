@@ -2,38 +2,53 @@
 import { site, footerNavigation, contactLinks, activeSocials } from '../data/site';
 import { Image } from 'astro:assets';
 import logoImg from '../assets/brand/3s-soft-logo.png';
-import { ArrowUpRight, MessageCircle, Mail, Phone } from '@lucide/astro';
+import { ArrowUpRight, MessageCircle, Mail, Phone, MapPin } from '@lucide/astro';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[#121514] text-white border-t border-[#232825] mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+<footer class="bg-[#070908] text-white border-t border-white/[0.08] mt-auto">
+  <!-- Top studio coordinates bar -->
+  <div class="border-b border-white/[0.06] py-3 px-4 sm:px-6 lg:px-8 text-xs font-mono text-neutral-400">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <span class="text-neutral-300 font-semibold uppercase">LONDON STUDIO</span>
+        <span class="text-neutral-600">//</span>
+        <span>51.5074° N, 0.1278° W</span>
+        <span class="text-neutral-600">//</span>
+        <span class="text-emerald-400">UK COMMERCE &amp; TECHNOLOGY</span>
+      </div>
+      <div>
+        <span>LOCAL CLIENT LIAISON · GLOBAL DELIVERY</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
       
       <!-- Brand & Summary (5 cols) -->
       <div class="lg:col-span-5 space-y-6">
-        <a href="/" class="inline-flex items-center gap-3 group focus:outline-none" aria-label="3s-Soft Homepage">
-          <!-- White background pill to render official logo crisp on dark background -->
-          <div class="bg-white/95 px-3 py-1.5 rounded-lg border border-white/20 transition-transform duration-200 group-hover:scale-[1.02]">
+        <a href="/" class="inline-flex items-center gap-3.5 group focus:outline-none" aria-label="3s-Soft Homepage">
+          <div class="bg-white px-3 py-1.5 rounded-xl border border-white/20 transition-transform duration-300 group-hover:scale-[1.03] shadow-md">
             <Image
               src={logoImg}
               alt="3s-Soft Logo"
-              width={140}
-              height={64}
-              class="h-8 w-auto object-contain"
+              width={130}
+              height={58}
+              class="h-7 w-auto object-contain"
             />
           </div>
-          <span class="inline-flex items-center text-xs font-semibold tracking-wider text-neutral-300 uppercase px-2 py-0.5 rounded border border-neutral-700 bg-neutral-800/80">
+          <span class="inline-flex items-center text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase px-2 py-0.5 rounded border border-emerald-500/20 bg-emerald-500/10">
             UK
           </span>
         </a>
 
-        <p class="text-sm font-medium text-neutral-300 tracking-wide uppercase">
+        <p class="text-sm font-bold text-white tracking-wide uppercase font-mono">
           {site.positioning}
         </p>
 
-        <p class="text-sm text-neutral-400 max-w-sm leading-relaxed">
+        <p class="text-sm text-neutral-400 max-w-sm leading-relaxed font-normal">
           {site.tagline}
         </p>
 
@@ -42,24 +57,25 @@ const year = new Date().getFullYear();
             href={site.mainSiteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors"
+            class="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 hover:text-emerald-400 transition-colors"
           >
-            <span>Visit 3s-Soft Global (3s-soft.com)</span>
-            <ArrowUpRight class="w-3.5 h-3.5 text-neutral-500" />
+            <span>Visit 3s-Soft Global Network (3s-soft.com)</span>
+            <ArrowUpRight class="w-3.5 h-3.5" />
           </a>
         </div>
       </div>
 
-      <!-- Navigation (3 cols) -->
+      <!-- Navigation Directory (3 cols) -->
       <div class="lg:col-span-3 space-y-4">
-        <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Navigation</p>
+        <p class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">Directory</p>
         <ul class="space-y-3" role="list">
-          {footerNavigation.map((item) => (
+          {footerNavigation.map((item, idx) => (
             <li>
               <a
                 href={item.href}
-                class="text-sm text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-1"
+                class="text-sm text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2 group"
               >
+                <span class="text-[10px] font-mono text-neutral-400 group-hover:text-emerald-400">0{idx + 1}</span>
                 <span>{item.label}</span>
               </a>
             </li>
@@ -67,20 +83,20 @@ const year = new Date().getFullYear();
         </ul>
       </div>
 
-      <!-- Contact & UK Office Info (4 cols) -->
+      <!-- Direct Contact (4 cols) -->
       <div class="lg:col-span-4 space-y-4">
-        <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Direct Contact</p>
+        <p class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">Direct UK Contact</p>
         
-        <ul class="space-y-3 text-sm" role="list">
+        <ul class="space-y-3.5 text-sm" role="list">
           {contactLinks.whatsapp && (
             <li>
               <a
                 href={contactLinks.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+                class="text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2.5 font-medium"
               >
-                <MessageCircle class="w-4 h-4 text-brand-green shrink-0" />
+                <MessageCircle class="w-4 h-4 text-emerald-400 shrink-0 fill-current" />
                 <span>WhatsApp: Start a Conversation</span>
               </a>
             </li>
@@ -90,7 +106,7 @@ const year = new Date().getFullYear();
             <li>
               <a
                 href={contactLinks.email}
-                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+                class="text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2.5 font-mono text-xs"
               >
                 <Mail class="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>{site.contact.email}</span>
@@ -102,7 +118,7 @@ const year = new Date().getFullYear();
             <li>
               <a
                 href={contactLinks.phone}
-                class="text-neutral-300 hover:text-brand-green transition-colors inline-flex items-center gap-2"
+                class="text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2.5 font-mono text-xs"
               >
                 <Phone class="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>{site.contact.phoneDisplay} (UK)</span>
@@ -112,18 +128,18 @@ const year = new Date().getFullYear();
         </ul>
 
         {activeSocials.length > 0 && (
-          <div class="pt-4 border-t border-[#232825]">
-            <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-2">Social</p>
+          <div class="pt-6 border-t border-white/[0.08]">
+            <p class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400 mb-2">Social Channels</p>
             <div class="flex flex-wrap gap-4">
               {activeSocials.map((social) => (
                 <a
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-xs text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1"
+                  class="text-xs font-mono text-neutral-400 hover:text-white transition-colors inline-flex items-center gap-1"
                 >
                   <span>{social.label}</span>
-                  <ArrowUpRight class="w-3 h-3 text-neutral-600" />
+                  <ArrowUpRight class="w-3 h-3 text-neutral-400" />
                 </a>
               ))}
             </div>
@@ -134,17 +150,15 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Bottom Legal Bar -->
-    <div class="mt-16 pt-8 border-t border-[#232825] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-      <p>© {year} {site.name}. All rights reserved.</p>
+    <div class="mt-16 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-400">
+      <p>© {year} {site.name} UK. All rights reserved.</p>
       
       <div class="flex items-center gap-6">
-        <a href="/about/#uk-presence" class="hover:text-neutral-300 transition-colors">
-          UK Presence
+        <a href="/about/#uk-presence" class="hover:text-white transition-colors">
+          UK Studio Presence
         </a>
-        <span class="text-neutral-700">·</span>
-        <span class="text-neutral-600">
-          UK Client Communication &amp; Global Delivery
-        </span>
+        <span class="text-neutral-600">//</span>
+        <span>Local UK Strategy &amp; Global Delivery</span>
       </div>
     </div>
 

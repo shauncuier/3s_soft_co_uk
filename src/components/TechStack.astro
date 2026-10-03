@@ -3,38 +3,46 @@ import { technologyGroups } from '../data/content';
 import SectionHeading from './SectionHeading.astro';
 ---
 
-<section class="py-16 sm:py-24 bg-white border-y border-surface-border" aria-labelledby="tech-heading">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-20 sm:py-28 bg-[#0d100f] border-b border-white/[0.08]" aria-labelledby="tech-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
     
-    <div class="max-w-3xl mb-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <SectionHeading
         id="tech-heading"
-        eyebrow="Capabilities & Platforms"
+        tag="[ 05 // STACK & ARCHITECTURE ]"
         title="Technology Behind the Work"
-        subtitle="We select technologies based on business practicality, maintenance longevity, and performance rather than industry hype."
+        subtitle="We deploy battle-tested commerce engines, modern headless architectures, and robust automation pipelines chosen for performance, security, and long-term maintainability."
       />
     </div>
 
+    <!-- Architectural Platform Columns -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {technologyGroups.map((group) => (
-        <div class="rounded-2xl p-6 sm:p-8 bg-surface-bg border border-surface-border space-y-4">
-          <h3 class="text-base font-bold text-text-primary tracking-tight">
-            {group.title}
-          </h3>
+      {technologyGroups.map((group, idx) => (
+        <div class="rounded-3xl p-8 bg-[#111413] border border-white/[0.08] hover:border-white/[0.18] transition-colors space-y-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-neutral-400">DOMAIN 0{idx + 1}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white tracking-tight">
+              {group.title}
+            </h3>
 
-          <div class="flex flex-wrap gap-2">
-            {group.items.map((item) => (
-              <span class="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-surface-border text-xs font-semibold text-text-secondary shadow-2xs">
-                {item}
-              </span>
-            ))}
+            <div class="flex flex-wrap gap-2 pt-2">
+              {group.items.map((item) => (
+                <span class="inline-flex items-center px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-medium text-neutral-300 hover:border-emerald-500/40 hover:text-white transition-colors">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.05] text-[11px] font-mono text-neutral-400">
+            Selected per project requirements and operational scale.
           </div>
         </div>
       ))}
-    </div>
-
-    <div class="mt-8 text-xs text-text-muted">
-      <p>* Technologies are deployed thoughtfully according to project requirements and operational scale.</p>
     </div>
 
   </div>

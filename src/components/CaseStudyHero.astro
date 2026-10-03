@@ -11,8 +11,8 @@ const { project } = Astro.props;
 const { data, id } = project;
 ---
 
-<section class="pt-8 pb-12 sm:pt-12 sm:pb-16 border-b border-surface-border bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+<section class="pt-8 pb-16 sm:pt-14 sm:pb-20 border-b border-white/[0.08] bg-[#0c0e0d]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
     
     <!-- Breadcrumbs -->
     <Breadcrumbs
@@ -25,57 +25,58 @@ const { data, id } = project;
 
     <!-- Eyebrow & Category -->
     <div class="flex flex-wrap items-center gap-3">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-green-light text-brand-green">
-        {data.categoryLabel}
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>{data.categoryLabel}</span>
       </span>
       {data.placeholder && (
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold bg-neutral-100 text-neutral-600 border border-neutral-200">
-          Demo Case Study
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono text-neutral-400 bg-white/[0.05] border border-white/[0.1]">
+          DEMO BRIEF
         </span>
       )}
     </div>
 
     <!-- Title & Tagline -->
-    <div class="max-w-4xl space-y-4">
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+    <div class="max-w-5xl space-y-4">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white text-balance leading-[1.05]">
         {data.title}
       </h1>
-      <p class="text-lg sm:text-xl lg:text-2xl text-text-secondary leading-relaxed text-pretty">
+      <p class="text-xl sm:text-2xl text-neutral-300 leading-relaxed font-normal text-pretty max-w-3xl">
         {data.tagline}
       </p>
     </div>
 
-    <!-- Metadata Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 pb-2 border-t border-surface-border text-sm">
-      <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Client</p>
-        <p class="mt-1 font-semibold text-text-primary">{data.client}</p>
+    <!-- Metadata Grid Bar -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 pb-4 border-t border-white/[0.08] text-sm">
+      <div class="space-y-1">
+        <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Client / Sector</p>
+        <p class="font-semibold text-white">{data.client}</p>
       </div>
 
-      <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Industry</p>
-        <p class="mt-1 font-semibold text-text-primary">{data.industry}</p>
+      <div class="space-y-1">
+        <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Industry</p>
+        <p class="font-semibold text-white">{data.industry}</p>
       </div>
 
-      <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Year</p>
-        <p class="mt-1 font-semibold text-text-primary">{data.year}</p>
+      <div class="space-y-1">
+        <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Year Delivered</p>
+        <p class="font-semibold text-white">{data.year}</p>
       </div>
 
-      <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-text-muted">Primary Platform</p>
-        <p class="mt-1 font-semibold text-text-primary">{data.platforms[0] || 'Web'}</p>
+      <div class="space-y-1">
+        <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Primary Platform</p>
+        <p class="font-semibold text-emerald-400 font-mono">{data.platforms[0] || 'Web'}</p>
       </div>
     </div>
 
-    <!-- Main Hero Visual -->
-    <div class="rounded-2xl overflow-hidden bg-neutral-100 border border-surface-border shadow-xl">
+    <!-- Main Hero Visual Frame -->
+    <div class="rounded-3xl overflow-hidden bg-black border border-white/[0.12] shadow-2xl">
       <Image
         src={data.heroImage}
         alt={data.heroAlt}
         width={1400}
         height={850}
-        class="w-full h-auto object-cover max-h-[640px]"
+        class="w-full h-auto object-cover max-h-[680px]"
         loading="eager"
       />
     </div>

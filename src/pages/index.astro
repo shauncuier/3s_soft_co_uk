@@ -8,7 +8,7 @@ import CTA from '../components/CTA.astro';
 import { getCollection } from 'astro:content';
 import { capabilities, process } from '../data/content';
 import { site, contactLinks } from '../data/site';
-import { ArrowRight, ArrowUpRight, CheckCircle2, MessageCircle, MapPin, Globe } from '@lucide/astro';
+import { ArrowRight, ArrowUpRight, CheckCircle2, MessageCircle, MapPin, Globe, ShieldCheck, Zap } from '@lucide/astro';
 
 // Fetch and sort case studies by order
 const allProjects = await getCollection('caseStudies');
@@ -24,69 +24,96 @@ const featuredProjects = allProjects
   <!-- 1. Hero Section -->
   <Hero />
 
-  <!-- 2. Trust / Introduction Statement Section -->
-  <section class="py-16 sm:py-24 bg-white border-b border-surface-border">
+  <!-- 2. Trust / Operating Thesis Section -->
+  <section class="py-20 sm:py-28 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="thesis-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl space-y-6">
-        <div class="flex items-center gap-2">
-          <span class="w-4 h-0.5 bg-brand-green"></span>
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-            Practical Business Delivery
-          </span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        
+        <!-- Left Statement (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>[ 01 // OPERATING THESIS ]</span>
+          </div>
+
+          <h2 id="thesis-heading" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter text-white leading-[1.08] text-balance">
+            We turn complex digital work into practical business solutions.
+          </h2>
+
+          <p class="text-lg sm:text-xl text-neutral-300 leading-relaxed font-normal text-pretty max-w-2xl">
+            From e-commerce operations and Shopify experiences to websites and custom digital systems, 3s-Soft combines technology, design and operational expertise to help businesses build and improve their digital presence.
+          </p>
         </div>
 
-        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-primary leading-tight text-balance">
-          We turn complex digital work into practical business solutions.
-        </h2>
+        <!-- Right 3-Pillar Confidence Matrix (5 cols) -->
+        <div class="lg:col-span-5 space-y-4 pt-2">
+          
+          <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] hover:border-white/[0.16] transition-colors space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-bold">PILLAR 01</span>
+              <span class="text-neutral-400">LONDON STUDIO</span>
+            </div>
+            <h3 class="text-base font-bold text-white tracking-tight">Direct UK Communication</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              No overseas timezone disconnect. You liaise with a dedicated UK contact for scoping, strategy, and milestone reviews.
+            </p>
+          </div>
 
-        <p class="text-base sm:text-xl text-text-secondary leading-relaxed max-w-3xl text-pretty font-normal">
-          From e-commerce operations and Shopify experiences to websites and custom digital systems, 3s-Soft combines technology, design and operational expertise to help businesses build and improve their digital presence.
-        </p>
+          <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] hover:border-white/[0.16] transition-colors space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-bold">PILLAR 02</span>
+              <span class="text-neutral-400">ENGINEERING DEPTH</span>
+            </div>
+            <h3 class="text-base font-bold text-white tracking-tight">Full-Stack Capability</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              From Liquid theme development and Amazon listing health to event-driven APIs and automated inventory sync pipelines.
+            </p>
+          </div>
 
-        <div class="pt-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-semibold text-text-primary">
-          <div class="flex items-center gap-2">
-            <CheckCircle2 class="w-4 h-4 text-brand-green" />
-            <span>UK Local Client Liaison</span>
+          <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] hover:border-white/[0.16] transition-colors space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-bold">PILLAR 03</span>
+              <span class="text-neutral-400">TRANSPARENCY</span>
+            </div>
+            <h3 class="text-base font-bold text-white tracking-tight">Zero Agency Theater</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Honest qualitative deliverables, realistic timelines, and practical software design with no speculative marketing claims.
+            </p>
           </div>
-          <div class="flex items-center gap-2">
-            <CheckCircle2 class="w-4 h-4 text-brand-green" />
-            <span>Full-Stack Engineering &amp; Operations</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <CheckCircle2 class="w-4 h-4 text-brand-green" />
-            <span>Honest, Transparent Collaboration</span>
-          </div>
+
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- 3. Selected Work Section -->
-  <section class="py-16 sm:py-24 bg-surface-bg border-b border-surface-border" aria-labelledby="work-heading">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="work-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
-      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-4 border-b border-white/[0.06]">
         <SectionHeading
           id="work-heading"
-          eyebrow="Portfolio"
+          tag="[ 02 // PORTFOLIO SHOWCASE ]"
           title="Selected Work"
-          subtitle="A selection of digital commerce, technology and web projects delivered by 3s-Soft."
+          subtitle="A selection of digital commerce, technology and web projects delivered by 3s-Soft for modern businesses."
         />
 
         <a
           href="/work/"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-text-primary hover:text-brand-green transition-colors self-start sm:self-end group"
+          class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors self-start sm:self-end group"
         >
-          <span>View All Selected Work</span>
+          <span>View All Work &amp; Filters</span>
           <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
 
       <!-- Editorial Card Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {featuredProjects.map((project, index) => (
           <ProjectCard
             project={project}
+            index={index}
             variant={index === 0 ? 'featured' : 'standard'}
           />
         ))}
@@ -96,44 +123,60 @@ const featuredProjects = allProjects
   </section>
 
   <!-- 4. Capabilities / What We Do Section -->
-  <section class="py-16 sm:py-24 bg-white border-b border-surface-border" aria-labelledby="capabilities-heading">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+  <section class="py-20 sm:py-32 bg-[#0d100f] border-b border-white/[0.08]" aria-labelledby="capabilities-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <SectionHeading
         id="capabilities-heading"
-        eyebrow="What We Do"
-        title="Core Capabilities"
-        subtitle="We deliver focused, practical capability across digital commerce and technology without unnecessary complexity."
+        tag="[ 03 // CORE CAPABILITIES ]"
+        title="What We Do"
+        subtitle="We deliver focused, practical capability across digital commerce and technology without unnecessary overhead."
       />
 
+      <!-- Editorial Capability Matrix -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {capabilities.map((cap) => (
-          <div class="p-6 sm:p-8 rounded-2xl bg-surface-bg border border-surface-border hover:border-neutral-300 transition-colors space-y-3">
-            <div class="w-2.5 h-2.5 rounded-full bg-brand-green"></div>
-            <h3 class="text-lg font-bold text-text-primary tracking-tight">
-              {cap.title}
-            </h3>
-            <p class="text-sm text-text-secondary leading-relaxed">
-              {cap.text}
-            </p>
+        {capabilities.map((cap, idx) => (
+          <div class="p-8 rounded-3xl bg-[#111413] border border-white/[0.08] hover:border-white/[0.2] transition-colors space-y-4 flex flex-col justify-between group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs font-mono text-neutral-400">
+                <span>SERVICE 0{idx + 1}</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform"></span>
+              </div>
+              <h3 class="text-xl font-bold text-white tracking-tight">
+                {cap.title}
+              </h3>
+              <p class="text-sm text-neutral-400 leading-relaxed font-normal">
+                {cap.text}
+              </p>
+            </div>
+            
+            <div class="pt-4 border-t border-white/[0.05] text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+              <span>EXPLORE SPECIFICS</span>
+              <ArrowUpRight class="w-3.5 h-3.5 group-hover:text-emerald-400 transition-colors" />
+            </div>
           </div>
         ))}
 
-        <!-- Direct Consultation Box in Grid -->
-        <div class="p-6 sm:p-8 rounded-2xl bg-[#141716] text-white border border-[#262c29] space-y-4 flex flex-col justify-between">
-          <div class="space-y-2">
-            <span class="text-xs font-mono uppercase tracking-wider text-brand-green">Specialised Requirements?</span>
-            <h3 class="text-lg font-bold text-white tracking-tight">Have a custom challenge?</h3>
-            <p class="text-xs text-neutral-400 leading-relaxed">
+        <!-- Direct Consultation Card in Matrix -->
+        <div class="p-8 rounded-3xl bg-gradient-to-br from-[#16201b] to-[#111413] border border-emerald-500/30 text-white space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold block">
+              CUSTOM ENGINEERING?
+            </span>
+            <h3 class="text-xl font-bold text-white tracking-tight">
+              Have a tailored challenge?
+            </h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
               We frequently handle custom feeds, bespoke store features, and integration workflows tailored to unique retail setups.
             </p>
           </div>
+          
           <a
             href="/contact/"
-            class="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-brand-green transition-colors pt-2"
+            class="inline-flex items-center justify-between py-3 px-4 rounded-2xl bg-emerald-500 text-neutral-950 font-bold text-xs hover:bg-emerald-400 transition-colors"
           >
             <span>Discuss your specific setup</span>
-            <ArrowUpRight class="w-3.5 h-3.5" />
+            <ArrowUpRight class="w-4 h-4" />
           </a>
         </div>
       </div>
@@ -141,27 +184,32 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 5. How We Work (3-Step Process) -->
-  <section class="py-16 sm:py-24 bg-surface-bg border-b border-surface-border" aria-labelledby="process-heading">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+  <!-- 5. How We Work (Methodology) -->
+  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="process-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <SectionHeading
         id="process-heading"
-        eyebrow="Methodology"
+        tag="[ 04 // EXECUTION METHODOLOGY ]"
         title="How We Work"
-        subtitle="A disciplined, three-step execution framework designed for business clarity and dependable delivery."
+        subtitle="A disciplined, three-step execution framework designed for business clarity, accountability, and dependable delivery."
       />
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {process.map((step) => (
-          <div class="relative p-8 rounded-2xl bg-white border border-surface-border space-y-4">
-            <span class="text-3xl font-extrabold font-mono text-brand-green">
-              {step.number}
-            </span>
-            <h3 class="text-xl font-bold text-text-primary tracking-tight">
+          <div class="relative p-8 sm:p-10 rounded-3xl bg-[#111413] border border-white/[0.08] hover:border-white/[0.18] transition-colors space-y-6">
+            <div class="flex items-center justify-between">
+              <span class="text-4xl font-extrabold font-mono text-emerald-400">
+                {step.number}
+              </span>
+              <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest">PHASE</span>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white tracking-tight">
               {step.title}
             </h3>
-            <p class="text-sm text-text-secondary leading-relaxed">
+            
+            <p class="text-sm text-neutral-400 leading-relaxed font-normal">
               {step.text}
             </p>
           </div>
@@ -171,44 +219,36 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 6. About / UK Presence Section -->
-  <section class="py-16 sm:py-24 bg-white border-b border-surface-border" aria-labelledby="uk-presence-heading">
+  <!-- 6. About / UK Studio Presence Section -->
+  <section class="py-20 sm:py-32 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="uk-presence-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
-        <div class="lg:col-span-7 space-y-6">
-          <div class="flex items-center gap-2">
-            <span class="w-4 h-0.5 bg-brand-green"></span>
-            <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-              Operating Model
-            </span>
-          </div>
+        <div class="lg:col-span-7 space-y-8">
+          <SectionHeading
+            id="uk-presence-heading"
+            tag="[ 05 // OPERATING MODEL ]"
+            title="Local UK communication with global delivery capability."
+            subtitle="3s-Soft is a digital technology and e-commerce company focused on building practical, scalable solutions for businesses operating online."
+          />
 
-          <h2 id="uk-presence-heading" class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary leading-tight text-balance">
-            Local UK communication with global delivery capability.
-          </h2>
-
-          <p class="text-base sm:text-lg text-text-secondary leading-relaxed">
-            3s-Soft is a digital technology and e-commerce company focused on building practical, scalable solutions for businesses operating online.
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-            <div class="p-5 rounded-xl bg-surface-bg border border-surface-border space-y-2">
-              <div class="flex items-center gap-2 text-brand-green">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2 text-emerald-400">
                 <MapPin class="w-4 h-4" />
-                <h3 class="text-sm font-bold text-text-primary">UK Client Connection</h3>
+                <h3 class="text-sm font-bold text-white">UK Client Connection</h3>
               </div>
-              <p class="text-xs text-text-secondary leading-relaxed">
+              <p class="text-xs text-neutral-400 leading-relaxed">
                 3s-Soft UK provides a local point of contact, seamless communication, and dedicated relationship management for UK businesses.
               </p>
             </div>
 
-            <div class="p-5 rounded-xl bg-surface-bg border border-surface-border space-y-2">
-              <div class="flex items-center gap-2 text-brand-green">
+            <div class="p-6 rounded-2xl bg-[#111413] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2 text-emerald-400">
                 <Globe class="w-4 h-4" />
-                <h3 class="text-sm font-bold text-text-primary">Technology &amp; Delivery</h3>
+                <h3 class="text-sm font-bold text-white">Technology &amp; Delivery</h3>
               </div>
-              <p class="text-xs text-text-secondary leading-relaxed">
+              <p class="text-xs text-neutral-400 leading-relaxed">
                 The wider 3s-Soft engineering team provides high-capacity technology, e-commerce operations, and continuous digital delivery.
               </p>
             </div>
@@ -217,43 +257,46 @@ const featuredProjects = allProjects
           <div class="pt-2">
             <a
               href="/about/"
-              class="inline-flex items-center gap-2 text-sm font-semibold text-text-primary hover:text-brand-green transition-colors"
+              class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors"
             >
-              <span>Learn more about our team &amp; model</span>
+              <span>Learn more about our team &amp; structure</span>
               <ArrowRight class="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        <!-- UK Director / Presence Card -->
+        <!-- UK Director / Presence Showcase Card -->
         <div class="lg:col-span-5">
-          <div class="p-8 rounded-3xl bg-surface-bg border border-surface-border space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-surface-border text-xs font-semibold text-text-secondary">
-              <span class="w-2 h-2 rounded-full bg-brand-green"></span>
-              <span>UK Team</span>
+          <div class="p-8 sm:p-10 rounded-3xl bg-[#111413] border border-white/[0.12] space-y-8 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.1] text-xs font-mono text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>UK DIRECT ENQUIRY</span>
+              </div>
+              <span class="text-xs font-mono text-neutral-400">LONDON, UK</span>
             </div>
 
-            <div class="space-y-2">
-              <h3 class="text-2xl font-bold text-text-primary tracking-tight">
+            <div class="space-y-3">
+              <h3 class="text-3xl font-extrabold text-white tracking-tight">
                 {site.ukPresence.name}
               </h3>
-              <p class="text-sm font-medium text-brand-green">
+              <p class="text-sm font-mono text-emerald-400">
                 {site.ukPresence.role}
               </p>
-              <p class="text-xs text-text-secondary leading-relaxed pt-1">
+              <p class="text-xs text-neutral-300 leading-relaxed pt-1">
                 {site.ukPresence.summary}
               </p>
             </div>
 
-            <div class="pt-4 border-t border-surface-border space-y-3">
+            <div class="pt-4 border-t border-white/[0.08] space-y-3">
               {contactLinks.whatsapp && (
                 <a
                   href={contactLinks.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand-green text-white font-semibold text-xs hover:bg-brand-green-hover transition-colors shadow-xs"
+                  class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl bg-emerald-500 text-neutral-950 font-bold text-xs hover:bg-emerald-400 transition-colors shadow-md"
                 >
-                  <MessageCircle class="w-4 h-4" />
+                  <MessageCircle class="w-4 h-4 fill-current" />
                   <span>Connect directly on WhatsApp</span>
                 </a>
               )}
@@ -261,7 +304,7 @@ const featuredProjects = allProjects
               {contactLinks.email && (
                 <a
                   href={contactLinks.email}
-                  class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white border border-surface-border text-text-primary font-semibold text-xs hover:bg-surface-bg transition-colors"
+                  class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white font-mono text-xs hover:bg-white/[0.08] transition-colors"
                 >
                   <span>{site.contact.email}</span>
                 </a>

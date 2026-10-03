@@ -15,25 +15,25 @@ const isConfigured = Boolean(contactLinks.whatsapp);
       href={contactLinks.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
-      class="group flex items-center gap-3 bg-white text-text-primary pl-4 pr-5 py-3 rounded-full shadow-lg border border-surface-border hover:shadow-xl hover:border-brand-green/40 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-green"
+      class="group flex items-center gap-3.5 bg-[#111413]/90 backdrop-blur-xl text-white pl-4 pr-5 py-3 rounded-full shadow-2xl border border-white/[0.14] hover:border-emerald-500/50 hover:shadow-emerald-500/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
       aria-label="Chat with 3s-Soft UK on WhatsApp"
     >
-      <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-green"></span>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
       </span>
 
       <div class="flex flex-col text-left">
-        <span class="text-xs font-semibold leading-tight text-text-primary group-hover:text-brand-green transition-colors">
+        <span class="text-xs font-bold leading-tight text-white group-hover:text-emerald-400 transition-colors">
           Chat on WhatsApp
         </span>
-        <span class="text-[11px] text-text-muted leading-tight">
-          Direct UK consultation
+        <span class="text-[10px] font-mono text-neutral-400 leading-tight">
+          UK Studio · Direct
         </span>
       </div>
 
-      <div class="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 ml-1 group-hover:scale-105 transition-transform">
-        <MessageCircle class="w-4 h-4 fill-current" />
+      <div class="w-8 h-8 rounded-full bg-emerald-500 text-neutral-950 flex items-center justify-center shrink-0 ml-1 group-hover:scale-105 transition-transform">
+        <MessageCircle class="w-4 h-4 fill-current text-neutral-950" />
       </div>
     </a>
   </aside>

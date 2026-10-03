@@ -23,37 +23,37 @@ const categoryFilters = [
   title="Case Studies — Work With Substance"
   description="Explore how 3s-Soft solves digital commerce, marketplace, and web challenges through technology, thoughtful execution, and dependable delivery."
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 space-y-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-16">
     
     <!-- Breadcrumbs -->
     <Breadcrumbs items={[{ label: 'Case Studies' }]} />
 
     <!-- Page Header -->
-    <div class="max-w-3xl space-y-4">
-      <div class="flex items-center gap-2">
-        <span class="w-4 h-0.5 bg-brand-green"></span>
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-green">
-          Detailed Case Studies
-        </span>
+    <div class="max-w-4xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>[ DETAILED CASE ARCHIVE ]</span>
       </div>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary text-balance">
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white text-balance leading-[1.05]">
         Work With Substance.
       </h1>
-      <p class="text-lg sm:text-xl text-text-secondary leading-relaxed text-pretty">
+
+      <p class="text-lg sm:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-normal text-pretty">
         Behind every project is a business challenge. Explore how we approached real digital problems through technology, commerce and thoughtful execution.
       </p>
     </div>
 
     <!-- Filter Category Pills (Client-side interactive filter) -->
-    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-surface-border pb-6" role="tablist" aria-label="Filter case studies by category">
+    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-white/[0.08] pb-6" role="tablist" aria-label="Filter case studies by category">
       {categoryFilters.map((filter, index) => (
         <button
           type="button"
           class:list={[
-            'filter-pill px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-green',
+            'filter-pill px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer',
             index === 0
-              ? 'active bg-text-primary text-white shadow-xs'
-              : 'bg-white text-text-secondary border border-surface-border hover:border-neutral-300 hover:text-text-primary',
+              ? 'active bg-white text-neutral-950 font-bold shadow-md'
+              : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white',
           ]}
           data-filter={filter.key}
           role="tab"
@@ -65,7 +65,7 @@ const categoryFilters = [
     </div>
 
     <!-- Case Studies Grid -->
-    <div id="case-studies-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+    <div id="case-studies-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
       {sortedProjects.map((project, index) => (
         <div
           class="project-item transition-all duration-300"
@@ -73,6 +73,7 @@ const categoryFilters = [
         >
           <ProjectCard
             project={project}
+            index={index}
             variant={index === 0 ? 'featured' : 'standard'}
           />
         </div>
@@ -96,13 +97,13 @@ const categoryFilters = [
       const selected = pill.dataset.filter || 'all';
 
       pills.forEach((p) => {
-        p.classList.remove('active', 'bg-text-primary', 'text-white', 'shadow-xs');
-        p.classList.add('bg-white', 'text-text-secondary', 'border', 'border-surface-border');
+        p.classList.remove('active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md');
+        p.classList.add('bg-[#111413]', 'text-neutral-400', 'border', 'border-white/[0.08]');
         p.setAttribute('aria-selected', 'false');
       });
 
-      pill.classList.add('active', 'bg-text-primary', 'text-white', 'shadow-xs');
-      pill.classList.remove('bg-white', 'text-text-secondary', 'border');
+      pill.classList.add('active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md');
+      pill.classList.remove('bg-[#111413]', 'text-neutral-400', 'border');
       pill.setAttribute('aria-selected', 'true');
 
       items.forEach((item) => {

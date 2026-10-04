@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Breadcrumbs from './Breadcrumbs.astro';
 import type { CollectionEntry } from 'astro:content';
+import { ExternalLink } from '@lucide/astro';
 
 interface Props {
   project: CollectionEntry<'caseStudies'>;
@@ -24,15 +25,29 @@ const { data, id } = project;
     />
 
     <!-- Eyebrow & Category -->
-    <div class="flex flex-wrap items-center gap-3">
-      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>{data.categoryLabel}</span>
-      </span>
-      {data.placeholder && (
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono text-neutral-400 bg-white/[0.05] border border-white/[0.1]">
-          DEMO BRIEF
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span>{data.categoryLabel}</span>
         </span>
+        {data.placeholder && (
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono text-neutral-400 bg-white/[0.05] border border-white/[0.1]">
+            DEMO BRIEF
+          </span>
+        )}
+      </div>
+
+      {data.liveUrl && (
+        <a
+          href={data.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-400 text-neutral-950 hover:bg-emerald-300 transition-colors shadow-lg shadow-emerald-500/20"
+        >
+          <span>Visit Live Website</span>
+          <ExternalLink class="w-3.5 h-3.5 stroke-[2.5]" />
+        </a>
       )}
     </div>
 
@@ -47,7 +62,7 @@ const { data, id } = project;
     </div>
 
     <!-- Metadata Grid Bar -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 pb-4 border-t border-white/[0.08] text-sm">
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 pt-8 pb-4 border-t border-white/[0.08] text-sm">
       <div class="space-y-1">
         <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Client / Sector</p>
         <p class="font-semibold text-white">{data.client}</p>
@@ -67,6 +82,20 @@ const { data, id } = project;
         <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Primary Platform</p>
         <p class="font-semibold text-emerald-400 font-mono">{data.platforms[0] || 'Web'}</p>
       </div>
+
+      {data.market && (
+        <div class="space-y-1">
+          <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Target Market</p>
+          <p class="font-semibold text-neutral-200">{data.market}</p>
+        </div>
+      )}
+
+      {data.builtBy && (
+        <div class="space-y-1">
+          <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Engineered By</p>
+          <p class="font-semibold text-emerald-300">{data.builtBy}</p>
+        </div>
+      )}
     </div>
 
     <!-- Main Hero Visual Frame -->

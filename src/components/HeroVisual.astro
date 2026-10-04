@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import tailwaterHeroImg from '../assets/projects/tailwater-supply.jpg';
 import storefrontImg from '../assets/projects/shopify-storefront.jpg';
 import marketplaceImg from '../assets/projects/marketplace-operations.jpg';
 import mobileImg from '../assets/projects/mobile-commerce.jpg';
@@ -44,11 +45,11 @@ import { ArrowUpRight, CheckCircle2, ShieldCheck, Zap } from '@lucide/astro';
       <!-- Primary Featured Canvas (8 cols on desktop) -->
       <div class="col-span-12 lg:col-span-8 relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:h-[480px] bg-[#0c0e0d] overflow-hidden group">
         <Image
-          src={storefrontImg}
-          alt="Modern Shopify digital commerce storefront preview"
+          src={tailwaterHeroImg}
+          alt="Tailwater Supply Co. brand homepage showcasing hand-tied trout flies against river backdrop"
           width={1200}
           height={750}
-          class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           loading="eager"
         />
         
@@ -56,16 +57,16 @@ import { ArrowUpRight, CheckCircle2, ShieldCheck, Zap } from '@lucide/astro';
         <div class="absolute bottom-5 left-5 right-5 sm:right-auto flex items-center justify-between sm:justify-start gap-4 p-3.5 rounded-2xl bg-[#090b0a]/90 backdrop-blur-xl border border-white/[0.12] shadow-xl">
           <div class="space-y-0.5">
             <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold block">
-              Case Study 01 // Shopify Plus
+              Flagship // Amazon &amp; Walmart Seller
             </span>
             <span class="text-sm font-bold text-white block">
-              Handcrafted Ceramics Storefront
+              Tailwater Supply Co. — Brand Website
             </span>
           </div>
           <a
-            href="/case-studies/nordic-homeware-shopify/"
+            href="/case-studies/tailwater-supply-co/"
             class="p-2 rounded-xl bg-white/[0.1] hover:bg-emerald-500 hover:text-black transition-colors text-white"
-            aria-label="View case study"
+            aria-label="View Tailwater Supply Co. case study"
           >
             <ArrowUpRight class="w-4 h-4" />
           </a>

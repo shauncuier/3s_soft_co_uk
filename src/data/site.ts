@@ -43,7 +43,7 @@ export const site = {
 
   /** UK presence – replace placeholders once details are confirmed. */
   ukPresence: {
-    name: "[Brother's Name]",
+    name: "Minhazul Abedin",
     role: 'UK Director / Business Development',
     summary: 'UK-based client relationship and business development.',
     /** Optional: import a photo in src/pages/about.astro & index.astro when available. */

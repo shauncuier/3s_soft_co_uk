@@ -1,0 +1,112 @@
+---
+title: "3S Soft Price & Stock Sync for Dropshipzone"
+tagline: "High-throughput WooCommerce supplier sync, automated order routing, and real-time stock orchestration."
+summary: "Official WordPress.org integration automating price, inventory, and order fulfillment between Dropshipzone and WooCommerce for multi-thousand SKU catalogues."
+categories: ["technology", "ecommerce", "web"]
+categoryLabel: "E-Commerce Integration · Custom Plugin"
+client: "Dropshipzone E-Commerce Retailers (Australia & New Zealand)"
+industry: "Dropshipping, B2B Supply Chain & E-Commerce Automation"
+year: "2026"
+platforms: ["WordPress Plugin API", "WooCommerce HPOS", "Dropshipzone REST API", "Action Scheduler", "PHP 8.4", "MySQL"]
+services: ["API Integration Architecture", "Automated Catalog Ingestion", "Delta Stock Synchronization", "High-Performance Order Storage (HPOS)", "Live Rate Calculation"]
+heroImage: "../../assets/projects/dropshipzone-sync.jpg"
+heroAlt: "3S Soft Price and Stock Sync for Dropshipzone WooCommerce plugin dashboard banner"
+featured: true
+order: 2
+placeholder: false
+liveUrl: "https://wordpress.org/plugins/3s-soft-price-stock-sync-for-dropshipzone/"
+market: "Australia & New Zealand (en-AU, en-NZ)"
+builtBy: "3s-Soft"
+portfolioLine: "Production WordPress.org plugin engineering: two-way supplier API synchronization, delta stock feeds, and automated order fulfillment for WooCommerce."
+bestForPitching: "Wholesale distributors, B2B dropshippers, and multi-channel retailers requiring high-reliability automated inventory synchronization without server timeouts."
+challenge: "Connecting a fast-moving wholesale supplier like Dropshipzone to a WooCommerce storefront introduces severe data volume and reliability hurdles. Stores managing 10,000+ SKUs frequently experience server timeouts during full catalogue sweeps, overselling due to delayed stock updates, currency/GST calculation mistakes, and checkout abandonment caused by slow postal zone rate lookups. The integration needed to be fast, fault-tolerant, compliant with strict WordPress.org security standards, and resilient against API rate limits."
+approach: "We engineered a modular WordPress plugin built around event-driven batch processing, delta updates, and transient-backed locks. Instead of hammering the supplier API with monolithic sweeps, the system decouples fast-changing inventory from heavy catalogue imports. We implemented an adaptive API load balancer respecting Dropshipzone's 60 req/min limits, hardened database indexes on custom mapping tables, and engineered WooCommerce HPOS (High-Performance Order Storage) support for instantaneous order dispatch."
+solution: "Developed '3S Soft Price & Stock Sync for Dropshipzone' (v3.5.2), deployed publicly on WordPress.org. The software features delta 'Fast Stock Updates' querying only supplier-changed SKUs, configurable pricing markups with Australian 10% GST support, automated product import with image sideloading, live checkout shipping rate calculation by Australian postcode and NZ scheme, and bi-directional tracking sync with automated order completion."
+resultsNote: "Published on official WordPress.org Plugin Repository (v3.5.2). Actively tested and maintained across WordPress 6.2–7.1.2 and WooCommerce 8.0–10.9 with zero compatibility regressions."
+outcome:
+  - "Publicly verified open-source release on WordPress.org supporting merchants across Australia and New Zealand."
+  - "Sub-second delta stock synchronization preventing overselling across 10,000+ active supplier catalogue items."
+  - "Automated order dispatch and tracking sync eliminating manual copy-paste fulfillment workflows."
+  - "Native WooCommerce HPOS (High-Performance Order Storage) compatibility ensuring enterprise database scalability."
+  - "Robust rate limiting and memory protection eliminating 504 gateway timeouts on shared and VPS hosting environments."
+nextImprovements:
+  - "Product Variations Engine: Add full support for multi-attribute variable products imported directly from the supplier catalogue."
+  - "Automated Alert Engine: Trigger Slack and email notifications on sudden supplier price shifts or critical out-of-stock thresholds."
+  - "CLI Operations: Provide native WP-CLI commands (wp dsz sync) for high-frequency cron workers and headless hosting."
+  - "Category Mapping Engine: Visual drag-and-drop hierarchy mapping between Dropshipzone categories and custom WooCommerce taxonomies."
+gallery:
+  - image: "../../assets/projects/dropshipzone-detail.jpg"
+    alt: "3S Soft Dropshipzone integration architecture icon"
+    caption: "Architected for high throughput: delta synchronization, transient locking, and automated order routing."
+publishDate: 2026-08-22
+---
+
+### Project Overview
+
+[3S Soft Price & Stock Sync for Dropshipzone](https://wordpress.org/plugins/3s-soft-price-stock-sync-for-dropshipzone/) is a production-grade WooCommerce extension engineered by 3s-Soft, available on the official WordPress.org plugin directory.
+
+The plugin provides full automation between the **Dropshipzone** wholesale supplier API (`api.dropshipzone.com.au`) and WooCommerce stores operating across Australia and New Zealand. It automates catalog ingestion, two-way price and inventory synchronization, dynamic shipping zone rate calculations, and end-to-end order fulfillment with tracking telemetry.
+
+---
+
+### Core Engineering Features
+
+#### 1. Delta "Fast Stock" Synchronization Engine
+Updating stock for 10,000+ products using full catalog pagination is resource-intensive and leads to gateway timeouts. We engineered a dedicated delta pass that queries Dropshipzone specifically for SKUs whose stock levels changed since the previous check. This reduces server execution time from minutes to milliseconds, ensuring merchants never oversell during flash sales.
+
+#### 2. Dynamic Pricing Engine & GST Compliance
+Australian consumer law requires transparent GST pricing. The plugin includes a comprehensive pricing calculator:
+- **Percentage & Fixed Markups**: Set global markups or granular category/supplier-level overrides.
+- **Australian 10% GST Handling**: Dynamically add or extract GST based on supplier cost specifications.
+- **Price Rounding Rules**: Round final prices to `.99`, `.95`, or the nearest whole dollar.
+- **Stock Safety Buffer**: Deduct custom safety quantities to prevent supplier stockouts from affecting store orders.
+
+#### 3. Live Shipping Rate Calculation at Checkout
+Dropshipzone calculates shipping fees by SKU and destination postcode. We integrated a custom WooCommerce Shipping Method that:
+- Captures the customer's Australian 4-digit postcode or New Zealand destination.
+- Maps postcodes to Dropshipzone logistical zones with a 5-minute transient back-off cache to protect checkout response times.
+- Supports merchant-defined handling fees and free shipping order thresholds.
+
+#### 4. Automated Order Routing & Tracking Sync
+- **One-Click Order Dispatch**: Automatically or manually submits customer orders and delivery addresses to Dropshipzone for picking, packing, and dispatch.
+- **Bi-Directional Tracking Retrieval**: Scheduled background workers poll Dropshipzone for consignment tracking numbers and carrier updates, automatically writing them to WooCommerce order meta and transitioning orders to *Completed*.
+
+#### 5. Enterprise Architecture & Fault Tolerance
+- **Transient-Based Batch Locking**: Prevents overlapping cron jobs from creating race conditions on large catalogs.
+- **Adaptive API Rate Limiting**: Token-bucket rate limiter enforcing Dropshipzone's limits (60 calls/minute, 600 calls/hour) with proactive back-off.
+- **WooCommerce HPOS Certified**: Compatible with High-Performance Order Storage (`Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController`) for high-volume order throughput.
+
+---
+
+### Architecture & Data Flow
+
+```
+[ Dropshipzone Supplier API ]
+       │                ▲
+       │ (Delta Feeds)  │ (Order Dispatch)
+       ▼                │
+┌────────────────────────────────────────┐
+│  3S Soft Sync Engine (WordPress.org)   │
+│  ├─ Rate Limiter (60 req/min guard)   │
+│  ├─ Delta Stock Evaluator             │
+│  ├─ GST & Markup Rule Engine           │
+│  └─ Postcode-to-Zone Rate Cache        │
+└────────────────────────────────────────┘
+       │                ▲
+       ▼                │
+[ WooCommerce Storefront & Database ]
+  ├─ 10,000+ Synchronized SKUs
+  ├─ Live Postcode Shipping at Checkout
+  └─ HPOS Order Storage & Tracking Meta
+```
+
+---
+
+### Verified Deployment & Release Metadata
+
+- **Plugin Slug**: `3s-soft-price-stock-sync-for-dropshipzone`
+- **Official Repository**: [WordPress.org Plugin Directory](https://wordpress.org/plugins/3s-soft-price-stock-sync-for-dropshipzone/)
+- **Current Version**: 3.5.2
+- **Tested Compatibility**: WordPress 6.2 – 7.1.2 | WooCommerce 8.0 – 10.9 | PHP 7.4 – 8.4+
+- **Lead Developer**: Jashedul Islam Shaun / 3s-Soft (`shauncuier`)
+- **Key Audience**: E-commerce brands, B2B dropshippers, and digital agencies seeking scalable, reliable supplier synchronization without recurring SaaS platform fees.

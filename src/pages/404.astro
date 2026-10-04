@@ -27,18 +27,18 @@ import { ArrowLeft, ArrowRight } from '@lucide/astro';
       <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
         <a
           href="/"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-white text-neutral-950 hover:bg-neutral-200 transition-colors shadow-md"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-colors shadow-md"
         >
-          <ArrowLeft class="w-4 h-4" />
+          <ArrowLeft class="w-4 h-4 text-neutral-950" />
           <span>Back to Home</span>
         </a>
 
         <a
           href="/work/"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-[#111413] text-white border border-white/[0.12] hover:border-white/[0.24] transition-colors"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-[#111413] text-white border border-white/[0.12] hover:border-white/[0.24] hover:bg-white/[0.04] transition-colors group"
         >
           <span>Explore Work</span>
-          <ArrowRight class="w-4 h-4 text-neutral-400" />
+          <ArrowRight class="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
         </a>
       </div>
 

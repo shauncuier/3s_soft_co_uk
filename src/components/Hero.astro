@@ -54,10 +54,10 @@ import { ArrowRight, ArrowUpRight, MessageCircle } from '@lucide/astro';
       <div class="pt-4 flex flex-wrap items-center gap-3 sm:gap-4">
         <a
           href="/work/"
-          class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-200 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-white/5"
+          class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-white/5"
         >
           <span>View Our Work</span>
-          <ArrowRight class="w-4 h-4 text-neutral-900" />
+          <ArrowRight class="w-4 h-4 text-neutral-950" />
         </a>
 
         {contactLinks.whatsapp && (
@@ -65,20 +65,20 @@ import { ArrowRight, ArrowUpRight, MessageCircle } from '@lucide/astro';
             href={contactLinks.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full font-semibold text-sm bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 transition-all duration-200"
+            class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full font-semibold text-sm bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-neutral-950 transition-all duration-200 group"
             aria-label="Direct WhatsApp consultation"
           >
-            <MessageCircle class="w-4 h-4 fill-current text-emerald-400" />
+            <MessageCircle class="w-4 h-4 fill-current text-emerald-400 group-hover:text-neutral-950 transition-colors" />
             <span>Chat on WhatsApp</span>
           </a>
         )}
 
         <a
           href="/contact/"
-          class="inline-flex items-center gap-2 px-6 py-4 rounded-full font-semibold text-sm bg-white/[0.05] border border-white/[0.12] text-white hover:bg-white/[0.1] transition-all duration-200"
+          class="inline-flex items-center gap-2 px-6 py-4 rounded-full font-semibold text-sm bg-white/[0.05] border border-white/[0.12] text-white hover:bg-white/[0.12] hover:text-white transition-all duration-200 group"
         >
           <span>Let's Talk</span>
-          <ArrowUpRight class="w-4 h-4 text-neutral-400" />
+          <ArrowUpRight class="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
         </a>
       </div>
 

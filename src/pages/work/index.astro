@@ -52,8 +52,8 @@ const categoryFilters = [
           class:list={[
             'filter-pill px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer',
             index === 0
-              ? 'active bg-white text-neutral-950 font-bold shadow-md'
-              : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white',
+              ? 'active bg-white text-neutral-950 font-bold shadow-md hover:bg-neutral-100 hover:text-neutral-950'
+              : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04]',
           ]}
           data-filter={filter.key}
           role="tab"
@@ -92,18 +92,21 @@ const categoryFilters = [
   const pills = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
   const items = document.querySelectorAll<HTMLElement>('.project-item');
 
+  const ACTIVE_CLASSES = ['active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md', 'hover:bg-neutral-100', 'hover:text-neutral-950'];
+  const INACTIVE_CLASSES = ['bg-[#111413]', 'text-neutral-400', 'border', 'border-white/[0.08]', 'hover:border-white/[0.2]', 'hover:text-white', 'hover:bg-white/[0.04]'];
+
   pills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const selected = pill.dataset.filter || 'all';
 
       pills.forEach((p) => {
-        p.classList.remove('active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md');
-        p.classList.add('bg-[#111413]', 'text-neutral-400', 'border', 'border-white/[0.08]');
+        p.classList.remove(...ACTIVE_CLASSES);
+        p.classList.add(...INACTIVE_CLASSES);
         p.setAttribute('aria-selected', 'false');
       });
 
-      pill.classList.add('active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md');
-      pill.classList.remove('bg-[#111413]', 'text-neutral-400', 'border');
+      pill.classList.remove(...INACTIVE_CLASSES);
+      pill.classList.add(...ACTIVE_CLASSES);
       pill.setAttribute('aria-selected', 'true');
 
       items.forEach((item) => {

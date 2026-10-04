@@ -48,6 +48,13 @@ const caseStudies = defineCollection({
         )
         .default([]),
       publishDate: z.coerce.date().optional(),
+      liveUrl: z.string().url().optional(),
+      market: z.string().optional(),
+      builtBy: z.string().optional(),
+      portfolioLine: z.string().optional(),
+      bestForPitching: z.string().optional(),
+      nextImprovements: z.array(z.string()).default([]),
+      resultsNote: z.string().optional(),
     }),
 });
 

@@ -1,24 +1,64 @@
-# build output
+# Build & Output
 dist/
-
-# generated types
 .astro/
+build/
+out/
 
-# dependencies
+# Dependencies
 node_modules/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
 
-# logs
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
-# environment variables
-.env
-.env.production
+# Runtime & Cache
+.cache/
+.parcel-cache/
+.turbo/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
 
-# macOS-specific files
+# Testing & Coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Operating System Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# jetbrains setting folder
+# IDE & Editor Settings
 .idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# VS Code (keep shared extensions recommendation, ignore workspace state)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

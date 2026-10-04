@@ -62,7 +62,7 @@ const { categoryMeta, projects } = Astro.props;
     <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-white/[0.08] pb-6">
       <a
         href="/work/"
-        class="px-5 py-2.5 rounded-full text-xs font-mono font-medium bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white transition-colors"
+        class="px-5 py-2.5 rounded-full text-xs font-mono font-medium bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04] transition-colors"
       >
         All Work
       </a>
@@ -74,8 +74,8 @@ const { categoryMeta, projects } = Astro.props;
             class:list={[
               'px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-colors',
               isCurrent
-                ? 'bg-white text-neutral-950 font-bold shadow-md'
-                : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white',
+                ? 'bg-white text-neutral-950 font-bold shadow-md hover:bg-neutral-100 hover:text-neutral-950'
+                : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04]',
             ]}
           >
             {cat.title}

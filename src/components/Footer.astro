@@ -29,19 +29,24 @@ const year = new Date().getFullYear();
       
       <!-- Brand & Summary (5 cols) -->
       <div class="lg:col-span-5 space-y-6">
-        <a href="/" class="inline-flex items-center gap-3.5 group focus:outline-none" aria-label="3s-Soft Homepage">
-          <div class="bg-white px-3 py-1.5 rounded-xl border border-white/20 transition-transform duration-300 group-hover:scale-[1.03] shadow-md">
+        <a href="/" class="inline-flex items-center gap-4 group focus:outline-none" aria-label="3s-Soft Homepage">
+          <div class="relative flex items-center transition-transform duration-300 group-hover:scale-[1.03]">
             <Image
               src={logoImg}
-              alt="3s-Soft Logo"
-              width={130}
-              height={58}
-              class="h-7 w-auto object-contain"
+              alt="3s-Soft UK Logo"
+              width={220}
+              height={151}
+              class="h-12 sm:h-14 w-auto object-contain drop-shadow-md"
             />
           </div>
-          <span class="inline-flex items-center text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase px-2 py-0.5 rounded border border-emerald-500/20 bg-emerald-500/10">
-            UK
-          </span>
+          <div class="flex flex-col border-l border-white/10 pl-3.5 py-0.5">
+            <span class="inline-flex items-center text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase">
+              UK STUDIO
+            </span>
+            <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-widest">
+              LONDON GMT
+            </span>
+          </div>
         </a>
 
         <p class="text-sm font-bold text-white tracking-wide uppercase font-mono">

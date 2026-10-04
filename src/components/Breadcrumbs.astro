@@ -10,10 +10,15 @@ interface Props {
 
 const { items } = Astro.props;
 
+const allBreadcrumbItems: BreadcrumbItem[] = [
+  { label: 'Home', href: '/' },
+  ...items,
+];
+
 const schemaData = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: items.map((item, index) => ({
+  itemListElement: allBreadcrumbItems.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: item.label,

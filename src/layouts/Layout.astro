@@ -22,23 +22,40 @@ const {
 } = Astro.props;
 
 // Page Title Formatting: "Title | 3s-Soft UK" or Default Brand
-const formattedTitle = title
-  ? `${title} | ${site.ukName}`
-  : `${site.ukName} | ${site.positioning}`;
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const formattedTitle = isHome
+  ? `${site.ukName} — Digital Commerce, Shopify & Web Technology Partner`
+  : (title ? `${title} | ${site.ukName}` : `${site.ukName} | ${site.positioning}`);
 
-// Canonical URL derivation
-const canonical = canonicalUrl || new URL(Astro.url.pathname, site.url).href;
-const fullOgImage = new URL(ogImage, site.url).href;
+// Canonical URL derivation with trailing slash consistency
+const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = canonicalUrl || new URL(cleanPath, site.url).href;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, site.url).href;
 
-// Schema.org Structured Data: Organization & WebSite
+// Schema.org Structured Data: Organization, ProfessionalService & WebSite
 const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['Organization', 'ProfessionalService'],
   name: site.name,
   alternateName: site.ukName,
   url: site.url,
   logo: new URL('/icon-512.png', site.url).href,
+  image: new URL('/og-default.png', site.url).href,
   description: site.description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'London',
+    addressCountry: 'GB',
+  },
+  priceRange: '££',
+  knowsAbout: [
+    'E-Commerce Development',
+    'Shopify Theme & App Development',
+    'Amazon & Walmart Marketplace Operations',
+    'WooCommerce & WordPress Custom Plugin Architecture',
+    'High-Performance Order Storage (HPOS)',
+    'Bespoke Web Platform Engineering',
+  ],
   sameAs: [
     site.social.linkedin,
     site.social.facebook,
@@ -49,8 +66,8 @@ const organizationSchema = {
     '@type': 'ContactPoint',
     telephone: site.contact.phone,
     contactType: 'customer service',
-    areaServed: 'GB',
-    availableLanguage: 'English',
+    areaServed: ['GB', 'US', 'AU'],
+    availableLanguage: ['English'],
   },
 };
 
@@ -73,9 +90,15 @@ const websiteSchema = {
     <!-- Technical SEO -->
     <title>{formattedTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="3s-Soft UK" />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+    {!noindex && (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      </>
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -84,6 +107,9 @@ const websiteSchema = {
     <meta property="og:title" content={formattedTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="3s-Soft UK — Digital Commerce & Technology Partner" />
     <meta property="og:locale" content={site.locale} />
 
     <!-- Twitter / X -->
@@ -92,6 +118,8 @@ const websiteSchema = {
     <meta name="twitter:title" content={formattedTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullOgImage} />
+    <meta name="twitter:site" content="@3ssoft" />
+    <meta name="twitter:creator" content="@3ssoft" />
 
     <!-- Favicons & App Icons (derived directly from official 3s-Soft brand) -->
     <link rel="icon" href="/favicon.ico" sizes="any" />

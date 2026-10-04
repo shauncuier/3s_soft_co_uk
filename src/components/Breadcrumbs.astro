@@ -6,9 +6,10 @@ interface BreadcrumbItem {
 
 interface Props {
   items: BreadcrumbItem[];
+  hideSchema?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, hideSchema = true } = Astro.props;
 
 const allBreadcrumbItems: BreadcrumbItem[] = [
   { label: 'Home', href: '/' },
@@ -48,5 +49,7 @@ const schemaData = {
     ))}
   </ol>
 
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  {!hideSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  )}
 </nav>

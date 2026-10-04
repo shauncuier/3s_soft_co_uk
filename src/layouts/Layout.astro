@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { site } from '../data/site';
+import { buildSchemaGraph, type BreadcrumbItem, type CaseStudySchemaInput } from '../utils/schema';
 
 interface Props {
   title?: string;
@@ -11,6 +12,9 @@ interface Props {
   ogImage?: string;
   canonicalUrl?: string;
   noindex?: boolean;
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+  breadcrumbs?: BreadcrumbItem[];
+  caseStudy?: CaseStudySchemaInput;
 }
 
 const {
@@ -19,6 +23,9 @@ const {
   ogImage = '/og-default.png',
   canonicalUrl,
   noindex = false,
+  pageType = 'WebPage',
+  breadcrumbs,
+  caseStudy,
 } = Astro.props;
 
 // Page Title Formatting: "Title | 3s-Soft UK" or Default Brand
@@ -32,52 +39,16 @@ const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Ast
 const canonical = canonicalUrl || new URL(cleanPath, site.url).href;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, site.url).href;
 
-// Schema.org Structured Data: Organization, ProfessionalService & WebSite
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': ['Organization', 'ProfessionalService'],
-  name: site.name,
-  alternateName: site.ukName,
-  url: site.url,
-  logo: new URL('/icon-512.png', site.url).href,
-  image: new URL('/og-default.png', site.url).href,
-  description: site.description,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'London',
-    addressCountry: 'GB',
-  },
-  priceRange: '££',
-  knowsAbout: [
-    'E-Commerce Development',
-    'Shopify Theme & App Development',
-    'Amazon & Walmart Marketplace Operations',
-    'WooCommerce & WordPress Custom Plugin Architecture',
-    'High-Performance Order Storage (HPOS)',
-    'Bespoke Web Platform Engineering',
-  ],
-  sameAs: [
-    site.social.linkedin,
-    site.social.facebook,
-    site.social.instagram,
-    site.mainSiteUrl,
-  ].filter(Boolean),
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: site.contact.phone,
-    contactType: 'customer service',
-    areaServed: ['GB', 'US', 'AU'],
-    availableLanguage: ['English'],
-  },
-};
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: site.ukName,
-  url: site.url,
-  inLanguage: site.lang,
-};
+// Unified Schema.org @graph JSON-LD
+const schemaGraph = buildSchemaGraph({
+  pathname: cleanPath,
+  pageTitle: formattedTitle,
+  pageDescription: description,
+  pageType,
+  breadcrumbs,
+  caseStudy,
+  ogImageUrl: fullOgImage,
+});
 ---
 
 <!doctype html>
@@ -128,9 +99,8 @@ const websiteSchema = {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#121514" />
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <!-- Structured Data (Unified Schema.org JSON-LD @graph) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
   <body class="min-h-screen flex flex-col bg-surface-bg text-text-primary antialiased">
     

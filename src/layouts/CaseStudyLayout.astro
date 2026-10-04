@@ -28,47 +28,28 @@ const relatedProjects = allProjects
   })
   .slice(0, 2);
 
-// Structured Data for Case Study (Article / TechArticle / CreativeWork)
-const heroImageUrl = new URL(data.heroImage.src, site.url).href;
-const caseStudySchema = {
-  '@context': 'https://schema.org',
-  '@type': ['Article', 'CreativeWork'],
-  headline: data.title,
-  description: data.summary,
-  image: heroImageUrl,
-  datePublished: data.publishDate ? data.publishDate.toISOString() : undefined,
-  dateModified: data.publishDate ? data.publishDate.toISOString() : undefined,
-  inLanguage: site.lang,
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': new URL(Astro.url.pathname, site.url).href,
-  },
-  author: {
-    '@type': 'Organization',
-    name: site.ukName,
-    url: site.url,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: site.name,
-    url: site.url,
-    logo: {
-      '@type': 'ImageObject',
-      url: new URL('/icon-512.png', site.url).href,
-    },
-  },
-  about: data.industry,
-  genre: data.categoryLabel,
-};
 ---
 
 <Layout
   title={`${data.title} — Case Study`}
   description={data.summary}
   ogImage={data.heroImage.src}
+  breadcrumbs={[
+    { label: 'Work', href: '/work/' },
+    { label: 'Case Studies', href: '/case-studies/' },
+    { label: data.title },
+  ]}
+  caseStudy={{
+    title: data.title,
+    summary: data.summary,
+    heroImageUrl: data.heroImage.src,
+    publishDate: data.publishDate,
+    industry: data.industry,
+    categoryLabel: data.categoryLabel,
+    client: data.client,
+    liveUrl: data.liveUrl,
+  }}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
-
   <!-- Hero Section -->
   <CaseStudyHero project={project} />
 

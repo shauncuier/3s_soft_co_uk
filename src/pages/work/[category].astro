@@ -31,6 +31,11 @@ const { categoryMeta, projects } = Astro.props;
 <Layout
   title={categoryMeta.title}
   description={categoryMeta.description}
+  pageType="CollectionPage"
+  breadcrumbs={[
+    { label: 'Work', href: '/work/' },
+    { label: categoryMeta.title },
+  ]}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-16">
     

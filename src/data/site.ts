@@ -21,17 +21,15 @@ export const site = {
   lang: 'en-GB',
 
   contact: {
-    /**
-     * TODO: Replace with the real UK number.
-     * The placeholder +44 7700 900000 is from Ofcom's reserved drama range and is never assigned.
-     * Use international format without spaces for `phone`.
-     */
-    phone: '+447700900000',
-    phoneDisplay: '+44 7700 900000',
-    /** WhatsApp number: digits only, international format, no "+" or spaces (used in https://wa.me/<number>). TODO: replace. */
-    whatsapp: '447700900000',
-    /** TODO: Replace with the dedicated UK mailbox when available. */
-    email: 'contact@3s-soft.com',
+    /** UK phone – international format without spaces. */
+    phone: '+447523759901',
+    phoneDisplay: '+44 7523 759901',
+    /** WhatsApp number: digits only, international format, no "+" or spaces (used in https://wa.me/<number>). */
+    whatsapp: '447523759901',
+    /** Primary contact email. */
+    email: 'info@3s-soft.co.uk',
+    /** Secondary / friendly contact email. */
+    emailSecondary: 'hello@3s-soft.co.uk',
   },
 
   social: {

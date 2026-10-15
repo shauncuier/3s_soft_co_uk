@@ -44,7 +44,7 @@ const isCurrent = (href: string) => {
 
   <!-- Main Navigation Bar -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
+    <div id="header-inner" class="flex items-center justify-between h-20 transition-all duration-300">
       
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-3.5 group focus:outline-none" aria-label="3s-Soft UK Homepage">
@@ -271,5 +271,24 @@ const isCurrent = (href: string) => {
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 768 && isOpen) toggleMenu(false);
     });
+  }
+
+  // Header Scroll Compression & Island Elevation
+  const header = document.getElementById('site-header');
+  const headerInner = document.getElementById('header-inner');
+  if (header && headerInner) {
+    const onScroll = () => {
+      if (window.scrollY > 30) {
+        header.classList.add('bg-black/90', 'backdrop-blur-2xl', 'shadow-2xl', 'shadow-black/60', 'border-white/[0.14]');
+        headerInner.classList.remove('h-20');
+        headerInner.classList.add('h-16');
+      } else {
+        header.classList.remove('bg-black/90', 'backdrop-blur-2xl', 'shadow-2xl', 'shadow-black/60', 'border-white/[0.14]');
+        headerInner.classList.remove('h-16');
+        headerInner.classList.add('h-20');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 </script>

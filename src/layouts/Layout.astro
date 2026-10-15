@@ -117,6 +117,14 @@ const schemaGraph = buildSchemaGraph({
   </head>
   <body class="min-h-screen flex flex-col bg-surface-bg text-text-primary antialiased">
     
+    <!-- Top Hairline Scroll Progress Bar (Forge Studio style) -->
+    <div
+      id="scroll-progress-bar"
+      class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-300 z-50 pointer-events-none transition-transform duration-75 origin-left will-change-transform"
+      style="transform: scaleX(0);"
+      aria-hidden="true"
+    ></div>
+
     <!-- Skip to main content link for keyboard accessibility -->
     <a
       href="#main-content"
@@ -134,5 +142,63 @@ const schemaGraph = buildSchemaGraph({
     <WhatsAppButton />
 
     <Footer />
+
+    <!-- Forge Studio Motion Controller -->
+    <script>
+      function initMotion() {
+        // 1. Scroll Progress Hairline Indicator
+        const progressBar = document.getElementById('scroll-progress-bar');
+        if (progressBar) {
+          let ticking = false;
+          const updateScrollProgress = () => {
+            const doc = document.documentElement;
+            const scrollTotal = doc.scrollHeight - doc.clientHeight;
+            const progress = scrollTotal > 0 ? Math.min(Math.max(window.scrollY / scrollTotal, 0), 1) : 0;
+            progressBar.style.transform = `scaleX(${progress})`;
+            ticking = false;
+          };
+
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              window.requestAnimationFrame(updateScrollProgress);
+              ticking = true;
+            }
+          }, { passive: true });
+          updateScrollProgress();
+        }
+
+        // 2. Scroll Reveal IntersectionObserver (Cubic-bezier entrance)
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+          const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-revealed');
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              root: null,
+              threshold: 0.08,
+              rootMargin: '0px 0px -40px 0px',
+            }
+          );
+
+          revealElements.forEach((el) => revealObserver.observe(el));
+        } else {
+          // Fallback if IntersectionObserver not supported or empty
+          revealElements.forEach((el) => el.classList.add('is-revealed'));
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMotion);
+      } else {
+        initMotion();
+      }
+      document.addEventListener('astro:page-load', initMotion);
+    </script>
   </body>
 </html>

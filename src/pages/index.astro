@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import ShowcaseMarquee from '../components/ShowcaseMarquee.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TechStack from '../components/TechStack.astro';
@@ -22,11 +23,14 @@ const featuredProjects = allProjects
   title="Digital Commerce & Technology Partner"
   description="3s-Soft UK is a digital commerce and technology partner for modern UK businesses. We build Shopify storefronts, manage marketplace operations, and develop custom web platforms."
 >
-  <!-- 1. Hero Section -->
+  <!-- 1. Hero Section with Orbit Arcs -->
   <Hero />
 
-  <!-- 2. Trust / Operating Thesis Section -->
-  <section class="py-20 sm:py-28 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="thesis-heading">
+  <!-- 2. Dual-Row Marquee Showcase with Monospace Ticker (Forge Studio style) -->
+  <ShowcaseMarquee />
+
+  <!-- 3. Trust / Operating Thesis Section -->
+  <section class="py-20 sm:py-28 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="thesis-heading" data-reveal>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
@@ -88,14 +92,14 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 3. Selected Work Section -->
-  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="work-heading">
+  <!-- 4. Selected Work Section -->
+  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="work-heading" data-reveal>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-4 border-b border-white/[0.06]">
         <SectionHeading
           id="work-heading"
-          tag="[ 02 // PORTFOLIO SHOWCASE ]"
+          tag="[ 03 // PORTFOLIO SHOWCASE ]"
           title="Selected Work"
           subtitle="A selection of digital commerce, technology and web projects delivered by 3s-Soft for modern businesses."
         />
@@ -123,13 +127,13 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 4. Capabilities / What We Do Section -->
-  <section class="py-20 sm:py-32 bg-[#0d100f] border-b border-white/[0.08]" aria-labelledby="capabilities-heading">
+  <!-- 5. Capabilities / What We Do Section -->
+  <section class="py-20 sm:py-32 bg-[#0d100f] border-b border-white/[0.08]" aria-labelledby="capabilities-heading" data-reveal>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <SectionHeading
         id="capabilities-heading"
-        tag="[ 03 // CORE CAPABILITIES ]"
+        tag="[ 04 // CORE CAPABILITIES ]"
         title="What We Do"
         subtitle="We deliver focused, practical capability across digital commerce and technology without unnecessary overhead."
       />
@@ -185,13 +189,13 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 5. How We Work (Methodology) -->
-  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="process-heading">
+  <!-- 6. How We Work (Methodology) -->
+  <section class="py-20 sm:py-32 bg-[#090b0a] border-b border-white/[0.08]" aria-labelledby="process-heading" data-reveal>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <SectionHeading
         id="process-heading"
-        tag="[ 04 // EXECUTION METHODOLOGY ]"
+        tag="[ 05 // EXECUTION METHODOLOGY ]"
         title="How We Work"
         subtitle="A disciplined, three-step execution framework designed for business clarity, accountability, and dependable delivery."
       />
@@ -220,15 +224,15 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- 6. About / UK Studio Presence Section -->
-  <section class="py-20 sm:py-32 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="uk-presence-heading">
+  <!-- 7. About / UK Studio Presence Section -->
+  <section class="py-20 sm:py-32 bg-[#0c0e0d] border-b border-white/[0.08]" aria-labelledby="uk-presence-heading" data-reveal>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         <div class="lg:col-span-7 space-y-8">
           <SectionHeading
             id="uk-presence-heading"
-            tag="[ 05 // OPERATING MODEL ]"
+            tag="[ 06 // OPERATING MODEL ]"
             title="Local UK communication with global delivery capability."
             subtitle="3s-Soft is a digital technology and e-commerce company focused on building practical, scalable solutions for businesses operating online."
           />

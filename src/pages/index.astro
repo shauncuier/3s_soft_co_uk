@@ -8,7 +8,8 @@ import CTA from '../components/CTA.astro';
 import { getCollection } from 'astro:content';
 import { capabilities, process } from '../data/content';
 import { site, contactLinks } from '../data/site';
-import { ArrowRight, ArrowUpRight, CheckCircle2, MessageCircle, MapPin, Globe, ShieldCheck, Zap } from '@lucide/astro';
+import { ArrowRight, ArrowUpRight, CheckCircle2, MapPin, Globe, ShieldCheck, Zap } from '@lucide/astro';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro';
 
 // Fetch and sort case studies by order
 const allProjects = await getCollection('caseStudies');
@@ -296,7 +297,7 @@ const featuredProjects = allProjects
                   rel="noopener noreferrer"
                   class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-xl bg-emerald-500 text-neutral-950 font-bold text-xs hover:bg-emerald-400 hover:text-neutral-950 transition-colors shadow-md"
                 >
-                  <MessageCircle class="w-4 h-4 fill-current text-neutral-950" />
+                  <WhatsAppIcon class="w-4 h-4 text-neutral-950" />
                   <span>Connect directly on WhatsApp</span>
                 </a>
               )}

@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site, contactLinks, activeSocials } from '../data/site';
-import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@lucide/astro';
+import { Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@lucide/astro';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro';
 ---
 
 <Layout
@@ -41,7 +42,7 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
 
         <div class="space-y-4 relative z-10">
           <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
-            <MessageCircle class="w-6 h-6 fill-current" />
+            <WhatsAppIcon class="w-6 h-6" />
           </div>
           <div>
             <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Fastest Route</span>
@@ -59,7 +60,7 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
             rel="noopener noreferrer"
             class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-emerald-500 text-neutral-950 hover:bg-emerald-400 hover:text-neutral-950 transition-colors shadow-lg shadow-emerald-500/20 relative z-10"
           >
-            <MessageCircle class="w-4 h-4 fill-current text-neutral-950" />
+            <WhatsAppIcon class="w-4 h-4 text-neutral-950" />
             <span>Chat on WhatsApp</span>
           </a>
         ) : (
@@ -83,13 +84,24 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
         </div>
 
         {contactLinks.email ? (
-          <a
-            href={contactLinks.email}
-            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-colors shadow-sm"
-          >
-            <Mail class="w-4 h-4 text-neutral-950" />
-            <span>Email Brief</span>
-          </a>
+          <div class="space-y-3">
+            <a
+              href={contactLinks.email}
+              class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-colors shadow-sm"
+            >
+              <Mail class="w-4 h-4 text-neutral-950" />
+              <span>{site.contact.email}</span>
+            </a>
+            {contactLinks.emailSecondary && (
+              <a
+                href={contactLinks.emailSecondary}
+                class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full font-mono text-xs bg-white/[0.04] text-white border border-white/[0.1] hover:bg-white/[0.08] transition-colors"
+              >
+                <Mail class="w-4 h-4 text-neutral-400" />
+                <span>{site.contact.emailSecondary}</span>
+              </a>
+            )}
+          </div>
         ) : (
           <span class="text-xs font-mono text-neutral-500 italic">Email updating</span>
         )}
@@ -149,7 +161,7 @@ import { MessageCircle, Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@l
 
       <div class="space-y-2">
         <div class="flex items-center gap-2 text-emerald-400">
-          <MessageCircle class="w-4 h-4 fill-current" />
+          <WhatsAppIcon class="w-4 h-4" />
           <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Direct Conversation</h3>
         </div>
         <p class="text-xs text-neutral-400 leading-relaxed font-normal">

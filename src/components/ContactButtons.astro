@@ -1,6 +1,7 @@
 ---
 import { site, contactLinks } from '../data/site';
-import { MessageCircle, Mail, Phone, ArrowUpRight } from '@lucide/astro';
+import { Mail, Phone, ArrowUpRight } from '@lucide/astro';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 
 interface Props {
   size?: 'sm' | 'md' | 'lg';
@@ -28,7 +29,7 @@ const sizeClasses = {
         sizeClasses,
       ]}
     >
-      <MessageCircle class="w-4 h-4 shrink-0" />
+      <WhatsAppIcon class="w-4 h-4 shrink-0" />
       <span>WhatsApp Us</span>
     </a>
   )}

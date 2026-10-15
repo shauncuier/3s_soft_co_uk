@@ -1,6 +1,7 @@
 ---
 import { site, contactLinks } from '../data/site';
-import { ArrowUpRight, MessageCircle, Mail } from '@lucide/astro';
+import { ArrowUpRight, Mail } from '@lucide/astro';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 
 interface Props {
   title?: string;
@@ -57,7 +58,7 @@ const {
               rel="noopener noreferrer"
               class="inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-semibold text-sm bg-emerald-500 text-neutral-950 hover:bg-emerald-400 hover:text-neutral-950 transition-all duration-200 shadow-lg shadow-emerald-500/10"
             >
-              <MessageCircle class="w-4 h-4 fill-current text-neutral-950" />
+              <WhatsAppIcon class="w-4 h-4 fill-current text-neutral-950" />
               <span>WhatsApp Us Directly</span>
             </a>
           )}

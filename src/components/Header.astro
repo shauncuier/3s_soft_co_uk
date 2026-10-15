@@ -2,7 +2,8 @@
 import { site, navigation, contactLinks } from '../data/site';
 import { Image } from 'astro:assets';
 import logoImg from '../assets/brand/3s-soft-logo.png';
-import { ArrowUpRight, Menu, X, MessageCircle } from '@lucide/astro';
+import { ArrowUpRight, Menu, X } from '@lucide/astro';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 
 interface Props {
   currentPath?: string;
@@ -98,7 +99,7 @@ const isCurrent = (href: string) => {
             class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all duration-200"
             aria-label="Direct WhatsApp consultation"
           >
-            <MessageCircle class="w-3.5 h-3.5 text-emerald-400 fill-current" />
+            <WhatsAppIcon class="w-3.5 h-3.5 text-emerald-400" />
             <span>WhatsApp</span>
           </a>
         )}
@@ -184,7 +185,7 @@ const isCurrent = (href: string) => {
           rel="noopener noreferrer"
           class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-emerald-500 text-neutral-950 font-bold text-sm transition-colors hover:bg-emerald-400 shadow-md"
         >
-          <MessageCircle class="w-4 h-4 fill-current" />
+          <WhatsAppIcon class="w-4 h-4" />
           <span>Chat on WhatsApp</span>
         </a>
       )}

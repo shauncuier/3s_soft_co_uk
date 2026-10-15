@@ -1,7 +1,8 @@
 ---
 import { site, contactLinks } from '../data/site';
 import HeroVisual from './HeroVisual.astro';
-import { ArrowRight, ArrowUpRight, MessageCircle } from '@lucide/astro';
+import { ArrowRight, ArrowUpRight } from '@lucide/astro';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 ---
 
 <section class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 lg:pt-24 lg:pb-36 overflow-hidden border-b border-white/[0.08] bg-[#090b0a]">
@@ -68,7 +69,7 @@ import { ArrowRight, ArrowUpRight, MessageCircle } from '@lucide/astro';
             class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full font-semibold text-sm bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-neutral-950 transition-all duration-200 group"
             aria-label="Direct WhatsApp consultation"
           >
-            <MessageCircle class="w-4 h-4 fill-current text-emerald-400 group-hover:text-neutral-950 transition-colors" />
+            <WhatsAppIcon class="w-4 h-4 fill-current text-emerald-400 group-hover:text-neutral-950 transition-colors" />
             <span>Chat on WhatsApp</span>
           </a>
         )}

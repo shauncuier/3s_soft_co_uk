@@ -75,6 +75,7 @@ export const footerNavigation = [...navigation, { label: 'Contact', href: '/cont
 export const contactLinks = {
   whatsapp: site.contact.whatsapp ? `https://wa.me/${site.contact.whatsapp.replace(/\D/g, '')}` : '',
   email: site.contact.email ? `mailto:${site.contact.email}` : '',
+  emailSecondary: site.contact.emailSecondary ? `mailto:${site.contact.emailSecondary}` : '',
   phone: site.contact.phone ? `tel:${site.contact.phone.replace(/\s/g, '')}` : '',
 };
 

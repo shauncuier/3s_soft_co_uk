@@ -2,7 +2,8 @@
 import { site, footerNavigation, contactLinks, activeSocials } from '../data/site';
 import { Image } from 'astro:assets';
 import logoImg from '../assets/brand/3s-soft-logo.png';
-import { ArrowUpRight, MessageCircle, Mail, Phone, MapPin } from '@lucide/astro';
+import { ArrowUpRight, Mail, Phone, MapPin } from '@lucide/astro';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
 
 const year = new Date().getFullYear();
 ---
@@ -101,7 +102,7 @@ const year = new Date().getFullYear();
                 rel="noopener noreferrer"
                 class="text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2.5 font-medium"
               >
-                <MessageCircle class="w-4 h-4 text-emerald-400 shrink-0 fill-current" />
+                <WhatsAppIcon class="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>WhatsApp: Start a Conversation</span>
               </a>
             </li>
@@ -115,6 +116,18 @@ const year = new Date().getFullYear();
               >
                 <Mail class="w-4 h-4 text-neutral-400 shrink-0" />
                 <span>{site.contact.email}</span>
+              </a>
+            </li>
+          )}
+
+          {contactLinks.emailSecondary && (
+            <li>
+              <a
+                href={contactLinks.emailSecondary}
+                class="text-neutral-300 hover:text-emerald-400 transition-colors inline-flex items-center gap-2.5 font-mono text-xs"
+              >
+                <Mail class="w-4 h-4 text-neutral-400 shrink-0" />
+                <span>{site.contact.emailSecondary}</span>
               </a>
             </li>
           )}

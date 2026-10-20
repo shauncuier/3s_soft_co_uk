@@ -4,22 +4,25 @@ import type { CaseStudy } from '../../utils/caseStudies';
 import Section from '../ui/Section.astro';
 import Breadcrumbs from '../Breadcrumbs.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import BrowserFrame from '../ui/BrowserFrame.astro';
 
 interface Props {
   project: CaseStudy;
 }
 const { project } = Astro.props;
 const { data } = project;
+const url = data.liveUrl ? data.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : data.client;
 ---
 
-<Section padding="sm">
+<Section padding="sm" class="overflow-hidden">
+  <div class="rings text-brand" style="--rings-x: 92%; --rings-y: 0%;" aria-hidden="true"></div>
   <Breadcrumbs items={[{ label: 'Work', href: '/work/' }, { label: data.title }]} class="mb-8" />
-  <div class="max-w-prose">
-    <Eyebrow class="mb-4">{data.categoryLabel}</Eyebrow>
+  <div class="relative max-w-3xl">
+    <Eyebrow chip class="mb-5">{data.categoryLabel}</Eyebrow>
     <h1 class="font-display text-display-xl text-ink">{data.title}</h1>
-    <p class="mt-5 text-lede text-ink-2">{data.tagline}</p>
+    <p class="mt-5 max-w-prose text-lede text-ink-2">{data.tagline}</p>
   </div>
-  <figure class="mt-10 overflow-hidden rounded-xl border border-line bg-paper-2 shadow-card">
+  <BrowserFrame url={url} class="relative mt-10">
     <Image
       src={data.heroImage}
       alt={data.heroAlt}
@@ -30,5 +33,5 @@ const { data } = project;
       priority
       class="aspect-[16/10] w-full object-cover object-top"
     />
-  </figure>
+  </BrowserFrame>
 </Section>

@@ -24,3 +24,20 @@ Production build (`astro build`) served with `astro preview`; Lighthouse 12, mob
 - LCP on image-led pages sits at the 2.5 s "good" threshold under simulated slow 4G. Next step if needed: serve a smaller hero crop on phones or lower hero JPEG quality.
 - Lighthouse "network dependency tree" insight is informational (CSS → font chain); fonts are already preloaded.
 - Owner items still open: director/founder photos, company legal details, LinkedIn URL, confirmation that the client name "Ivan Troy" may be shown publicly.
+
+---
+
+# Addendum — visual direction v2 (same day)
+
+After the owner's review against forgestudio.space and designmingle.xyz the visual layer was restyled (spec §6 v2): bold Manrope display, floating pill header, screenshot mosaic hero, ticker, rounded dark panels, green services panel, browser-frame work showcase, testimonials, scroll reveals. Re-measured on the production build:
+
+| Page | Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS | Weight |
+|---|---|---|---|---|---|---|---|---|---|
+| `/` | 100 | 100 | 100 | 100 | 1.1 s | 1.6 s | 0 ms | 0 | 384 KiB |
+| `/services/shopify/` | 100 | 100 | 100 | 100 | 0.9 s | 1.3 s | 10 ms | 0 | 206 KiB |
+| `/work/` | 100 | 100 | 100 | 100 | 0.9 s | 1.7 s | 10 ms | 0 | 429 KiB |
+| `/case-studies/ivan-troy-amazon-brand-story/` | 98 | 100 | 100 | 100 | 0.9 s | 2.3 s | 10 ms | 0 | 411 KiB |
+| `/about/` | 100 | 100 | 100 | 100 | 0.9 s | 1.3 s | 0 ms | 0 | 205 KiB |
+| `/contact/` | 100 | 100 | 100 | 100 | 0.9 s | 1.3 s | 0 ms | 0 | 215 KiB |
+
+Notes: the first v2 build had the hero mosaic tiles eager, which pushed the headline's paint to 3.3 s (performance 92); making the tiles lazy restored 1.6 s / 100. Home weight fell to 384 KiB because the serif font was removed. Client JavaScript: mobile menu (~0.6 KB), scroll reveal (~0.5 KB), GA4. Marquee and reveals are CSS driven and disabled under `prefers-reduced-motion`; without JS every section is visible.

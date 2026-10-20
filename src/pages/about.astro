@@ -7,6 +7,8 @@ import PersonCard from '../components/site/PersonCard.astro';
 import CredentialList from '../components/site/CredentialList.astro';
 import ProcessSteps from '../components/site/ProcessSteps.astro';
 import CtaBand from '../components/site/CtaBand.astro';
+import Stats from '../components/home/Stats.astro';
+import Testimonials from '../components/site/Testimonials.astro';
 import { site } from '../data/site';
 import { whyUs } from '../data/content';
 ---
@@ -24,6 +26,7 @@ import { whyUs } from '../data/content';
       size="xl"
       eyebrow="About"
       title="A small team that builds, fixes and runs online sales for small businesses."
+      accent="small businesses."
       lede={site.positioning}
     />
   </Section>
@@ -47,8 +50,10 @@ import { whyUs } from '../data/content';
     </div>
   </Section>
 
-  <Section tone="paper-2" aria-labelledby="people-heading">
-    <SectionHeading id="people-heading" eyebrow="People" title="Who you'll be talking to" size="md" />
+  <Stats />
+
+  <Section aria-labelledby="people-heading">
+    <SectionHeading id="people-heading" eyebrow="People" title="Who you'll be talking to." accent="talking to." size="md" />
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       <PersonCard name={site.ukDirector.name} role={site.ukDirector.role} summary={site.ukDirector.summary} />
       <PersonCard name={site.founder.name} role={site.founder.role} summary="Leads the engineering and marketplace work across the team." url={site.founder.url} />
@@ -56,15 +61,15 @@ import { whyUs } from '../data/content';
   </Section>
 
   <Section id="credentials" aria-labelledby="credentials-heading">
-    <SectionHeading id="credentials-heading" eyebrow="Credentials" title="Things you can check for yourself" size="md" lede="Every claim below links to its source. We don't use the words 'partner' or 'endorsed' for Amazon, because a listing is a listing." />
+    <SectionHeading id="credentials-heading" eyebrow="Credentials" title="Things you can check for yourself." accent="check for yourself." size="md" lede="Every claim below links to its source. We don't use the words 'partner' or 'endorsed' for Amazon, because a listing is a listing." />
     <CredentialList class="mt-10" />
   </Section>
 
   <Section tone="paper-2" aria-labelledby="why-heading">
-    <SectionHeading id="why-heading" eyebrow="How we work" title="What small businesses tell us they value" size="md" />
+    <SectionHeading id="why-heading" eyebrow="How we work" title="What small businesses tell us they value." accent="they value." size="md" />
     <ul class="mt-10 grid gap-6 md:grid-cols-2">
       {whyUs.map((item) => (
-        <li class="rounded-lg border border-line bg-surface p-6 shadow-card">
+        <li class="rounded-xl border border-line bg-surface p-6 shadow-card hover-lift" data-reveal>
           <h3 class="text-display-sm text-ink">{item.title}</h3>
           <p class="mt-3 text-ink-2">{item.text}</p>
         </li>
@@ -73,5 +78,6 @@ import { whyUs } from '../data/content';
   </Section>
 
   <ProcessSteps tone="paper" />
+  <Testimonials />
   <CtaBand />
 </Layout>

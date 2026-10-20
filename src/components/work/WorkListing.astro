@@ -14,14 +14,15 @@ interface Props {
   lede: string;
   eyebrow?: string;
   current?: string;
+  accent?: string;
   breadcrumbs: { label: string; href?: string }[];
 }
-const { projects, heading, lede, eyebrow = 'Our work', current, breadcrumbs } = Astro.props;
+const { projects, heading, lede, eyebrow = 'Our work', current, accent, breadcrumbs } = Astro.props;
 ---
 
 <Section padding="sm">
   <Breadcrumbs items={breadcrumbs} class="mb-8" />
-  <SectionHeading as="h1" size="xl" eyebrow={eyebrow} title={heading} lede={lede} />
+  <SectionHeading as="h1" size="xl" eyebrow={eyebrow} title={heading} accent={accent} lede={lede} />
   <div class="mt-10">
     <CategoryNav current={current} />
   </div>

@@ -14,9 +14,9 @@ const related = await getRelatedCaseStudies(project, 2);
 if (related.length === 0) return;
 ---
 
-<Section tone="paper-2" aria-labelledby="related-heading">
+<Section aria-labelledby="related-heading">
   <div class="flex flex-wrap items-end justify-between gap-6">
-    <SectionHeading id="related-heading" eyebrow="More work" title="Other projects you might recognise yourself in" size="md" />
+    <SectionHeading id="related-heading" eyebrow="More work" title="Other projects you might recognise yourself in." accent="recognise yourself" size="md" />
     <Button href="/work/" variant="link">See all work</Button>
   </div>
   <div class="mt-10">

@@ -1,0 +1,34 @@
+---
+/** Avatars + stars + verified-review line, used under hero calls to action. */
+import { testimonials } from '../../data/testimonials';
+import { getCredential, site } from '../../data/site';
+import { Star } from '@lucide/astro';
+
+interface Props {
+  tone?: 'default' | 'on-dark';
+  class?: string;
+}
+const { tone = 'default', class: className = '' } = Astro.props;
+const names = testimonials.slice(0, 3).map((t) => t.name);
+const initials = (n: string) => n.replace(/[_-]/g, ' ').split(/\s+/).map((p) => p[0]?.toUpperCase() ?? '').slice(0, 2).join('');
+const text = tone === 'on-dark' ? 'text-on-graphite-2' : 'text-ink-2';
+const strong = tone === 'on-dark' ? 'text-paper' : 'text-ink';
+const ring = tone === 'on-dark' ? 'ring-graphite' : 'ring-paper';
+const fiverr = getCredential('fiverr').href;
+---
+
+<a href={fiverr} target="_blank" rel="noopener noreferrer" class:list={['group inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2', className]}>
+  <span class="flex -space-x-2.5" aria-hidden="true">
+    {names.map((n) => (
+      <span class:list={['inline-flex size-9 items-center justify-center rounded-full bg-brand-100 text-small font-bold text-brand-800 ring-2', ring]}>{initials(n)}</span>
+    ))}
+  </span>
+  <span class="flex items-center gap-2">
+    <span class="flex text-brand" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map(() => <Star class="size-4 fill-current" />)}
+    </span>
+    <span class:list={['text-small', text]}>
+      <strong class:list={['font-semibold', strong]}>5.0 from 185+ reviews</strong> · {site.reach.toLowerCase()}
+    </span>
+  </span>
+</a>

@@ -5,7 +5,7 @@ import Eyebrow from '../ui/Eyebrow.astro';
 import Button from '../ui/Button.astro';
 import HeroMosaic from './HeroMosaic.astro';
 import WhatsAppIcon from '../icons/WhatsAppIcon.astro';
-import { BadgeCheck } from '@lucide/astro';
+import TrustRow from '../site/TrustRow.astro';
 
 const accent = 'your marketplace listings';
 const idx = site.headline.indexOf(accent);
@@ -32,10 +32,8 @@ const parts = idx >= 0 ? [site.headline.slice(0, idx), accent, site.headline.sli
           </Button>
         )}
       </div>
-      <p class="mt-5 inline-flex items-center gap-2 text-small text-ink-3">
-        <BadgeCheck class="size-4 text-brand" aria-hidden="true" />
-        Free call · fixed-price plan · {site.contact.responsePromise}
-      </p>
+      <div class="mt-7"><TrustRow /></div>
+      <p class="mt-4 text-small text-ink-3">Free call · fixed-price plan · {site.contact.responsePromise}</p>
     </div>
   </Container>
 

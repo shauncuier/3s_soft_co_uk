@@ -22,12 +22,15 @@ const href = `/case-studies/${id}/`;
 
 <article
   class:list={[
-    'group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-card transition-[box-shadow,border-color] duration-180 ease-soft hover:border-line-strong hover:shadow-card-hover focus-within:ring-2 focus-within:ring-brand focus-within:ring-offset-2 focus-within:ring-offset-paper',
+    'group relative flex flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-card hover-lift hover:shadow-card-hover focus-within:ring-2 focus-within:ring-brand focus-within:ring-offset-2 focus-within:ring-offset-paper',
     featured && 'md:col-span-2 md:grid md:grid-cols-2',
     className,
   ]}
 >
-  <div class:list={['overflow-hidden bg-paper-2', featured ? 'aspect-[4/3] md:aspect-auto md:h-full' : 'aspect-[4/3]']}>
+  <div class:list={['flex flex-col overflow-hidden bg-paper-2', featured ? 'md:h-full' : '']}>
+    <div class="flex items-center gap-1.5 border-b border-line bg-paper-2 px-4 py-2" aria-hidden="true">
+      <span class="size-2 rounded-full bg-line-strong"></span><span class="size-2 rounded-full bg-line-strong"></span><span class="size-2 rounded-full bg-line-strong"></span>
+    </div>
     <Image
       src={data.heroImage}
       alt={data.heroAlt}
@@ -36,7 +39,7 @@ const href = `/case-studies/${id}/`;
       widths={featured ? [480, 768, 1024, 1200] : [400, 640, 800]}
       sizes={featured ? '(min-width: 1152px) 560px, (min-width: 768px) 50vw, 100vw' : '(min-width: 1152px) 360px, (min-width: 768px) 33vw, 100vw'}
       loading={eager ? 'eager' : 'lazy'}
-      class="h-full w-full object-cover object-top transition-transform duration-500 ease-soft group-hover:scale-[1.02]"
+      class:list={['w-full object-cover object-top transition-transform duration-500 ease-soft group-hover:scale-[1.02]', featured ? 'aspect-[4/3] md:aspect-auto md:h-full md:flex-1' : 'aspect-[4/3]']}
     />
   </div>
 

@@ -70,7 +70,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/styleguide') && !/\/case-studies\/$/.test(page),
+      filter: (page) => !page.includes('/404') && !/\/case-studies\/$/.test(page),
     }),
   ],
 });

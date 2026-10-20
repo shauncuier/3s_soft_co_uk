@@ -33,4 +33,17 @@ export const testimonials: readonly Testimonial[] = [
     role: 'Client, United Kingdom',
     source: 'Fiverr review, 5 stars',
   },
+  {
+    quote:
+      'It was nice working with Jashedul - was very patient and understood my expectations. I have no complaints and I would love to work with him in the future. Will be placing my next order with him shortly. - thank you once again.',
+    name: 'leonglobal',
+    role: 'Client, United Kingdom',
+    source: 'Fiverr review, 4 stars',
+  },
+  {
+    quote: 'Great work! Fast delivery. Thanks',
+    name: 'alexvoskov',
+    role: 'Client, United States',
+    source: 'Fiverr review, 5 stars',
+  },
 ];

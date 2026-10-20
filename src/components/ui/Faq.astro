@@ -1,0 +1,29 @@
+---
+/**
+ * Accessible FAQ list using native <details>; no JavaScript.
+ * Pass the same items to Layout `faqs` for FAQPage schema.
+ */
+import { Plus } from '@lucide/astro';
+
+interface Props {
+  items: { q: string; a: string }[];
+  tone?: 'default' | 'on-dark';
+  class?: string;
+}
+const { items, tone = 'default', class: className = '' } = Astro.props;
+const border = tone === 'on-dark' ? 'border-white/15 divide-white/15' : 'border-line divide-line';
+const q = tone === 'on-dark' ? 'text-on-graphite' : 'text-ink';
+const a = tone === 'on-dark' ? 'text-on-graphite-2' : 'text-ink-2';
+---
+
+<div class:list={['divide-y border-y', border, className]}>
+  {items.map((item) => (
+    <details class="group py-5">
+      <summary class:list={['flex items-start justify-between gap-6 rounded-sm text-lede font-semibold', q]}>
+        <span>{item.q}</span>
+        <Plus class="mt-1 size-5 shrink-0 transition-transform duration-180 ease-soft group-open:rotate-45" aria-hidden="true" />
+      </summary>
+      <div class:list={['max-w-prose pt-3 text-body', a]} set:html={item.a} />
+    </details>
+  ))}
+</div>

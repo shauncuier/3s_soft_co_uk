@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/brand/logo.png';
+import logoWhite from '../../assets/brand/logo-white.png';
+
+interface Props {
+  variant?: 'default' | 'white';
+  /** Rendered width in CSS px. Source is 441×303; keep ≤160. */
+  width?: number;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { variant = 'default', width = 104, class: className = '', loading = 'eager' } = Astro.props;
+const src = variant === 'white' ? logoWhite : logo;
+const height = Math.round((width * 303) / 441);
+---
+
+<Image
+  src={src}
+  alt="3s-Soft"
+  width={width}
+  height={height}
+  densities={[1, 2]}
+  loading={loading}
+  layout="fixed"
+  class:list={['block select-none', className]}
+/>

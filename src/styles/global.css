@@ -1,246 +1,218 @@
-@import "@fontsource-variable/manrope";
 @import "tailwindcss";
+@import "./prose.css" layer(components);
 
+/* ------------------------------------------------------------------ */
+/* Design tokens — the only place colours, type sizes and shapes live  */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Surfaces */
+  --color-paper: #f7f6f2;
+  --color-paper-2: #eeece6;
+  --color-surface: #ffffff;
+  --color-line: #dcd9d1;
+  --color-line-strong: #c9c5bb;
+
+  /* Text */
+  --color-ink: #1b1f1d;
+  --color-ink-2: #474e4a;
+  --color-ink-3: #6a726e;
+
+  /* Brand green */
+  --color-brand: #1f8a4c;
+  --color-brand-700: #176d3b;
+  --color-brand-800: #125a30;
+  --color-brand-100: #dff1e6;
+  --color-brand-50: #f0f8f3;
+
+  /* Dark bands (hero / final CTA only) */
+  --color-graphite: #161918;
+  --color-graphite-2: #212624;
+  --color-on-graphite: #f3f4f1;
+  --color-on-graphite-2: #b7bdb9;
+
+  /* Semantic */
+  --color-success: #1f8a4c;
+  --color-warning: #b7791f;
+  --color-danger: #b42318;
+
+  /* Type families (CSS variables come from the Astro Fonts API) */
+  --font-sans: var(--font-manrope), system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+
+  /* Fluid type scale */
+  --text-display-xl: clamp(2.75rem, 1.9rem + 3.6vw, 5rem);
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: -0.015em;
+  --text-display-lg: clamp(2.125rem, 1.5rem + 2.4vw, 3.5rem);
+  --text-display-lg--line-height: 1.06;
+  --text-display-lg--letter-spacing: -0.01em;
+  --text-display-md: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  --text-display-md--line-height: 1.15;
+  --text-display-sm: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
+  --text-display-sm--line-height: 1.2;
+  --text-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-lede--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.55;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Layout */
+  --spacing-section: clamp(4rem, 8vw, 7.5rem);
+  --spacing-section-sm: clamp(2.5rem, 5vw, 4.5rem);
+  --container-content: 72rem;
+  --container-prose: 44rem;
+  --container-narrow: 36rem;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(27 31 29 / 0.06), 0 10px 30px -14px rgb(27 31 29 / 0.14);
+  --shadow-card-hover: 0 2px 4px rgb(27 31 29 / 0.06), 0 18px 40px -16px rgb(27 31 29 / 0.2);
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --default-transition-duration: 180ms;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
 @layer base {
-  :root {
-    --font-sans: 'Manrope Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    
-    /* Luxury Dark-First Architectural Palette */
-    --bg-base: #090b0a;
-    --bg-surface: #111413;
-    --bg-surface-elevated: #181d1b;
-    --bg-surface-hover: #202724;
-    
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --border-accent: rgba(31, 138, 76, 0.35);
-
-    --text-primary: #f5f7f6;
-    --text-secondary: #9ea8a3;
-    --text-muted: #5e6863;
-    
-    /* 3s-Soft Signature Green */
-    --brand-green: #1f8a4c;
-    --brand-green-glow: #22c55e;
-    --brand-green-tint: rgba(31, 138, 76, 0.12);
-    --brand-green-border: rgba(34, 197, 94, 0.25);
-  }
-
   html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
-    background-color: var(--bg-base);
-    color: var(--text-primary);
-    scroll-behavior: smooth;
-    text-rendering: optimizeLegibility;
+    font-size: 100%;
+    line-height: var(--text-body--line-height);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color-scheme: dark;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+    scroll-behavior: smooth;
   }
 
   body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    background-color: var(--bg-base);
+    font-size: var(--text-body);
+    overflow-x: clip;
+  }
+
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
   }
 
   ::selection {
-    background-color: #22c55e;
-    color: #090b0a;
+    background-color: var(--color-brand-100);
+    color: var(--color-ink);
   }
 
-  /* Accessible visible focus states */
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid var(--brand-green-glow);
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  img, video {
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-brand);
     outline-offset: 3px;
   }
 }
 
-/* Subtle architectural grid pattern */
-.agency-grid-pattern {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-.agency-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(17, 20, 19, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-}
-
-.glass-panel-elevated {
-  background: rgba(24, 29, 27, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-strong);
-}
-
-/* Noise overlay texture for depth */
-.grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-}
-
-/* Text balance & pretty */
-.text-balance {
-  text-wrap: balance;
-}
-
-.text-pretty {
-  text-wrap: pretty;
-}
-
-/* Smooth custom scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #090b0a;
-}
-::-webkit-scrollbar-thumb {
-  background: #202724;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2d3833;
-}
-
-/* ------------------------------------------------------------------ */
-/* Forge Studio Motion System: Orbits, Marquees & Scroll Reveals       */
-/* ------------------------------------------------------------------ */
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@utility link-underline {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 180ms var(--ease-soft);
+  &:hover {
+    text-decoration-color: currentColor;
   }
 }
 
-@keyframes spin-slow-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
-@keyframes marquee-left {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-right {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes float-subtle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-/* Orbit circular tracks */
-.animate-spin-orbit {
-  animation: spin-slow var(--orbit-duration, 90s) linear infinite;
-  will-change: transform;
-}
-
-.animate-spin-orbit-reverse {
-  animation: spin-slow-reverse var(--orbit-duration, 90s) linear infinite;
-  will-change: transform;
-}
-
-/* Infinite Marquees */
-.animate-marquee-left {
-  display: flex;
-  width: max-content;
-  animation: marquee-left var(--marquee-speed, 35s) linear infinite;
-  will-change: transform;
-}
-
-.animate-marquee-right {
-  display: flex;
-  width: max-content;
-  animation: marquee-right var(--marquee-speed, 35s) linear infinite;
-  will-change: transform;
-}
-
-.marquee-container:hover .animate-marquee-left,
-.marquee-container:hover .animate-marquee-right {
-  animation-play-state: paused;
-}
-
-/* Scroll reveal system with cubic-bezier easing */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-[data-reveal].is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-[data-reveal="scale"] {
-  opacity: 0;
-  transform: scale(0.96) translateY(20px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-reveal="scale"].is-revealed {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-[data-delay="100"] { transition-delay: 100ms; }
-[data-delay="200"] { transition-delay: 200ms; }
-[data-delay="300"] { transition-delay: 300ms; }
-[data-delay="400"] { transition-delay: 400ms; }
-[data-delay="500"] { transition-delay: 500ms; }
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
+/* Entrance reveal: opt-in, once, respects reduced motion. Applied by a tiny
+   IntersectionObserver only if present; without JS everything is visible. */
+@utility reveal {
+  @media (prefers-reduced-motion: no-preference) {
+    &[data-reveal-pending] {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    transition: opacity 250ms var(--ease-soft), transform 250ms var(--ease-soft);
   }
 }

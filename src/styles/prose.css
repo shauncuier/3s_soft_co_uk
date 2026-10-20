@@ -1,0 +1,118 @@
+/* Editorial prose for MDX case-study bodies. Scoped; no plugin needed. */
+.prose-editorial {
+  max-width: var(--container-prose);
+  color: var(--color-ink-2);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+}
+.prose-editorial > * + * {
+  margin-top: 1.1em;
+}
+.prose-editorial h2,
+.prose-editorial h3,
+.prose-editorial h4 {
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+.prose-editorial h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-display-md);
+  line-height: var(--text-display-md--line-height);
+  margin-top: 2.2em;
+}
+.prose-editorial h3 {
+  font-weight: 700;
+  font-size: var(--text-display-sm);
+  line-height: var(--text-display-sm--line-height);
+  margin-top: 2em;
+}
+.prose-editorial h4 {
+  font-weight: 700;
+  font-size: var(--text-lede);
+  line-height: 1.35;
+  margin-top: 1.6em;
+}
+.prose-editorial p {
+  text-wrap: pretty;
+}
+.prose-editorial a {
+  color: var(--color-brand-700);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-brand-700) 40%, transparent);
+  text-underline-offset: 0.18em;
+}
+.prose-editorial a:hover {
+  text-decoration-color: var(--color-brand-700);
+}
+.prose-editorial strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.prose-editorial ul,
+.prose-editorial ol {
+  padding-left: 1.4em;
+}
+.prose-editorial ul {
+  list-style: disc;
+}
+.prose-editorial ol {
+  list-style: decimal;
+}
+.prose-editorial li + li {
+  margin-top: 0.4em;
+}
+.prose-editorial li::marker {
+  color: var(--color-brand);
+}
+.prose-editorial blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1.1em;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-lede);
+  line-height: 1.45;
+}
+.prose-editorial hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin-block: 2.5em;
+}
+.prose-editorial code {
+  font-size: 0.92em;
+  background: var(--color-paper-2);
+  border-radius: var(--radius-sm);
+  padding: 0.12em 0.4em;
+  color: var(--color-ink);
+}
+.prose-editorial pre {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  font-size: var(--text-small);
+}
+.prose-editorial pre code {
+  background: none;
+  padding: 0;
+}
+.prose-editorial img {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-line);
+}
+.prose-editorial table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+.prose-editorial th,
+.prose-editorial td {
+  text-align: left;
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid var(--color-line);
+}
+.prose-editorial th {
+  color: var(--color-ink);
+  font-weight: 700;
+}

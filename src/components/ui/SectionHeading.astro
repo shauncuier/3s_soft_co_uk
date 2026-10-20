@@ -1,0 +1,42 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  size?: 'xl' | 'lg' | 'md';
+  align?: 'left' | 'center';
+  tone?: 'default' | 'on-dark';
+  id?: string;
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  lede,
+  as: Heading = 'h2',
+  size = 'lg',
+  align = 'left',
+  tone = 'default',
+  id,
+  class: className = '',
+} = Astro.props;
+
+const sizes = {
+  xl: 'text-display-xl',
+  lg: 'text-display-lg',
+  md: 'text-display-md',
+};
+const titleColour = tone === 'on-dark' ? 'text-on-graphite' : 'text-ink';
+const ledeColour = tone === 'on-dark' ? 'text-on-graphite-2' : 'text-ink-2';
+---
+
+<div class:list={['max-w-prose', align === 'center' && 'mx-auto text-center', className]}>
+  {eyebrow && <Eyebrow tone={tone} class="mb-4">{eyebrow}</Eyebrow>}
+  <Heading id={id} class:list={['font-display font-normal', sizes[size], titleColour]}>{title}</Heading>
+  {lede && <p class:list={['mt-5 text-lede', ledeColour]}>{lede}</p>}
+  <slot />
+</div>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  tone?: 'neutral' | 'brand' | 'on-dark';
+  class?: string;
+}
+const { tone = 'neutral', class: className = '' } = Astro.props;
+const tones = {
+  neutral: 'bg-paper-2 text-ink-2',
+  brand: 'bg-brand-100 text-brand-800',
+  'on-dark': 'bg-white/10 text-on-graphite',
+};
+---
+
+<span class:list={['inline-flex items-center rounded-sm px-2.5 py-1 text-small font-medium leading-none', tones[tone], className]}>
+  <slot />
+</span>

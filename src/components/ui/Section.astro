@@ -1,0 +1,40 @@
+---
+import Container from './Container.astro';
+
+interface Props {
+  tone?: 'paper' | 'paper-2' | 'surface' | 'graphite';
+  padding?: 'default' | 'sm' | 'none';
+  contained?: boolean;
+  id?: string;
+  'aria-labelledby'?: string;
+  'aria-label'?: string;
+  class?: string;
+}
+
+const {
+  tone = 'paper',
+  padding = 'default',
+  contained = true,
+  id,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const tones = {
+  paper: 'bg-paper text-ink',
+  'paper-2': 'bg-paper-2 text-ink',
+  surface: 'bg-surface text-ink',
+  graphite: 'bg-graphite text-on-graphite',
+};
+const paddings = { default: 'py-section', sm: 'py-section-sm', none: '' };
+---
+
+<section id={id} class:list={[tones[tone], paddings[padding], className]} {...rest}>
+  {contained ? (
+    <Container>
+      <slot />
+    </Container>
+  ) : (
+    <slot />
+  )}
+</section>

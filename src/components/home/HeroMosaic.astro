@@ -47,7 +47,7 @@ const tileClass = 'block w-[260px] shrink-0 overflow-hidden rounded-xl border bo
     <div class="marquee-track gap-5 pr-5">
       {rowOne.map((t, i) => (
         <a href={t.href} class:list={[tileClass, 'hover-lift']} aria-label={t.label}>
-          <Image src={t.src} alt={t.alt} width={640} height={480} widths={[320, 640]} sizes="320px" loading={i < 3 ? 'eager' : 'lazy'} priority={i === 0} class="aspect-[4/3] w-full object-cover object-top" />
+          <Image src={t.src} alt={t.alt} width={640} height={480} widths={[320, 640]} sizes="320px" loading="lazy" class="aspect-[4/3] w-full object-cover object-top" />
         </a>
       ))}
       <div class="contents" aria-hidden="true">

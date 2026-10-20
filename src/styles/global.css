@@ -15,10 +15,10 @@
   /* Text */
   --color-ink: #1b1f1d;
   --color-ink-2: #474e4a;
-  --color-ink-3: #6a726e;
+  --color-ink-3: #646b67;
 
   /* Brand green */
-  --color-brand: #1f8a4c;
+  --color-brand: #1e864a;
   --color-brand-700: #176d3b;
   --color-brand-800: #125a30;
   --color-brand-100: #dff1e6;
@@ -31,7 +31,7 @@
   --color-on-graphite-2: #b7bdb9;
 
   /* Semantic */
-  --color-success: #1f8a4c;
+  --color-success: #1e864a;
   --color-warning: #b7791f;
   --color-danger: #b42318;
 

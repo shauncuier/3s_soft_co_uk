@@ -106,8 +106,8 @@ Light, editorial, unhurried. The work and the words carry the page; decoration i
 | `line` | `#dcd9d1` | Borders, dividers |
 | `ink` | `#1b1f1d` | Headlines, body |
 | `ink-2` | `#474e4a` | Secondary text |
-| `ink-3` | `#6a726e` | Captions, metadata (≥15px only) |
-| `brand` | `#1f8a4c` | Buttons, accents, links ≥17px (4.6:1 on paper) |
+| `ink-3` | `#646b67` | Captions, metadata (≥15px only); 4.6:1 on paper-2 |
+| `brand` | `#1e864a` | Buttons, accents; white text on it is 4.6:1 |
 | `brand-700` | `#176d3b` | Small links, hover |
 | `brand-100` | `#dff1e6` | Soft highlight, tags |
 | `brand-50` | `#f0f8f3` | Tinted panels |

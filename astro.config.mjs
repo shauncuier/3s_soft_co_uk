@@ -52,9 +52,12 @@ export default defineConfig({
       lastmod: new Date(),
       serialize: (item) => {
         // Home and service pages are the conversion pages: hint their importance.
-        if (/\/$/.test(item.url) && (item.url.endsWith('3s-soft.co.uk/') || item.url.includes('/services/'))) {
+        if (item.url.endsWith('3s-soft.co.uk/') || item.url.includes('/services/')) {
           item.priority = 0.9;
-          item.changefreq = 'monthly';
+          item.changefreq = /** @type {any} */ ('monthly');
+        } else if (item.url.includes('/insights/')) {
+          item.priority = 0.7;
+          item.changefreq = /** @type {any} */ ('monthly');
         }
         return item;
       },

@@ -1,0 +1,46 @@
+---
+/**
+ * Article card for the Insights listing, service pages and "More insights".
+ * The title link is stretched over the card so the accessible name stays short.
+ */
+import Card from '../ui/Card.astro';
+import Tag from '../ui/Tag.astro';
+import { ArrowRight } from '@lucide/astro';
+import type { Insight } from '../../utils/insights';
+import { insightCategories, formatDate, readingTime } from '../../utils/insights';
+
+interface Props {
+  entry: Insight;
+  headingLevel?: 'h2' | 'h3';
+  class?: string;
+}
+const { entry, headingLevel: Heading = 'h3', class: className = '' } = Astro.props;
+const { data, id } = entry;
+const href = `/insights/${id}/`;
+const minutes = readingTime(entry);
+---
+
+<Card
+  as="article"
+  interactive
+  class:list={[
+    'group relative flex h-full flex-col hover-lift focus-within:ring-2 focus-within:ring-brand focus-within:ring-offset-2 focus-within:ring-offset-paper',
+    className,
+  ]}
+>
+  <div class="flex flex-wrap items-center gap-2">
+    <Tag tone="brand">{insightCategories[data.category]}</Tag>
+    <span class="text-small text-ink-3">{minutes} min read</span>
+  </div>
+  <Heading class="mt-4 text-display-sm font-bold text-ink">
+    <a href={href} class="outline-none after:absolute after:inset-0 after:content-['']">{data.title}</a>
+  </Heading>
+  <p class="mt-3 text-ink-2">{data.description}</p>
+  <div class="mt-auto flex items-center justify-between gap-4 pt-6 text-small text-ink-3">
+    <time datetime={data.publishDate.toISOString().slice(0, 10)}>{formatDate(data.publishDate)}</time>
+    <span class="inline-flex items-center gap-1 font-semibold text-brand-700" aria-hidden="true">
+      Read
+      <ArrowRight class="size-4 transition-transform duration-180 group-hover:translate-x-0.5" />
+    </span>
+  </div>
+</Card>

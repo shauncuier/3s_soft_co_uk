@@ -1,0 +1,84 @@
+---
+title: "Connecting a WooCommerce store to Dropshipzone"
+description: "Connect WooCommerce to the Dropshipzone supplier with our free WordPress.org plugin: requirements, set-up, price and stock rules, orders and tracking."
+publishDate: 2026-10-21
+category: automation
+tags: ["WooCommerce", "Dropshipzone", "WordPress plugin", "dropshipping", "stock sync"]
+relatedService: automation
+relatedCaseStudyId: dropshipzone-price-stock-sync
+heroImage: "../../assets/projects/dropshipzone-sync.jpg"
+heroAlt: "3S Soft Price & Stock Sync for Dropshipzone, a WooCommerce plugin published on WordPress.org"
+faqs:
+  - q: "Is the plugin free, and is it official?"
+    a: "It is free on WordPress.org. It is an independent integration built by 3s-Soft and is not affiliated with, endorsed by or sponsored by Dropshipzone. You need your own Dropshipzone account and API credentials to use it."
+  - q: "Does the plugin create products on its own?"
+    a: "The scheduled sync never creates products. It only updates prices and stock on products already matched by SKU. Products are created through the Product Import page or, if you turn it on, Auto Import."
+  - q: "Does it pay the supplier for orders?"
+    a: "No. The plugin submits the order and the delivery address to Dropshipzone. Orders are created there as Not Submitted until you log in to Dropshipzone and pay for them."
+---
+
+Dropshipzone is an Australian wholesale supplier used by dropshipping stores in Australia and New Zealand. If your WooCommerce store sells its catalogue, the daily problem is keeping thousands of prices and stock levels in step with the supplier and getting orders to them without re-keying. We built a free plugin for exactly that, published on WordPress.org as [3S Soft Price & Stock Sync for Dropshipzone](https://wordpress.org/plugins/3s-soft-price-stock-sync-for-dropshipzone/). This article is the set-up guide, written from the plugin's own readme so that nothing here is a promise the software does not keep. One thing to be clear about first: it is an independent integration, not affiliated with, endorsed by or sponsored by Dropshipzone.
+
+## What do you need before you start?
+
+The readme lists four requirements:
+
+- WordPress 6.2 or higher
+- WooCommerce 8.0 or higher, installed and active
+- PHP 7.4 or higher
+- A Dropshipzone account with API access, and the email and password for it
+
+The plugin uses the Dropshipzone API, which allows 60 requests a minute and 600 an hour. The plugin paces itself to stay within those limits, so a large catalogue takes longer to sync in full but does not get cut off.
+
+## How do you install and connect it?
+
+1. Install the plugin from **Plugins, then Add New** in WordPress by searching for "3S Soft Dropshipzone", or upload the plugin folder to `wp-content/plugins/` and activate it.
+2. Open **DSZ Sync, then API Settings** and enter your Dropshipzone email and password. The password is encrypted with your WordPress security salts before it is stored.
+3. Set your price and stock rules, covered next.
+4. Run a manual sync, or wait for the first scheduled one.
+
+The plugin does not work without a Dropshipzone account, and it does not do anything until the credentials are in.
+
+## How do products get matched and imported?
+
+Matching is by **SKU**. A WooCommerce product whose SKU matches a Dropshipzone SKU is linked and kept in sync. If you already have products in the store, the plugin can scan them and link the ones that match. Products without a matching SKU are skipped and listed on the Logs page, so you can see what was ignored and why.
+
+To add new products, use the **Product Import** page to search the Dropshipzone catalogue and import what you want, with images sideloaded into your media library. If you would rather the store fill itself, **Auto Import** can run on a schedule with filters for new arrivals, in-stock items, free shipping, on-sale items and New Zealand availability, a minimum stock threshold that defaults to 10, and a supplier blacklist of up to 50 IDs.
+
+The scheduled sync never creates products on its own; it only updates the ones already linked. That is a deliberate limit so that a supplier adding a thousand products overnight does not put a thousand unreviewed products on your shop.
+
+Product variations are not yet supported, which the readme lists as planned. If your range depends on size and colour variants, say so before you build the store around the plugin.
+
+## How do you set price and stock rules?
+
+Under **Price Rules** you choose a markup, either a percentage on top of the supplier price or a fixed amount added, whether to add 10 per cent GST or treat the supplier price as already including it, and whether to round to .99, .95 or the nearest whole dollar. Advanced price rules let you order rules by category, supplier ID or SKU prefix, so a fragile category can carry a higher margin than the rest. Sale prices follow the supplier's promotion dates.
+
+Under **Stock Rules** you set a **stock buffer**, the number of units subtracted from the supplier's stock before it is written to your store. If the supplier shows 5 and your buffer is 2, your store shows 3. This is the setting that stops overselling when the supplier's stock moves between syncs. You can also auto-republish draft products when stock returns, and set products that vanish from the supplier's API to draft rather than leaving them live.
+
+If the rules are not enough, developers can hook into the price and stock calculations with the `dsz_calculated_price` and `dsz_calculated_stock` filters.
+
+## How often does it sync, and what is Fast Stock Updates?
+
+Under **Sync Control** the schedule is hourly, twice daily or daily; hourly is the default. The full sync updates prices and stock for every linked product in batches, which is the right thing to do once or twice a day.
+
+**Fast Stock Updates** is a separate, lighter pass that asks Dropshipzone only for the SKUs whose stock has changed since the last check and updates just those. On a store with thousands of products it finishes in a fraction of the time of a full sweep, which is why it exists: stock changes constantly and prices rarely, so the two are handled at different speeds. The full sync still handles prices. There is no webhook support, because Dropshipzone does not offer a webhook API, so polling on a schedule is the only option.
+
+## How does shipping work at the checkout?
+
+Dropshipzone charges shipping by SKU and destination. The plugin adds a WooCommerce shipping method that maps the customer's Australian postcode, or New Zealand destination, to Dropshipzone's zones and uses the supplier's per-product rates. You can add a handling fee, set a free-shipping threshold, and choose to treat a zero-dollar rate from the supplier as "unavailable" and fall back to your own rate instead. The lookup only runs when the shipping method is enabled for a zone, so stores that use their own flat rates are unaffected.
+
+## How do orders and tracking flow?
+
+Under **Orders** you can submit orders to Dropshipzone one at a time, in bulk, or automatically when an order reaches "processing". Submitting an order sends the customer's name, address, phone number and order notes to Dropshipzone, which the readme discloses under external services. Orders are created at Dropshipzone as **Not Submitted** until you log in there and pay for them; the plugin does not pay the supplier for you.
+
+Tracking then comes back the other way. A scheduled worker checks Dropshipzone for consignment numbers and carrier updates on orders from the last 90 days, writes them to the WooCommerce order, and can mark the order as completed automatically. Orders also show an estimated item profit, and the products list gains a margin column, so you can see what each sale earned after the supplier price.
+
+## What should you check after the first sync?
+
+- Open **Logs** and look for skipped SKUs. A long list usually means SKUs in your store were typed differently from the supplier's.
+- Spot-check five products against the Dropshipzone catalogue: price, GST, rounding and stock minus your buffer.
+- Place a test order and confirm it appears in Dropshipzone as Not Submitted.
+- Confirm the shipping method quotes at the checkout for a postcode you know.
+- Set the log retention, which defaults to 30 days.
+
+The plugin is the same engineering we described in the [Dropshipzone case study](/case-studies/dropshipzone-price-stock-sync/): delta stock passes, batch processing, rate limiting and locks so that two syncs never run over each other. If your supplier is not Dropshipzone, or you need variations, category mapping or a connection to Amazon and eBay as well, that is custom work, and it is what our [automation and integrations service](/services/automation/) does. Tell us the supplier on a 15-minute call and we will check their API before we quote.

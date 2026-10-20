@@ -1,0 +1,73 @@
+---
+title: "How to keep stock in sync between Shopify, Amazon and eBay"
+description: "Why stock drifts between Shopify, Amazon and eBay, what Shopify's own Marketplace Connect app does and doesn't do, and when a custom sync is worth it."
+publishDate: 2026-10-21
+category: automation
+tags: ["Shopify", "Amazon", "eBay", "inventory sync", "Marketplace Connect"]
+relatedService: automation
+relatedCaseStudyId: dropshipzone-price-stock-sync
+faqs:
+  - q: "Does Shopify sync stock with Amazon and eBay out of the box?"
+    a: "Not on its own. You need Shopify's free Marketplace Connect app, or a third-party app, or a custom integration. Marketplace Connect is the first thing to try for a straightforward catalogue."
+  - q: "How often should stock sync run?"
+    a: "As close to real time as your tools allow for stock, because overselling happens in minutes. Prices and product details can update less often. If a tool only offers scheduled syncs, use the shortest interval and set a safety buffer."
+  - q: "What is a stock buffer and should I use one?"
+    a: "A buffer holds back a few units from each marketplace so a sale on one channel cannot push another channel below zero before the sync catches up. If you have five in stock and a buffer of two, the marketplace shows three. Use one on any item you sell on more than one channel."
+---
+
+The call usually goes like this. A customer has ordered on eBay, the item sold out on Shopify the night before, and nobody noticed until the eBay order came in. Now there is a cancellation to explain, a defect on the eBay account, and a morning lost to checking the other listings by hand. If you sell the same stock on more than one channel, you will have had a version of that call. This article explains why it happens and the three ways to stop it.
+
+## Why does stock drift between channels in the first place?
+
+Shopify, Amazon and eBay each keep their own stock count. When a sale happens on one of them, the others do not know until something tells them. Three things make the gap worse.
+
+**Time.** A scheduled sync that runs every hour leaves an hour-wide window in which two customers can buy the last unit on two channels. A sale on Amazon during a Sunday evening TV advert can empty an item on every channel before Monday's sync.
+
+**Direction.** Some tools push stock from Shopify to the marketplaces but never read marketplace sales back. Each Amazon order then has to be entered into Shopify by hand before Shopify's count is right, and if that step is missed the push overwrites Amazon with a stale number.
+
+**Identity.** The sync has to know that Shopify's "BLT-IVO-BLK-36" is the same thing as the Amazon SKU and the eBay SKU. If the SKUs differ, or a variant on Shopify is a separate listing on eBay, the tool either skips the item or matches the wrong one. Most sync problems we are asked to fix turn out to be SKU problems.
+
+## What does Shopify's own Marketplace Connect app do?
+
+Shopify's free app, Marketplace Connect, is the right starting point for most small sellers. Shopify's help pages describe what it covers, and we will stick to what they say rather than what the app store listing promises.
+
+- It connects a Shopify store to **Amazon, eBay, Walmart (United States only) and Target Plus (United States only)**. New Etsy connections are no longer available, though existing ones still work. See [Shopify's Marketplace Connect overview](https://help.shopify.com/en/manual/online-sales-channels/marketplaces/marketplace-connect).
+- Once you link your marketplace listings, it **syncs orders and inventory** for those listings, and edits to products in Shopify flow to the connected marketplaces.
+- For Amazon orders you fulfil yourself (FBM), Shopify states that **inventory counts are updated in Shopify and on Amazon** and tracking is sent back to Amazon automatically. For stock held by Amazon (FBA), you can set the listing to switch to your own stock when FBA runs out. See [fulfilment in Marketplace Connect](https://help.shopify.com/en/manual/online-sales-channels/marketplace-connect/manage-orders/fulfillment).
+- For eBay listings you can set an **inventory adjustment: a fixed value, a buffer or a maximum quantity**. Shopify's own example is a buffer of two on a store stock of five, which shows three on the eBay listing. See [managing eBay listings](https://help.shopify.com/en/manual/online-sales-channels/marketplace-connect/products/manage/ebay).
+- You choose which Shopify **inventory location** feeds each marketplace, per product or in bulk. Shopify is explicit that you cannot set the location per variant. See [inventory location settings](https://help.shopify.com/en/manual/online-sales-channels/marketplace-connect/products/inventory-location).
+
+One warning from Shopify's own documentation is worth repeating. If a separate fulfilment app also pulls orders from Amazon or eBay, you will get duplicate orders. Shopify's advice is to disconnect the marketplace from the fulfilment app and let Marketplace Connect be the only route in.
+
+## When is Marketplace Connect not enough?
+
+It covers a lot, but there are situations where we see it struggle or where it does not apply at all.
+
+**Your stock comes from a supplier, not a warehouse.** If you dropship, the number that matters is the supplier's stock, not Shopify's. Marketplace Connect only knows what Shopify knows. You need something that reads the supplier's feed first, writes it to the store, and then lets the marketplaces follow. Our [Dropshipzone sync plugin](/case-studies/dropshipzone-price-stock-sync/) does exactly that on WooCommerce: it pulls the supplier's stock and prices on a schedule, applies a buffer and markup, and the store becomes the single source the marketplaces read from.
+
+**You are not on Shopify.** WooCommerce sellers need a different route: a WooCommerce marketplace plugin, a connector service or a custom integration.
+
+**Your variants do not line up.** Shopify allows three options per product. If your eBay listings are built as one listing per size and colour, or your Amazon catalogue has parent and child ASINs that do not match Shopify's variants, the mapping step becomes the whole project.
+
+**You need rules the app does not have.** Different buffers per channel, a price floor on eBay but not on Amazon, or an item that should never list on one marketplace. Some of this is possible in the app's default listing settings; some is not.
+
+**You need to know when it breaks.** Every sync fails eventually: a password changes, an API limit is hit, a product is deleted on one side. The question is whether you find out from a log and an email, or from an angry customer.
+
+## How does a custom stock sync work?
+
+When an app does not fit, we build the connection. The shape is almost always the same, whether the store is Shopify or WooCommerce and whether the marketplaces are Amazon, eBay or both.
+
+1. **One source of truth.** Usually the store, sometimes the supplier feed or a warehouse system. Every other channel reads from it; nothing writes stock back into it except confirmed orders.
+2. **A SKU map.** A table that says which store variant is which marketplace SKU. Built once, checked once, and the cause of most problems if skipped.
+3. **A fast stock pass and a slow catalogue pass.** Stock changes often and is small, so it runs every few minutes and only sends what has changed. Titles, images and prices change rarely, so they run less often. Splitting the two is how you avoid hammering an API and hitting its limits.
+4. **Buffers and rules.** A per-channel buffer, and any rules such as "never list below this price on eBay".
+5. **Orders back in.** Marketplace orders arrive in the store as orders, reduce stock there, and the next stock pass sends the new count to the other channels.
+6. **Logs and alerts.** Every run writes what it did. A failed run sends an email, or a message to whoever you prefer, before a customer notices.
+
+Rate limits deserve a mention. Supplier and marketplace APIs cap how many calls you can make per minute. The Dropshipzone API, for example, allows 60 calls a minute, which is why our plugin queues and paces its requests rather than firing them all at once. A sync that ignores limits works on day one and fails on the first busy Saturday.
+
+## What should you do this week?
+
+If you are on Shopify and your stock lives in Shopify, install Marketplace Connect, link your existing Amazon and eBay listings rather than creating new ones, set a buffer on every eBay item you also sell elsewhere, and check which inventory location each marketplace is reading from. That alone stops most overselling.
+
+If your stock comes from a supplier, or you are on WooCommerce, or the app's mapping does not match how your listings are built, that is where our [automation and integrations service](/services/automation/) comes in. We will look at your channels on a 15-minute call and tell you honestly whether an existing app does the job or whether it needs building.

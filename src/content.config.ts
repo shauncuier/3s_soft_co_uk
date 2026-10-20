@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { categoryKeys } from './data/content';
+import { serviceSlugs } from './data/services';
 
 /**
  * Case studies – one MDX file per project in src/content/case-studies/.
@@ -60,4 +61,37 @@ const caseStudies = defineCollection({
     }),
 });
 
-export const collections = { caseStudies };
+/**
+ * Insights – plain-English articles, one MDX file per article in src/content/insights/.
+ * The file name becomes the URL: /insights/<file-name>/
+ * `category` matches a service slug so each service page can list its own articles.
+ */
+const insights = defineCollection({
+  loader: glob({ base: './src/content/insights', pattern: '**/*.{md,mdx}' }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string(),
+        /** Meta description and card summary. Hard limit so search snippets are not cut. */
+        description: z.string().max(155),
+        publishDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        /** One of the four service slugs; drives the "From the insights" block on that service page. */
+        category: z.enum(serviceSlugs),
+        tags: z.array(z.string()).default([]),
+        /** Service page this article supports (/services/<slug>/). */
+        relatedService: z.enum(serviceSlugs),
+        /** Optional published case study shown under "Related work". Must match a file in src/content/case-studies/. */
+        relatedCaseStudyId: z.string().optional(),
+        heroImage: image().optional(),
+        heroAlt: z.string().optional(),
+        /** Short FAQ rendered at the end of the article and emitted as FAQPage schema. */
+        faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+      })
+      .refine((data) => !data.heroImage || Boolean(data.heroAlt), {
+        message: 'heroAlt is required when heroImage is set',
+        path: ['heroAlt'],
+      }),
+});
+
+export const collections = { caseStudies, insights };

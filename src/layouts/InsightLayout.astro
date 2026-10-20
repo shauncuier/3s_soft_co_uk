@@ -1,0 +1,179 @@
+---
+/**
+ * Article page: hero (category, H1, date, reading time), prose body, FAQ,
+ * related service and case study, more insights, final CTA.
+ * Emits BlogPosting (+ FAQPage when faqs exist) through Layout.
+ */
+import { Image, getImage } from 'astro:assets';
+import Layout from './Layout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import Faq from '../components/ui/Faq.astro';
+import CtaBand from '../components/site/CtaBand.astro';
+import ProjectCard from '../components/work/ProjectCard.astro';
+import InsightCard from '../components/insights/InsightCard.astro';
+import { getService } from '../data/services';
+import { site } from '../data/site';
+import { getPublishedCaseStudy } from '../utils/caseStudies';
+import {
+  type Insight,
+  insightCategories,
+  formatDate,
+  readingTime,
+  wordCount,
+  modifiedDate,
+  getRelatedInsights,
+} from '../utils/insights';
+
+interface Props {
+  entry: Insight;
+}
+const { entry } = Astro.props;
+const { data } = entry;
+
+const service = getService(data.relatedService);
+const caseStudy = data.relatedCaseStudyId ? await getPublishedCaseStudy(data.relatedCaseStudyId) : undefined;
+const more = await getRelatedInsights(entry, 3);
+const minutes = readingTime(entry);
+const words = wordCount(entry);
+const published = data.publishDate;
+const modified = modifiedDate(entry);
+const category = insightCategories[data.category];
+
+const og = data.heroImage
+  ? await getImage({ src: data.heroImage, width: 1200, height: 630, format: 'jpg', fit: 'cover', position: 'top' })
+  : undefined;
+const ogImage = og?.src ?? '/og-default.png';
+
+const breadcrumbs = [{ label: 'Insights', href: '/insights/' }, { label: data.title }];
+const faqs = data.faqs;
+---
+
+<Layout
+  title={data.title}
+  description={data.description}
+  ogImage={ogImage}
+  ogImageAlt={data.heroAlt}
+  breadcrumbs={breadcrumbs}
+  article={{
+    headline: data.title,
+    description: data.description,
+    imageUrl: ogImage,
+    datePublished: published,
+    dateModified: modified,
+    section: category,
+    keywords: data.tags,
+    wordCount: words,
+  }}
+  faqs={faqs}
+>
+  <Section padding="sm" class="overflow-hidden">
+    <div class="rings text-brand" style="--rings-x: 92%; --rings-y: 0%;" aria-hidden="true"></div>
+    <div class="relative">
+      <Breadcrumbs items={breadcrumbs} class="mb-8" />
+      <div class="max-w-3xl">
+        <Eyebrow chip class="mb-5">{category}</Eyebrow>
+        <h1 class="font-display text-display-xl text-ink">{data.title}</h1>
+        <p class="mt-5 max-w-prose text-lede text-ink-2">{data.description}</p>
+        <dl class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-ink-3">
+          <div class="flex gap-1.5">
+            <dt>By</dt>
+            <dd class="font-semibold text-ink-2">{site.ukName}</dd>
+          </div>
+          <div class="flex gap-1.5">
+            <dt>Published</dt>
+            <dd><time datetime={published.toISOString().slice(0, 10)}>{formatDate(published)}</time></dd>
+          </div>
+          {data.updatedDate && (
+            <div class="flex gap-1.5">
+              <dt>Updated</dt>
+              <dd><time datetime={modified.toISOString().slice(0, 10)}>{formatDate(modified)}</time></dd>
+            </div>
+          )}
+          <div class="flex gap-1.5">
+            <dt class="sr-only">Reading time</dt>
+            <dd>{minutes} min read</dd>
+          </div>
+        </dl>
+      </div>
+      {data.heroImage && data.heroAlt && (
+        <Image
+          src={data.heroImage}
+          alt={data.heroAlt}
+          width={1600}
+          height={900}
+          widths={[640, 960, 1280, 1600]}
+          sizes="(min-width: 1216px) 1152px, 100vw"
+          fit="cover"
+          position="top"
+          priority
+          class="relative mt-10 aspect-[16/9] w-full rounded-xl border border-line object-cover object-top shadow-card"
+        />
+      )}
+    </div>
+  </Section>
+
+  <Section padding="sm">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <div class="prose-editorial">
+          <slot />
+        </div>
+
+        {faqs.length > 0 && (
+          <section aria-labelledby="faq-heading" class="mt-16">
+            <SectionHeading id="faq-heading" eyebrow="Questions" title="Things people ask about this." accent="about this." size="md" />
+            <Faq items={faqs} class="mt-8" />
+          </section>
+        )}
+      </div>
+
+      <aside class="lg:col-span-4" aria-label="Related">
+        <div class="space-y-6 lg:sticky lg:top-28">
+          {service && (
+            <Card tone="brand-50" padding="sm">
+              <Eyebrow as="p" class="text-brand-700">Related service</Eyebrow>
+              <h2 class="mt-2 text-display-sm font-bold text-ink">{service.title}</h2>
+              <p class="mt-2 text-small text-ink-2">{service.forWho[0]}</p>
+              <div class="mt-4">
+                <Button href={service.href} variant="link">About this service</Button>
+              </div>
+            </Card>
+          )}
+          {caseStudy && (
+            <div>
+              <Eyebrow as="p" class="mb-3">Related work</Eyebrow>
+              <ProjectCard project={caseStudy} headingLevel="h2" />
+            </div>
+          )}
+          <Card padding="sm">
+            <p class="text-small text-ink-2">
+              <strong class="text-ink">Want this done for you?</strong> {site.contact.responsePromise}
+            </p>
+            <div class="mt-4">
+              <Button href={site.booking.url} external size="sm" arrow>{site.booking.label}</Button>
+            </div>
+          </Card>
+        </div>
+      </aside>
+    </div>
+  </Section>
+
+  {more.length > 0 && (
+    <Section aria-labelledby="more-heading">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading id="more-heading" eyebrow="More insights" title="Other questions we get asked." accent="get asked." size="md" />
+        <Button href="/insights/" variant="link">All insights</Button>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {more.map((item) => <InsightCard entry={item} headingLevel="h3" />)}
+      </div>
+    </Section>
+  )}
+
+  <CtaBand title="Rather have someone do this for you?" accent="do this for you?" lede="Tell us what you sell and where you sell it. We'll say what's worth fixing first, with a fixed price and no jargon." />
+</Layout>

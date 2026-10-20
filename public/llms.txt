@@ -13,6 +13,15 @@
 - [Tailwater Supply Co. — brand website for an Amazon and Walmart seller](https://3s-soft.co.uk/case-studies/tailwater-supply-co/)
 - [3S Soft Price & Stock Sync for Dropshipzone — WooCommerce plugin](https://3s-soft.co.uk/case-studies/dropshipzone-price-stock-sync/)
 
+## Insights
+- [Amazon A+ Content image sizes and guidelines](https://3s-soft.co.uk/insights/amazon-a-plus-content-image-sizes-guidelines/)
+- [Amazon A+ Content examples: what each module does](https://3s-soft.co.uk/insights/amazon-a-plus-content-examples-modules/)
+- [How to keep stock in sync between Shopify, Amazon and eBay](https://3s-soft.co.uk/insights/shopify-amazon-ebay-stock-sync/)
+- [Shopify migration checklist for UK shops](https://3s-soft.co.uk/insights/shopify-migration-checklist-uk/)
+- [Suppressed Amazon listings: causes and fixes](https://3s-soft.co.uk/insights/suppressed-amazon-listings-causes-fixes/)
+- [Why your eBay listings aren't getting views](https://3s-soft.co.uk/insights/ebay-listings-not-getting-views/)
+- [Connecting a WooCommerce store to Dropshipzone](https://3s-soft.co.uk/insights/connect-woocommerce-to-dropshipzone/)
+
 ## Company
 - [About](https://3s-soft.co.uk/about/)
 - [Contact: book a 15-minute call](https://3s-soft.co.uk/contact/)

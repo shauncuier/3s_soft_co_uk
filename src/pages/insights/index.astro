@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/ui/Section.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/site/CtaBand.astro';
+import InsightCard from '../../components/insights/InsightCard.astro';
+import { getInsights } from '../../utils/insights';
+
+const entries = await getInsights();
+const title = 'Insights: Shopify, Amazon, eBay & Automation Guides';
+const description =
+  'Plain-English guides for UK sellers: Amazon A+ Content sizes, suppressed listings, eBay views, Shopify migration and keeping stock in sync across channels.';
+---
+
+<Layout title={title} description={description} pageType="CollectionPage" breadcrumbs={[{ label: 'Insights' }]}>
+  <Section padding="sm">
+    <Breadcrumbs items={[{ label: 'Insights' }]} class="mb-8" />
+    <SectionHeading
+      as="h1"
+      size="xl"
+      eyebrow="Insights"
+      title="Straight answers for people who sell online."
+      accent="sell online."
+      lede="The questions clients ask us most, answered in plain English with links to the official help pages. No invented numbers, no jargon."
+    />
+  </Section>
+
+  <Section padding="sm" aria-label="Articles">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry) => <InsightCard entry={entry} headingLevel="h2" />)}
+    </div>
+  </Section>
+
+  <CtaBand title="Got a question we haven't answered?" accent="haven't answered?" lede="Ask on a 15-minute call. We'll tell you honestly whether it needs fixing, and what it would take." />
+</Layout>

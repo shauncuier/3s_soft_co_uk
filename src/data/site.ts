@@ -177,11 +177,12 @@ export const credentialLinks = credentials.filter((c) => c.href);
 export const navigation = [
   { label: 'Services', href: '/services/' },
   { label: 'Work', href: '/work/' },
+  { label: 'Insights', href: '/insights/' },
   { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },
 ] as const;
 
-/** Footer uses the same four links; Contact is already included. */
+/** Footer Company column uses the same links; Contact is already included. */
 export const footerNavigation = [...navigation] as const;
 
 /* ------------------------------------------------------------------ */

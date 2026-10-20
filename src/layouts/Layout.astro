@@ -5,7 +5,7 @@ import Header from '../components/site/Header.astro';
 import Footer from '../components/site/Footer.astro';
 import MobileCtaBar from '../components/site/MobileCtaBar.astro';
 import { site } from '../data/site';
-import { buildSchemaGraph, type BreadcrumbItem, type CaseStudySchemaInput, type SchemaPageType } from '../utils/schema';
+import { buildSchemaGraph, type ArticleSchemaInput, type BreadcrumbItem, type CaseStudySchemaInput, type SchemaPageType } from '../utils/schema';
 
 interface Props {
   title?: string;
@@ -16,6 +16,8 @@ interface Props {
   pageType?: SchemaPageType;
   breadcrumbs?: BreadcrumbItem[];
   caseStudy?: CaseStudySchemaInput;
+  /** Insights article descriptor for /insights/<slug>/ pages; emitted as BlogPosting schema. */
+  article?: ArticleSchemaInput;
   /** Optional FAQ pairs rendered on the page; emitted as FAQPage schema when the schema builder supports it. */
   faqs?: { q: string; a: string }[];
   /** Optional service descriptor for /services/* pages; emitted as Service schema when supported. */
@@ -37,6 +39,7 @@ const {
   pageType = 'WebPage',
   breadcrumbs,
   caseStudy,
+  article,
   faqs,
   service,
   hideWhatsApp = false,
@@ -54,7 +57,9 @@ const formattedTitle = isHome
       ? title
       : `${title}${suffix}`
     : `${site.ukName} | ${site.positioning}`;
-const isArticle = Boolean(caseStudy);
+const isArticle = Boolean(caseStudy || article);
+const publishedTime = article?.datePublished ?? caseStudy?.publishDate;
+const modifiedTime = article ? (article.dateModified ?? article.datePublished) : caseStudy?.publishDate;
 
 const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const canonical = canonicalUrl || new URL(cleanPath, site.url).href;
@@ -67,6 +72,7 @@ const schemaGraph = buildSchemaGraph({
   pageType,
   breadcrumbs,
   caseStudy,
+  ...(article ? { article } : {}),
   ogImageUrl: fullOgImage,
   ...(faqs && faqs.length ? { faqs } : {}),
   ...(service ? { service } : {}),
@@ -107,10 +113,10 @@ const schemaGraph = buildSchemaGraph({
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={ogImageAlt ?? `${site.ukName} — ${site.positioning}`} />
     <meta property="og:locale" content={site.locale} />
-    {isArticle && caseStudy?.publishDate && (
+    {isArticle && publishedTime && modifiedTime && (
       <>
-        <meta property="article:published_time" content={caseStudy.publishDate.toISOString()} />
-        <meta property="article:modified_time" content={caseStudy.publishDate.toISOString()} />
+        <meta property="article:published_time" content={publishedTime.toISOString()} />
+        <meta property="article:modified_time" content={modifiedTime.toISOString()} />
         <meta property="article:author" content={site.ukName} />
       </>
     )}

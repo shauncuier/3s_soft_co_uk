@@ -26,6 +26,23 @@ export interface ServiceSchemaInput {
   slug: string;
 }
 
+/**
+ * One Insights article – emits a `BlogPosting` (a subtype of `Article`) whose
+ * author and publisher are the organisation. Case studies keep using `caseStudy`.
+ */
+export interface ArticleSchemaInput {
+  headline: string;
+  description: string;
+  /** Absolute or site-relative URL of the social/hero image (1200×630). */
+  imageUrl: string;
+  datePublished: Date;
+  dateModified?: Date;
+  /** Category label, e.g. "Amazon & marketplaces". */
+  section?: string;
+  keywords?: string[];
+  wordCount?: number;
+}
+
 export interface FaqSchemaInput {
   q: string;
   a: string;
@@ -41,6 +58,8 @@ export interface SchemaGeneratorOptions {
   pageType?: SchemaPageType;
   breadcrumbs?: BreadcrumbItem[];
   caseStudy?: CaseStudySchemaInput;
+  /** Present on /insights/<slug>/ pages only. */
+  article?: ArticleSchemaInput;
   /** Present on /services/<slug>/ pages only. */
   service?: ServiceSchemaInput;
   /** Emits `FAQPage` only when provided and non-empty, i.e. only where FAQs render. */
@@ -73,6 +92,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
     pageType = 'WebPage',
     breadcrumbs = [],
     caseStudy,
+    article,
     service,
     faqs,
     ogImageUrl,
@@ -317,6 +337,40 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
       articleEntity.citation = caseStudy.liveUrl;
     }
 
+    webpageEntity.mainEntity = { '@id': articleId };
+    graph.push(articleEntity);
+  }
+
+  // 7b. Insights article – BlogPosting authored and published by the organisation.
+  if (article) {
+    const articleId = `${canonicalUrl}#article`;
+    const published = article.datePublished.toISOString();
+    const modified = (article.dateModified ?? article.datePublished).toISOString();
+    const articleEntity: Record<string, any> = {
+      '@type': 'BlogPosting',
+      '@id': articleId,
+      isPartOf: { '@id': webpageId },
+      headline: article.headline,
+      description: article.description,
+      image: {
+        '@type': 'ImageObject',
+        url: absolute(article.imageUrl),
+        width: 1200,
+        height: 630,
+      },
+      datePublished: published,
+      dateModified: modified,
+      inLanguage: site.lang,
+      mainEntityOfPage: { '@id': webpageId },
+      author: { '@type': 'Organization', '@id': organizationId, name: site.ukName, url: `${siteUrl}/` },
+      publisher: { '@type': 'Organization', '@id': organizationId, name: site.ukName, logo: { '@id': logoId } },
+    };
+    if (article.section) articleEntity.articleSection = article.section;
+    if (article.keywords && article.keywords.length) articleEntity.keywords = article.keywords.join(', ');
+    if (article.wordCount) articleEntity.wordCount = article.wordCount;
+
+    webpageEntity.datePublished = published;
+    webpageEntity.dateModified = modified;
     webpageEntity.mainEntity = { '@id': articleId };
     graph.push(articleEntity);
   }

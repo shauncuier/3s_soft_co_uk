@@ -1,0 +1,75 @@
+---
+title: "Shopify migration checklist for UK shops"
+description: "A practical checklist for moving a UK shop to Shopify from WooCommerce, Wix or Squarespace: what to export, what will not move, redirects, VAT and go-live."
+publishDate: 2026-10-21
+category: shopify
+tags: ["Shopify migration", "WooCommerce to Shopify", "redirects", "UK VAT"]
+relatedService: shopify
+relatedCaseStudyId: tailwater-supply-co
+faqs:
+  - q: "Will I lose my Google rankings when I move to Shopify?"
+    a: "Not if every old URL is redirected to its new page before you switch the domain, and your page titles and descriptions come across. Rankings normally settle within a few weeks. The sites that lose rankings are the ones that skipped the redirect map."
+  - q: "Can I move my customers' passwords to Shopify?"
+    a: "No. Passwords are stored in a way that cannot be exported from any platform. Customers come across with their details and order history, and set a new password the first time they log in."
+  - q: "How long does a Shopify migration take?"
+    a: "It depends on the number of products, how clean the data is and whether the design is being rebuilt. We give you a date in the plan and keep to it. A tidy catalogue of a few hundred products with a theme set-up is usually weeks, not months."
+---
+
+A Shopify migration is a data job first and a design job second. The shops that go badly are the ones where the new theme got all the attention and the product export, the redirects and the VAT settings were left to the last week. This checklist is the one we work through for UK shops moving from WooCommerce, Wix, Squarespace or an older platform. It follows the order Shopify itself recommends in its [migration guide](https://help.shopify.com/en/manual/migrating-to-shopify), with the UK-specific steps added.
+
+## What should you sort out before you touch Shopify?
+
+**Decide what is coming with you.** Products, customers and order history are the usual three. Blog posts and pages are worth bringing if they get traffic. Reviews need a separate plan, because Shopify's guide is blunt that WooCommerce reviews cannot be exported or migrated and have to be re-entered or moved with a review app.
+
+**Clean the catalogue first.** Delete products you no longer sell, fix missing SKUs and weights, and standardise option names so that "Colour" is not "colour" on half the range. Every problem you fix in the old store is one you do not have to fix twice.
+
+**Count your options.** Shopify allows three options per product, for example size, colour and material. If any product has more, the Store Migration app will not import the extra ones, and you will need a workaround with metafields or an app. Find those products now.
+
+**Check your weights.** WooCommerce exports weights in whatever unit the store used. Shopify's product CSV wants grams, and its guide gives the conversion for stores that used pounds. Get the unit right once in the spreadsheet rather than fixing shipping rates later.
+
+**List your top URLs.** Export every page Google sends traffic to from Search Console or your analytics. This list becomes your redirect map, and it is the single most important document in the migration.
+
+## What order should you import data in?
+
+Shopify's guide is specific: **import products first, then customers, then historical orders**. Orders refer to products and customers, so they must exist before the orders do. Everything else can go in any order.
+
+- **Products** go in by CSV or the Store Migration app. The app imports a WooCommerce product export with little editing. By CSV you map the old columns to Shopify's template: name to title, description to body, SKU to variant SKU, regular price to variant price, image URLs to image source. Shopify's [WooCommerce migration page](https://help.shopify.com/en/manual/migrating-to-shopify/migrating-from-woocommerce) lists the mapping. When you import, untick "Publish new products to all sales channels" so half-checked products do not go live.
+- **Customers** go in by CSV. Shopify's customer import has no mapping step, so the column headings must match Shopify's template exactly. Passwords cannot be moved from any platform.
+- **Order history** has no native Shopify import. You export it from the old store with a plugin and bring it in with a third-party app; Shopify's guide names LitExtension, Matrixify and Ablestar as examples. Before you import, turn off new-order notifications for staff, or every historical order will send an email.
+- **Inventory** for a single location can come in on the product CSV. Shops with more than one location need Shopify's separate inventory CSV.
+
+## How do you stop old links breaking?
+
+Shopify's URL structure is different from almost every other platform. Shopify's own example is a shipping policy page that was at `/policies/shipping-policy` and becomes `/pages/shipping-policy`. Product and category URLs change in the same way, so every old link, from Google, from your Instagram bio, from a customer's bookmark, will fail unless you redirect it.
+
+In Shopify, redirects live under **Content, then Menus, then View URL Redirects**, and you can import them in bulk from a CSV. Shopify's [redirect documentation](https://help.shopify.com/en/manual/online-store/menus-and-links/url-redirect) sets out two limits worth knowing: a standard store can hold up to 100,000 redirects, and a redirect only works for a URL that would otherwise return a "page not found" error. A handful of paths such as `/cart`, `/products` and `/collections` cannot be redirected at all.
+
+Our rule: build the redirect map from your top-URLs list before launch, import it, and set up the redirects **before** you move the domain, which is also what Shopify advises. After launch, open your twenty most-visited old URLs and check each one lands where it should.
+
+## What are the UK-specific settings?
+
+**VAT.** Shopify's tax settings need your VAT registration number, prices set to include VAT (which UK shoppers expect), and the correct treatment for zero-rated items such as children's clothing and most food. If you sell to the EU, the rules changed after Brexit and the settings for shipping to Ireland are not the same as for shipping to Belfast.
+
+**Shipping.** Recreate your zones and rates. Royal Mail, Evri and DPD rates by weight band are the usual starting point, and the weights you fixed earlier are what make them work.
+
+**Payments.** Shopify Payments supports UK cards, Apple Pay and Google Pay. If you used PayPal before, reconnect it so returning customers see the option they are used to.
+
+**Policies.** Shopify generates refund, privacy and terms pages. Replace the generated text with policies that reflect UK consumer law, including the 14-day right to cancel for distance sales.
+
+**Domain and email.** Point your existing domain at Shopify rather than buying a new one, and disconnect it from the old platform first; Shopify warns that leaving it connected causes certificate errors. If your email runs on the old host, make sure it is moved before the DNS change, or it stops.
+
+## How do you go live without a bad weekend?
+
+1. **Place test orders** on the new store: a successful payment, a declined card, a refund and a cancellation. Shopify's guide lists this as its own step for a reason.
+2. **Check the theme on a phone**, on a slow connection, with real products in the basket.
+3. **Import the redirects** and spot-check them on the Shopify preview domain.
+4. **Put the old store in maintenance mode** so no orders arrive during the switch, and take a final export of orders placed since your last import.
+5. **Change the DNS** during a quiet period, early on a weekday rather than Friday evening.
+6. **Verify the new site in Google Search Console**, submit the Shopify sitemap, and watch the Coverage report for a fortnight.
+7. **Keep the old store's export files** for at least a year. You will need them the first time someone asks about an order from before the move.
+
+## When is it worth getting help?
+
+A tidy catalogue of a few hundred simple products can be moved by a careful owner with Shopify's guide open in another tab. Where it goes wrong is scale and mess: thousands of products, variants with four or more options, years of order history, or a site whose Google traffic you cannot afford to lose for a month.
+
+That is what our [Shopify agency service](/services/shopify/) handles: the exports, the mapping, the redirect map, the UK tax and shipping set-up, and a written handover so your team can run the store afterwards. The search foundations we build in, clean titles, structured data and a sitemap from day one, are the same ones on the [Tailwater Supply Co. brand site](/case-studies/tailwater-supply-co/) we built for a marketplace seller. Book a 15-minute call and we will tell you honestly whether your migration is a do-it-yourself job or one to hand over.

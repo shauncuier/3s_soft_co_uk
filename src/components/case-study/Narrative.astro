@@ -1,0 +1,36 @@
+---
+import type { CaseStudy } from '../../utils/caseStudies';
+
+interface Props {
+  project: CaseStudy;
+}
+const { project } = Astro.props;
+const { data } = project;
+const blocks = [
+  { id: 'challenge', title: 'The brief', body: data.challenge },
+  { id: 'approach', title: 'How we approached it', body: data.approach },
+  { id: 'solution', title: 'What we built', body: data.solution },
+];
+---
+
+<div class="space-y-12">
+  {blocks.map((b) => (
+    <section aria-labelledby={`${b.id}-heading`}>
+      <h2 id={`${b.id}-heading`} class="font-display text-display-md text-ink">{b.title}</h2>
+      <p class="mt-4 max-w-prose text-body text-ink-2">{b.body}</p>
+    </section>
+  ))}
+
+  {data.resultsNote && (
+    <p class="max-w-prose rounded-lg border border-line bg-paper-2 p-5 text-small text-ink-2">
+      <strong class="text-ink">A note on results.</strong> {data.resultsNote}
+    </p>
+  )}
+
+  <section aria-labelledby="detail-heading">
+    <h2 id="detail-heading" class="font-display text-display-md text-ink">In more detail</h2>
+    <div class="prose-editorial mt-6">
+      <slot />
+    </div>
+  </section>
+</div>

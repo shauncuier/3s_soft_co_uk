@@ -1,28 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import CTA from '../../components/CTA.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection } from 'astro:content';
-import { workCategoryPages, type CategoryKey } from '../../data/content';
+import WorkListing from '../../components/work/WorkListing.astro';
+import CtaBand from '../../components/site/CtaBand.astro';
+import { workCategoryPages } from '../../data/content';
+import { getCaseStudiesByCategory } from '../../utils/caseStudies';
 
 export async function getStaticPaths() {
-  const allProjects = await getCollection('caseStudies');
-
-  return workCategoryPages.map((cat) => {
-    const filteredProjects = allProjects
-      .filter((project) => project.data.categories.includes(cat.category))
-      .sort((a, b) => a.data.order - b.data.order);
-
-    return {
+  return Promise.all(
+    workCategoryPages.map(async (cat) => ({
       params: { category: cat.slug },
-      props: {
-        categoryMeta: cat,
-        projects: filteredProjects,
-      },
-    };
-  });
+      props: { categoryMeta: cat, projects: await getCaseStudiesByCategory(cat.category) },
+    })),
+  );
 }
 
 const { categoryMeta, projects } = Astro.props;
@@ -32,90 +21,15 @@ const { categoryMeta, projects } = Astro.props;
   title={categoryMeta.title}
   description={categoryMeta.description}
   pageType="CollectionPage"
-  breadcrumbs={[
-    { label: 'Work', href: '/work/' },
-    { label: categoryMeta.title },
-  ]}
+  breadcrumbs={[{ label: 'Work', href: '/work/' }, { label: categoryMeta.title }]}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-16">
-    
-    <!-- Breadcrumbs -->
-    <Breadcrumbs
-      items={[
-        { label: 'Work', href: '/work/' },
-        { label: categoryMeta.title },
-      ]}
-    />
-
-    <!-- Header -->
-    <div class="max-w-4xl space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>[ SPECIALISED CAPABILITY ]</span>
-      </div>
-
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white">
-        {categoryMeta.heading}
-      </h1>
-      
-      <p class="text-lg sm:text-2xl text-neutral-300 leading-relaxed font-normal">
-        {categoryMeta.description}
-      </p>
-    </div>
-
-    <!-- Related Work Links Pill Navigation -->
-    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-white/[0.08] pb-6">
-      <a
-        href="/work/"
-        class="px-5 py-2.5 rounded-full text-xs font-mono font-medium bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04] transition-colors"
-      >
-        All Work
-      </a>
-      {workCategoryPages.map((cat) => {
-        const isCurrent = cat.slug === categoryMeta.slug;
-        return (
-          <a
-            href={`/work/${cat.slug}/`}
-            class:list={[
-              'px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-colors',
-              isCurrent
-                ? 'bg-white text-neutral-950 font-bold shadow-md hover:bg-neutral-100 hover:text-neutral-950'
-                : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04]',
-            ]}
-          >
-            {cat.title}
-          </a>
-        );
-      })}
-    </div>
-
-    <!-- Project List -->
-    {projects.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        {projects.map((project, index) => (
-          <ProjectCard
-            project={project}
-            index={index}
-            variant={index === 0 ? 'featured' : 'standard'}
-          />
-        ))}
-      </div>
-    ) : (
-      <div class="py-20 text-center rounded-3xl bg-[#111413] border border-white/[0.08] p-8 space-y-4">
-        <p class="text-lg font-bold text-white">No projects listed under this category yet.</p>
-        <p class="text-xs font-mono text-neutral-400">Explore our full portfolio or get in touch directly to discuss custom requirements.</p>
-        <div class="pt-2">
-          <a href="/work/" class="text-xs font-mono font-bold text-emerald-400 hover:underline">
-            View all work →
-          </a>
-        </div>
-      </div>
-    )}
-
-  </div>
-
-  <CTA
-    title={`Need a specialist for ${categoryMeta.title}?`}
-    subtitle="We collaborate with UK businesses on bespoke digital commerce, marketplace feeds, and technical web projects."
+  <WorkListing
+    projects={projects}
+    eyebrow="Our work"
+    heading={categoryMeta.heading}
+    lede={categoryMeta.description}
+    current={categoryMeta.slug}
+    breadcrumbs={[{ label: 'Work', href: '/work/' }, { label: categoryMeta.title }]}
   />
+  <CtaBand />
 </Layout>

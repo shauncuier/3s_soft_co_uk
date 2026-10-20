@@ -1,0 +1,70 @@
+---
+/**
+ * Project imagery. Tall images (e.g. full Amazon A+ pages) become top-cropped
+ * 3:4 tiles in a scroll strip, each linking to the full optimised image.
+ */
+import { Image, getImage } from 'astro:assets';
+import type { CaseStudy } from '../../utils/caseStudies';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+
+interface Props {
+  project: CaseStudy;
+}
+const { project } = Astro.props;
+const gallery = project.data.gallery;
+if (gallery.length === 0) return;
+
+const isTall = (item: (typeof gallery)[number]) =>
+  item.aspect === 'tall' || item.aspect === 'portrait' || item.image.height > item.image.width * 1.4;
+
+const items = await Promise.all(
+  gallery.map(async (item) => ({
+    ...item,
+    tall: isTall(item),
+    full: await getImage({ src: item.image, width: Math.min(item.image.width, 1600), format: 'webp' }),
+  })),
+);
+const anyTall = items.some((i) => i.tall);
+---
+
+<Section aria-labelledby="gallery-heading">
+  <SectionHeading id="gallery-heading" eyebrow="From the project" title={anyTall ? 'Every page, as published' : 'A closer look'} size="md" />
+  {anyTall ? (
+    <ul class="no-scrollbar -mx-5 mt-8 flex snap-x gap-5 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0">
+      {items.map((item) => (
+        <li class="w-[78vw] max-w-[340px] shrink-0 snap-start">
+          <figure>
+            <a href={item.full.src} target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-line bg-surface shadow-card">
+              <Image
+                src={item.image}
+                alt={item.alt}
+                width={680}
+                height={906}
+                widths={[340, 680]}
+                sizes="340px"
+                loading="lazy"
+                class="aspect-[3/4] w-full object-cover object-top"
+              />
+            </a>
+            {item.caption && <figcaption class="mt-3 text-small text-ink-3">{item.caption}</figcaption>}
+          </figure>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-4 text-small text-ink-3">Tap an image to open the full-length page.</p>
+  ) : (
+    <ul class="mt-8 grid gap-6 md:grid-cols-2">
+      {items.map((item) => (
+        <li>
+          <figure>
+            <a href={item.full.src} target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-line bg-surface shadow-card">
+              <Image src={item.image} alt={item.alt} width={1200} height={800} widths={[600, 900, 1200]} sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" class="w-full object-cover" />
+            </a>
+            {item.caption && <figcaption class="mt-3 text-small text-ink-3">{item.caption}</figcaption>}
+          </figure>
+        </li>
+      ))}
+    </ul>
+  )}
+</Section>

@@ -14,6 +14,7 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
   size?: Size;
   type?: 'button' | 'submit' | 'reset';
   external?: boolean;
+  disabled?: boolean;
   class?: string;
   /** Icon placement when an icon is passed through the default slot after the label. */
   iconPosition?: 'start' | 'end';
@@ -27,6 +28,7 @@ const {
   external = false,
   class: className = '',
   iconPosition = 'end',
+  disabled = false,
   ...rest
 } = Astro.props;
 
@@ -58,7 +60,7 @@ const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' 
     <slot />
   </a>
 ) : (
-  <button type={type} class:list={classes} {...(rest as any)}>
+  <button type={type} class:list={classes} disabled={disabled || undefined} {...(rest as any)}>
     <slot />
   </button>
 )}

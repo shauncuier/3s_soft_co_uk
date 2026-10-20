@@ -1,0 +1,43 @@
+---
+/** Shared body for /work/ and the /case-studies/ alias. */
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import CategoryNav from './CategoryNav.astro';
+import ProjectGrid from './ProjectGrid.astro';
+import Button from '../ui/Button.astro';
+import type { CaseStudy } from '../../utils/caseStudies';
+
+interface Props {
+  projects: CaseStudy[];
+  heading: string;
+  lede: string;
+  eyebrow?: string;
+  current?: string;
+  breadcrumbs: { label: string; href?: string }[];
+}
+const { projects, heading, lede, eyebrow = 'Our work', current, breadcrumbs } = Astro.props;
+---
+
+<Section padding="sm">
+  <Breadcrumbs items={breadcrumbs} class="mb-8" />
+  <SectionHeading as="h1" size="xl" eyebrow={eyebrow} title={heading} lede={lede} />
+  <div class="mt-10">
+    <CategoryNav current={current} />
+  </div>
+</Section>
+
+<Section padding="sm" aria-label="Projects">
+  {projects.length > 0 ? (
+    <ProjectGrid projects={projects} headingLevel="h2" featureFirst={projects.length >= 3} />
+  ) : (
+    <div class="rounded-lg border border-line bg-surface p-8 text-center shadow-card">
+      <p class="text-lede text-ink">We haven't published a case study in this category yet.</p>
+      <p class="mt-2 text-ink-2">We may still have done this kind of work. Ask us and we'll tell you honestly.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href="/work/" variant="secondary">See all work</Button>
+        <Button href="/contact/">Ask us</Button>
+      </div>
+    </div>
+  )}
+</Section>

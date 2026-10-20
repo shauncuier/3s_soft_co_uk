@@ -1,55 +1,31 @@
 ---
+/** Visual breadcrumb trail. BreadcrumbList schema is emitted by Layout's @graph. */
 interface BreadcrumbItem {
   label: string;
   href?: string;
 }
-
 interface Props {
   items: BreadcrumbItem[];
-  hideSchema?: boolean;
+  class?: string;
 }
-
-const { items, hideSchema = true } = Astro.props;
-
-const allBreadcrumbItems: BreadcrumbItem[] = [
-  { label: 'Home', href: '/' },
-  ...items,
-];
-
-const schemaData = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: allBreadcrumbItems.map((item, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    name: item.label,
-    ...(item.href ? { item: new URL(item.href, 'https://3s-soft.co.uk').href } : {}),
-  })),
-};
+const { items, class: className = '' } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumbs" class="py-2">
-  <ol class="flex items-center flex-wrap gap-2 text-xs text-text-secondary font-medium" role="list">
-    <li>
-      <a href="/" class="hover:text-text-primary transition-colors">Home</a>
-    </li>
-    {items.map((item, index) => (
-      <li class="flex items-center gap-2">
-        <span class="text-text-muted" aria-hidden="true">/</span>
-        {item.href && index < items.length - 1 ? (
-          <a href={item.href} class="hover:text-text-primary transition-colors">
-            {item.label}
-          </a>
-        ) : (
-          <span class="text-text-primary font-semibold" aria-current="page">
-            {item.label}
-          </span>
-        )}
-      </li>
-    ))}
+<nav aria-label="Breadcrumb" class:list={['text-small text-ink-3', className]}>
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    <li><a href="/" class="hover:text-ink">Home</a></li>
+    {items.map((item, index) => {
+      const last = index === items.length - 1;
+      return (
+        <li class="flex items-center gap-x-2">
+          <span aria-hidden="true">/</span>
+          {item.href && !last ? (
+            <a href={item.href} class="hover:text-ink">{item.label}</a>
+          ) : (
+            <span class="text-ink-2" aria-current={last ? 'page' : undefined}>{item.label}</span>
+          )}
+        </li>
+      );
+    })}
   </ol>
-
-  {!hideSchema && (
-    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  )}
 </nav>

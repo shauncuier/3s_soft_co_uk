@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import type { CaseStudy } from '../../utils/caseStudies';
+import Section from '../ui/Section.astro';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+
+interface Props {
+  project: CaseStudy;
+}
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<Section padding="sm">
+  <Breadcrumbs items={[{ label: 'Work', href: '/work/' }, { label: data.title }]} class="mb-8" />
+  <div class="max-w-prose">
+    <Eyebrow class="mb-4">{data.categoryLabel}</Eyebrow>
+    <h1 class="font-display text-display-xl text-ink">{data.title}</h1>
+    <p class="mt-5 text-lede text-ink-2">{data.tagline}</p>
+  </div>
+  <figure class="mt-10 overflow-hidden rounded-xl border border-line bg-paper-2 shadow-card">
+    <Image
+      src={data.heroImage}
+      alt={data.heroAlt}
+      width={1600}
+      height={1000}
+      widths={[640, 960, 1280, 1600]}
+      sizes="(min-width: 1216px) 1152px, 100vw"
+      priority
+      class="aspect-[16/10] w-full object-cover object-top"
+    />
+  </figure>
+</Section>

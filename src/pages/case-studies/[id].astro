@@ -1,19 +1,16 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import { getPublishedCaseStudies, type CaseStudy } from '../../utils/caseStudies';
 
 export async function getStaticPaths() {
-  const caseStudies = await getCollection('caseStudies');
-  return caseStudies.map((project) => ({
-    params: { id: project.id },
-    props: { project },
-  }));
+  const published = await getPublishedCaseStudies();
+  return published.map((project) => ({ params: { id: project.id }, props: { project } }));
 }
 
 interface Props {
-  project: CollectionEntry<'caseStudies'>;
+  project: CaseStudy;
 }
-
 const { project } = Astro.props;
 const { Content } = await render(project);
 ---

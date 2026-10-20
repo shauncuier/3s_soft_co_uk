@@ -1,0 +1,31 @@
+---
+import { workCategoryPages } from '../../data/content';
+
+interface Props {
+  current?: string; // category slug, or undefined for "All work"
+}
+const { current } = Astro.props;
+const items = [{ slug: '', label: 'All work', href: '/work/' }, ...workCategoryPages.map((c) => ({ slug: c.slug, label: c.title, href: `/work/${c.slug}/` }))];
+---
+
+<nav aria-label="Work categories" class="-mx-5 px-5 sm:mx-0 sm:px-0">
+  <ul class="no-scrollbar flex gap-2 overflow-x-auto pb-1">
+    {items.map((item) => {
+      const active = (current ?? '') === item.slug;
+      return (
+        <li class="shrink-0">
+          <a
+            href={item.href}
+            class:list={[
+              'inline-flex rounded-full border px-4 py-2 text-small font-medium transition-colors duration-180',
+              active ? 'border-ink bg-ink text-paper' : 'border-line bg-surface text-ink-2 hover:border-ink hover:text-ink',
+            ]}
+            aria-current={active ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>

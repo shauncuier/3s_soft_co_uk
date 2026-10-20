@@ -16,6 +16,9 @@ export default defineConfig({
   image: {
     responsiveStyles: true,
   },
+  markdown: {
+    shikiConfig: { theme: 'github-light' },
+  },
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover',
@@ -67,7 +70,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/styleguide'),
+      filter: (page) => !page.includes('/404') && !page.includes('/styleguide') && !/\/case-studies\/$/.test(page),
     }),
   ],
 });

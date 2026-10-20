@@ -15,7 +15,6 @@ const serviceLinks = [
 
 const year = new Date().getFullYear();
 const hasLegal = Boolean(site.legal.companyName);
-const amazonListed = site.credentials.filter((c) => c.key.startsWith('amazonSpn'));
 ---
 
 <footer class="border-t border-line bg-paper-2 text-ink-2">
@@ -91,18 +90,11 @@ const amazonListed = site.credentials.filter((c) => c.key.startsWith('amazonSpn'
     <div class="mt-12 border-t border-line pt-8">
       <h2 class="eyebrow text-ink-3">Credentials</h2>
       <ul class="mt-4 grid gap-x-8 gap-y-2 text-small sm:grid-cols-2 lg:grid-cols-3">
-        {amazonListed.map((c) => (
+        {credentialLinks.map((c) => (
           <li>
-            {c.href ? (
-              <a href={c.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">{c.label} — {c.detail}</a>
-            ) : (
-              <span>{c.label} — {c.detail}</span>
-            )}
-          </li>
-        ))}
-        {credentialLinks.filter((c) => !c.key.startsWith('amazonSpn')).map((c) => (
-          <li>
-            <a href={c.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">{c.label} ({c.detail})</a>
+            <a href={c.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">
+              {c.key.startsWith('amazonSpn') ? `${c.label} — ${c.detail}` : `${c.label} (${c.detail})`}
+            </a>
           </li>
         ))}
         <li>{site.reach}</li>

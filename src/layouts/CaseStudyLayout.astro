@@ -1,48 +1,34 @@
 ---
+import { getImage } from 'astro:assets';
 import Layout from './Layout.astro';
-import CaseStudyHero from '../components/CaseStudyHero.astro';
-import CaseStudySection from '../components/CaseStudySection.astro';
-import CTA from '../components/CTA.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { site } from '../data/site';
+import Hero from '../components/case-study/Hero.astro';
+import Meta from '../components/case-study/Meta.astro';
+import Narrative from '../components/case-study/Narrative.astro';
+import Outcomes from '../components/case-study/Outcomes.astro';
+import Gallery from '../components/case-study/Gallery.astro';
+import Related from '../components/case-study/Related.astro';
+import CtaBand from '../components/site/CtaBand.astro';
+import Section from '../components/ui/Section.astro';
+import type { CaseStudy } from '../utils/caseStudies';
 
 interface Props {
-  project: CollectionEntry<'caseStudies'>;
+  project: CaseStudy;
 }
-
 const { project } = Astro.props;
-const { data, id } = project;
+const { data } = project;
 
-// Query related work (same category or next projects, excluding current)
-const allProjects = await getCollection('caseStudies');
-const relatedProjects = allProjects
-  .filter((p) => p.id !== id)
-  .sort((a, b) => {
-    // Prioritise projects sharing a category
-    const aShares = a.data.categories.some((cat) => data.categories.includes(cat));
-    const bShares = b.data.categories.some((cat) => data.categories.includes(cat));
-    if (aShares && !bShares) return -1;
-    if (!aShares && bShares) return 1;
-    return a.data.order - b.data.order;
-  })
-  .slice(0, 2);
-
+const og = await getImage({ src: data.heroImage, width: 1200, height: 630, format: 'jpg', fit: 'cover', position: 'top' });
 ---
 
 <Layout
   title={`${data.title} — Case Study`}
   description={data.summary}
-  ogImage={data.heroImage.src}
-  breadcrumbs={[
-    { label: 'Work', href: '/work/' },
-    { label: 'Case Studies', href: '/case-studies/' },
-    { label: data.title },
-  ]}
+  ogImage={og.src}
+  breadcrumbs={[{ label: 'Work', href: '/work/' }, { label: data.title }]}
   caseStudy={{
     title: data.title,
     summary: data.summary,
-    heroImageUrl: data.heroImage.src,
+    heroImageUrl: og.src,
     publishDate: data.publishDate,
     industry: data.industry,
     categoryLabel: data.categoryLabel,
@@ -50,47 +36,23 @@ const relatedProjects = allProjects
     liveUrl: data.liveUrl,
   }}
 >
-  <!-- Hero Section -->
-  <CaseStudyHero project={project} />
+  <Hero project={project} />
 
-  <!-- Content & Analysis Section -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-    <CaseStudySection project={project}>
-      <slot />
-    </CaseStudySection>
+  <Section padding="sm">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <Narrative project={project}>
+          <slot />
+        </Narrative>
+      </div>
+      <div class="lg:col-span-4">
+        <Meta project={project} />
+      </div>
+    </div>
+  </Section>
 
-    <!-- Related Work Section -->
-    {relatedProjects.length > 0 && (
-      <section class="mt-24 pt-16 border-t border-white/[0.08] space-y-8" aria-labelledby="related-heading">
-        <div class="flex items-center justify-between">
-          <div>
-            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
-              [ RELATED PORTFOLIO ]
-            </span>
-            <h2 id="related-heading" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
-              Related Case Studies
-            </h2>
-          </div>
-          <a
-            href="/work/"
-            class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors"
-          >
-            View All Work →
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {relatedProjects.map((p) => (
-            <ProjectCard project={p} />
-          ))}
-        </div>
-      </section>
-    )}
-  </div>
-
-  <!-- Final Contact CTA -->
-  <CTA
-    title="Ready to discuss your digital commerce project?"
-    subtitle="Connect with our UK team to review your store, marketplace operations, or web architecture."
-  />
+  <Outcomes project={project} />
+  <Gallery project={project} />
+  <Related project={project} />
+  <CtaBand title="Want this kind of result for your business?" lede="Tell us what you sell and where you sell it. We'll suggest the smallest piece of work that would make a real difference." />
 </Layout>

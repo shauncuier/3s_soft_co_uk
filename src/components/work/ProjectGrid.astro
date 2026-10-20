@@ -1,0 +1,19 @@
+---
+import type { CaseStudy } from '../../utils/caseStudies';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  projects: CaseStudy[];
+  headingLevel?: 'h2' | 'h3';
+  /** Make the first card span two columns. */
+  featureFirst?: boolean;
+  columns?: 2 | 3;
+}
+const { projects, headingLevel = 'h3', featureFirst = false, columns = 3 } = Astro.props;
+---
+
+<div class:list={['grid gap-6 sm:gap-8', columns === 3 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2']}>
+  {projects.map((project, i) => (
+    <ProjectCard project={project} headingLevel={headingLevel} featured={featureFirst && i === 0} eager={i === 0} />
+  ))}
+</div>

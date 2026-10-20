@@ -1,126 +1,23 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import CTA from '../../components/CTA.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection } from 'astro:content';
-import { categories, type CategoryKey } from '../../data/content';
+import WorkListing from '../../components/work/WorkListing.astro';
+import CtaBand from '../../components/site/CtaBand.astro';
+import { getPublishedCaseStudies } from '../../utils/caseStudies';
 
-const allProjects = await getCollection('caseStudies');
-const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
-
-const categoryFilters = [
-  { key: 'all', label: 'All Projects' },
-  { key: 'ecommerce', label: categories.ecommerce.label },
-  { key: 'shopify', label: categories.shopify.label },
-  { key: 'web', label: categories.web.label },
-  { key: 'technology', label: categories.technology.label },
-];
+const projects = await getPublishedCaseStudies();
 ---
 
 <Layout
-  title="Our Work — E-Commerce, Shopify & Web Development Case Studies"
-  description="Explore verified client case studies and technical delivery across Shopify storefronts, multi-channel marketplace operations, and custom web platforms by 3s-Soft UK."
+  title="Our Work — Shopify, Amazon and Web Projects for UK Businesses"
+  description="Real projects for real brands: Amazon A+ Content and Brand Stories, Shopify and WordPress storefronts, and the automation that keeps stock and prices in sync."
   pageType="CollectionPage"
-  breadcrumbs={[{ label: 'Our Work' }]}
+  breadcrumbs={[{ label: 'Work' }]}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-16">
-    
-    <!-- Breadcrumbs -->
-    <Breadcrumbs items={[{ label: 'Our Work' }]} />
-
-    <!-- Page Header -->
-    <div class="max-w-4xl space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>[ 01 // SELECTED PORTFOLIO ]</span>
-      </div>
-
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white">
-        Our Work
-      </h1>
-      
-      <p class="text-lg sm:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-normal">
-        A selection of digital commerce, technology and web experiences delivered by 3s-Soft for modern businesses.
-      </p>
-    </div>
-
-    <!-- Category Filter Switcher (Client-side interactive filter) -->
-    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-white/[0.08] pb-6" role="tablist" aria-label="Filter projects by category">
-      {categoryFilters.map((filter, index) => (
-        <button
-          type="button"
-          class:list={[
-            'filter-pill px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer',
-            index === 0
-              ? 'active bg-white text-neutral-950 font-bold shadow-md hover:bg-neutral-100 hover:text-neutral-950'
-              : 'bg-[#111413] text-neutral-400 border border-white/[0.08] hover:border-white/[0.2] hover:text-white hover:bg-white/[0.04]',
-          ]}
-          data-filter={filter.key}
-          role="tab"
-          aria-selected={index === 0 ? 'true' : 'false'}
-        >
-          {filter.label}
-        </button>
-      ))}
-    </div>
-
-    <!-- Project Grid -->
-    <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-      {sortedProjects.map((project, index) => (
-        <div
-          class="project-item transition-all duration-300"
-          data-categories={JSON.stringify(project.data.categories)}
-        >
-          <ProjectCard
-            project={project}
-            index={index}
-            variant={index === 0 ? 'featured' : 'standard'}
-          />
-        </div>
-      ))}
-    </div>
-
-  </div>
-
-  <CTA
-    title="Have a similar project in mind?"
-    subtitle="Let's review your store or platform requirements and suggest a clear path forward without obligation."
+  <WorkListing
+    projects={projects}
+    heading="Work that's live and earning."
+    lede="Every project here is real, named and linked. No mock-ups, no 'demo briefs'. Click through to see what the brief was, what we built and what changed."
+    breadcrumbs={[{ label: 'Work' }]}
   />
+  <CtaBand title="Want something like this for your business?" lede="Tell us what you sell and where. We'll suggest the smallest piece of work that would make a difference." />
 </Layout>
-
-<script>
-  const pills = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
-  const items = document.querySelectorAll<HTMLElement>('.project-item');
-
-  const ACTIVE_CLASSES = ['active', 'bg-white', 'text-neutral-950', 'font-bold', 'shadow-md', 'hover:bg-neutral-100', 'hover:text-neutral-950'];
-  const INACTIVE_CLASSES = ['bg-[#111413]', 'text-neutral-400', 'border', 'border-white/[0.08]', 'hover:border-white/[0.2]', 'hover:text-white', 'hover:bg-white/[0.04]'];
-
-  pills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      const selected = pill.dataset.filter || 'all';
-
-      pills.forEach((p) => {
-        p.classList.remove(...ACTIVE_CLASSES);
-        p.classList.add(...INACTIVE_CLASSES);
-        p.setAttribute('aria-selected', 'false');
-      });
-
-      pill.classList.remove(...INACTIVE_CLASSES);
-      pill.classList.add(...ACTIVE_CLASSES);
-      pill.setAttribute('aria-selected', 'true');
-
-      items.forEach((item) => {
-        const itemCategories: string[] = JSON.parse(item.dataset.categories || '[]');
-        if (selected === 'all' || itemCategories.includes(selected)) {
-          item.style.display = '';
-          item.style.opacity = '1';
-        } else {
-          item.style.display = 'none';
-          item.style.opacity = '0';
-        }
-      });
-    });
-  });
-</script>

@@ -1,0 +1,25 @@
+---
+import type { CaseStudy } from '../../utils/caseStudies';
+import { getRelatedCaseStudies } from '../../utils/caseStudies';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectGrid from '../work/ProjectGrid.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  project: CaseStudy;
+}
+const { project } = Astro.props;
+const related = await getRelatedCaseStudies(project, 2);
+if (related.length === 0) return;
+---
+
+<Section tone="paper-2" aria-labelledby="related-heading">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <SectionHeading id="related-heading" eyebrow="More work" title="Other projects you might recognise yourself in" size="md" />
+    <Button href="/work/" variant="link">See all work</Button>
+  </div>
+  <div class="mt-10">
+    <ProjectGrid projects={related} columns={2} />
+  </div>
+</Section>

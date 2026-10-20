@@ -1,0 +1,58 @@
+---
+import type { CaseStudy } from '../../utils/caseStudies';
+import Tag from '../ui/Tag.astro';
+import { ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  project: CaseStudy;
+}
+const { project } = Astro.props;
+const { data } = project;
+
+const rows: { label: string; value: string }[] = [
+  { label: 'Client', value: data.client },
+  ...(data.market ? [{ label: 'Market', value: data.market }] : []),
+  { label: 'Industry', value: data.industry },
+  { label: 'Year', value: data.year },
+];
+---
+
+<aside class="rounded-lg border border-line bg-surface p-6 shadow-card lg:sticky lg:top-24" aria-label="Project facts">
+  <dl class="space-y-4">
+    {rows.map((row) => (
+      <div>
+        <dt class="eyebrow text-ink-3">{row.label}</dt>
+        <dd class="mt-1 text-body text-ink">{row.value}</dd>
+      </div>
+    ))}
+    {data.platforms.length > 0 && (
+      <div>
+        <dt class="eyebrow text-ink-3">Platforms</dt>
+        <dd class="mt-2 flex flex-wrap gap-1.5">
+          {data.platforms.map((p) => <Tag>{p}</Tag>)}
+        </dd>
+      </div>
+    )}
+    {data.services.length > 0 && (
+      <div>
+        <dt class="eyebrow text-ink-3">What we did</dt>
+        <dd class="mt-2">
+          <ul class="space-y-1 text-small text-ink-2">
+            {data.services.map((s) => <li>{s}</li>)}
+          </ul>
+        </dd>
+      </div>
+    )}
+  </dl>
+  {data.liveUrl && (
+    <a
+      href={data.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-800"
+    >
+      See it live
+      <ArrowUpRight class="size-4" aria-hidden="true" />
+    </a>
+  )}
+</aside>

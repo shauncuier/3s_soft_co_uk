@@ -1,5 +1,6 @@
 /**
  * Shared editorial content and taxonomy used across pages.
+ * Copy follows docs/superpowers/specs/2026-10-20-uk-redesign-spec.md §7.1.
  */
 
 /* ------------------------------------------------------------------ */
@@ -9,6 +10,8 @@
 export const categories = {
   ecommerce: { label: 'E-commerce', workSlug: 'ecommerce' },
   shopify: { label: 'Shopify', workSlug: 'shopify' },
+  marketplaces: { label: 'Amazon & Marketplaces', workSlug: 'amazon-marketplaces' },
+  automation: { label: 'Automation', workSlug: 'automation' },
   web: { label: 'Web', workSlug: 'web-development' },
   technology: { label: 'Technology', workSlug: null },
 } as const;
@@ -16,94 +19,179 @@ export const categories = {
 export type CategoryKey = keyof typeof categories;
 export const categoryKeys = Object.keys(categories) as [CategoryKey, ...CategoryKey[]];
 
-/** Category landing pages under /work/<slug>/ */
-export const workCategoryPages = [
+export interface WorkCategoryPage {
+  /** URL segment under /work/<slug>/ */
+  slug: string;
+  category: CategoryKey;
+  /** <title> text (site name is appended by the layout). */
+  title: string;
+  /** H1 on the category page. */
+  heading: string;
+  /** Lede under the heading; also the meta description. */
+  description: string;
+}
+
+/** Category landing pages under /work/<slug>/ – five, in nav order. */
+export const workCategoryPages: readonly WorkCategoryPage[] = [
   {
     slug: 'shopify',
-    category: 'shopify' as CategoryKey,
+    category: 'shopify',
     title: 'Shopify Work',
-    heading: 'Shopify, built with care.',
+    heading: 'Shopify stores we have built and fixed',
     description:
-      'Shopify storefronts, theme improvements and store operations delivered by 3s-Soft for growing commerce brands.',
+      'Shopify stores, theme fixes and speed work for UK small retailers who want one team to call.',
   },
   {
-    slug: 'ecommerce',
-    category: 'ecommerce' as CategoryKey,
-    title: 'E-commerce Work',
-    heading: 'Digital commerce, thoughtfully delivered.',
+    slug: 'amazon-marketplaces',
+    category: 'marketplaces',
+    title: 'Amazon & Marketplace Work',
+    heading: 'Amazon listings, A+ Content and Brand Stories',
     description:
-      'E-commerce projects spanning storefronts, marketplace operations and product data, delivered by 3s-Soft.',
+      'Listing optimisation, A+ Content, Brand Story modules and catalogue clean-up for sellers on Amazon and eBay.',
   },
   {
     slug: 'web-development',
-    category: 'web' as CategoryKey,
+    category: 'web',
     title: 'Web Development Work',
-    heading: 'Websites built for real business needs.',
+    heading: 'Websites that bring small businesses enquiries',
     description:
-      'Corporate websites and web platforms designed and developed by 3s-Soft for organisations that need clarity and performance.',
+      'Fast, professional websites built for UK small businesses, with search foundations in place from day one.',
+  },
+  {
+    slug: 'automation',
+    category: 'automation',
+    title: 'Automation Work',
+    heading: 'Automation that keeps stock, prices and orders in step',
+    description:
+      'Stock and price sync, order flows and custom plugins that remove manual exports between suppliers, stores and marketplaces.',
+  },
+  {
+    slug: 'ecommerce',
+    category: 'ecommerce',
+    title: 'E-commerce Work',
+    heading: 'E-commerce projects across stores and marketplaces',
+    description:
+      'Online stores, marketplace listings and the automation between them, delivered for small businesses and sellers.',
   },
 ] as const;
 
 /* ------------------------------------------------------------------ */
-/* Capabilities                                                        */
+/* What we do (home "What we do" cards, spec §7.1 step 4)              */
 /* ------------------------------------------------------------------ */
 
-export const capabilities = [
+export interface Capability {
+  /** Matches a `Service.slug` in src/data/services.ts. */
+  slug: 'shopify' | 'amazon-marketplaces' | 'automation' | 'web-development';
+  title: string;
+  /** One-line "for…" */
+  forWho: string;
+  /** Kept for existing pages that read `cap.text`. Same as `forWho`. */
+  text: string;
+  bullets: readonly [string, string, string];
+  href: string;
+}
+
+export const capabilities: readonly Capability[] = [
   {
-    title: 'E-commerce',
-    text: 'Storefronts, catalogues and day-to-day commerce operations, set up to scale without adding complexity.',
+    slug: 'shopify',
+    title: 'Shopify & e-commerce stores',
+    forWho: 'For UK retailers whose store is slow, dated or not converting.',
+    text: 'For UK retailers whose store is slow, dated or not converting.',
+    bullets: ['New stores and redesigns', 'Theme fixes and speed work', 'Migrations and app set-up'],
+    href: '/services/shopify/',
   },
   {
-    title: 'Shopify',
-    text: 'Store builds, theme customisation, apps and ongoing improvements for Shopify brands of every size.',
+    slug: 'amazon-marketplaces',
+    title: 'Amazon & marketplace listings',
+    forWho: 'For Amazon and eBay sellers whose listings are not pulling their weight.',
+    text: 'For Amazon and eBay sellers whose listings are not pulling their weight.',
+    bullets: ['Listing optimisation and cataloguing', 'A+ Content and Brand Story', 'Amazon brand store design'],
+    href: '/services/amazon-marketplaces/',
   },
   {
-    title: 'Marketplace Operations',
-    text: 'Listing management and channel operations across Amazon, eBay, Etsy and Walmart.',
+    slug: 'automation',
+    title: 'Automation & integrations',
+    forWho: 'For sellers whose stock and prices drift between supplier, store and marketplaces.',
+    text: 'For sellers whose stock and prices drift between supplier, store and marketplaces.',
+    bullets: ['Stock and price sync', 'Order and tracking flows', 'Custom plugins and feeds'],
+    href: '/services/automation/',
   },
   {
-    title: 'Web Development',
-    text: 'Fast, accessible websites and web applications built on modern, maintainable foundations.',
-  },
-  {
-    title: 'Product Data',
-    text: 'Structured, consistent product information — titles, attributes, imagery and feeds — that every channel can rely on.',
-  },
-  {
-    title: 'Automation',
-    text: 'Integrations and workflows that remove repetitive manual work between systems.',
-  },
-  {
-    title: 'Digital Technology',
-    text: 'Custom tools, dashboards and APIs designed around how your organisation actually works.',
+    slug: 'web-development',
+    title: 'Websites for small businesses',
+    forWho: 'For businesses that need a fast, professional site that brings enquiries.',
+    text: 'For businesses that need a fast, professional site that brings enquiries.',
+    bullets: ['Fast business websites', 'WordPress and Astro builds', 'Search foundations built in'],
+    href: '/services/web-development/',
   },
 ] as const;
 
+/** Fifth tile on the home services grid and the services hub. */
+export const consultationTile = {
+  title: 'Not sure where to start?',
+  text: "Book a call and we'll tell you honestly what you need.",
+} as const;
+
 /* ------------------------------------------------------------------ */
-/* How we work                                                         */
+/* How it works (spec §7.1 step 6)                                      */
 /* ------------------------------------------------------------------ */
 
 export const process = [
-  { number: '01', title: 'Understand', text: 'We understand the business, technology and problem.' },
-  { number: '02', title: 'Build', text: 'We design and implement the appropriate solution.' },
-  { number: '03', title: 'Improve', text: 'We refine, maintain and improve the digital experience.' },
+  {
+    number: '01',
+    title: 'A 15-minute call',
+    text: "You tell us what's not working. We ask the questions that matter and say whether we can help.",
+  },
+  {
+    number: '02',
+    title: 'A plain-English plan',
+    text: 'Fixed scope, a clear price and a date. No jargon, no hidden extras.',
+  },
+  {
+    number: '03',
+    title: 'Build, launch, support',
+    text: 'One team from start to finish, and the same people to call once you are live.',
+  },
 ] as const;
 
 /* ------------------------------------------------------------------ */
-/* Technology & platforms                                              */
+/* Why small businesses choose us (spec §7.1 step 7)                    */
+/* ------------------------------------------------------------------ */
+
+export const whyUs = [
+  {
+    title: 'A UK contact and a full engineering team',
+    text: 'You deal with one person in the UK, backed by developers who do the work.',
+  },
+  {
+    title: 'One team across store, marketplaces and website',
+    text: 'No juggling three agencies. The same people build your store, your listings and the automation between them.',
+  },
+  {
+    title: 'Verified reviews',
+    text: '5.0 from 185+ client reviews on Fiverr, and Top Rated on Upwork with a 100% job success score.',
+  },
+  {
+    title: 'Honest about results',
+    text: 'We say what we did and what happened. We do not quote numbers we cannot back up.',
+  },
+] as const;
+
+/* ------------------------------------------------------------------ */
+/* Technology & platforms (kept for TechStack.astro)                    */
 /* ------------------------------------------------------------------ */
 
 export const technologyGroups = [
   {
-    title: 'Commerce & Marketplaces',
-    items: ['Shopify', 'Amazon', 'eBay', 'Etsy', 'Walmart'],
+    title: 'Stores & marketplaces',
+    items: ['Shopify', 'WooCommerce', 'Amazon', 'eBay', 'Etsy', 'Walmart'],
   },
   {
-    title: 'Web & Applications',
-    items: ['WordPress', 'React', 'Next.js', 'Astro', 'Node.js'],
+    title: 'Websites',
+    items: ['WordPress', 'Astro', 'React', 'Next.js', 'Node.js'],
   },
   {
-    title: 'Data & Automation',
-    items: ['MySQL', 'MongoDB', 'Python', 'APIs', 'Automation'],
+    title: 'Data & automation',
+    items: ['REST APIs', 'MySQL', 'MongoDB', 'Python', 'WordPress plugins'],
   },
 ] as const;

@@ -44,6 +44,8 @@ const caseStudies = defineCollection({
             image: image(),
             alt: z.string(),
             caption: z.string().optional(),
+            /** Tile shape in the gallery grid. `tall` = top-cropped 3:4 tile (Amazon A+ pages). Defaults to landscape in the UI. */
+            aspect: z.enum(['landscape', 'portrait', 'tall']).optional(),
           }),
         )
         .default([]),

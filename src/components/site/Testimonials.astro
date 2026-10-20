@@ -14,13 +14,13 @@ const initials = (name: string) => name.split(/\s+/).map((p) => p[0]).slice(0, 2
       <li class="flex w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-xl border border-line bg-surface p-7 shadow-card lg:w-auto lg:max-w-none">
         <Quote class="size-6 text-brand" aria-hidden="true" />
         <blockquote class="mt-4 flex-1 text-lede text-ink">“{t.quote}”</blockquote>
-        <footer class="mt-6 flex items-center gap-3">
+        <div class="mt-6 flex items-center gap-3">
           <span class="flex size-11 items-center justify-center rounded-full bg-brand-100 font-bold text-brand-800" aria-hidden="true">{initials(t.name)}</span>
           <div>
             <p class="font-semibold text-ink">{t.name}</p>
             <p class="text-small text-ink-3">{t.role}{t.source && ` · ${t.source}`}</p>
           </div>
-        </footer>
+        </div>
       </li>
     ))}
   </ul>

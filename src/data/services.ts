@@ -24,7 +24,7 @@ export interface Service {
   navLabel: string;
   /** Page H1 – includes the service term and the audience. */
   h1: string;
-  /** <title> – "{Service} for UK Small Businesses | 3s-Soft UK" or "…for Amazon Sellers". */
+  /** <title> without the brand suffix (Layout adds " | 3s-Soft"); keep ≤50 characters. */
   metaTitle: string;
   /** ≤155 characters. */
   metaDescription: string;
@@ -50,8 +50,8 @@ export const services: readonly Service[] = [
     slug: 'shopify',
     title: 'Shopify & e-commerce stores',
     navLabel: 'Shopify stores',
-    h1: 'Shopify stores for UK small businesses',
-    metaTitle: 'Shopify Development for UK Small Businesses | 3s-Soft UK',
+    h1: 'Shopify agency and developer for UK small businesses',
+    metaTitle: 'Shopify Agency & Developer for UK Small Businesses',
     metaDescription:
       'New Shopify stores, theme fixes, speed work and migrations for UK small retailers. One team, a fixed price and plain-English advice. Book a 15-minute call.',
     lede:
@@ -103,8 +103,8 @@ export const services: readonly Service[] = [
     slug: 'amazon-marketplaces',
     title: 'Amazon & marketplace listings',
     navLabel: 'Amazon & marketplaces',
-    h1: 'Amazon listing optimisation and A+ Content for Amazon sellers',
-    metaTitle: 'Amazon A+ Content & Listing Optimisation for Amazon Sellers | 3s-Soft UK',
+    h1: 'Amazon listing optimisation, A+ Content and brand stores for UK sellers',
+    metaTitle: 'Amazon A+ Content & Listing Optimisation UK',
     metaDescription:
       "Amazon A+ Content, Brand Story, brand store design and cataloguing for UK sellers on Amazon UK and US. Listed on Amazon's Service Provider Network.",
     lede:
@@ -156,8 +156,8 @@ export const services: readonly Service[] = [
     slug: 'automation',
     title: 'Automation & integrations',
     navLabel: 'Automation',
-    h1: 'E-commerce automation and integrations for UK small businesses',
-    metaTitle: 'E-commerce Automation & Integrations for UK Small Businesses | 3s-Soft UK',
+    h1: 'Shopify, Amazon and eBay integration and stock sync for UK sellers',
+    metaTitle: 'Shopify Amazon Integration & Stock Sync UK',
     metaDescription:
       'Stock and price sync, order flows, feeds and custom plugins that connect your supplier, store and marketplaces. From the team behind a WordPress.org plugin.',
     lede:
@@ -205,7 +205,7 @@ export const services: readonly Service[] = [
     title: 'Websites for small businesses',
     navLabel: 'Websites',
     h1: 'Web design and development for UK small businesses',
-    metaTitle: 'Web Design & Development for UK Small Businesses | 3s-Soft UK',
+    metaTitle: 'Small Business Web Design & Development UK',
     metaDescription:
       'Fast, professional websites for UK small businesses, built on WordPress or Astro with search foundations in place. You own the site. Book a 15-minute call.',
     lede:
@@ -260,7 +260,7 @@ export function getService(slug: string): Service | undefined {
 
 /** Services hub page copy (/services/). */
 export const servicesHub = {
-  title: 'Services for UK Small Businesses & E-commerce Sellers',
+  title: 'Services: Shopify, Amazon, Automation & Websites',
   heading: 'What we do',
   lede:
     'Four things, done properly, by one team: Shopify stores, Amazon and marketplace listings, the automation between them, and websites that bring enquiries.',

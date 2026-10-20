@@ -48,6 +48,9 @@ export interface SchemaGeneratorOptions {
   ogImageUrl?: string;
 }
 
+/** Build time, used as dateModified for pages without their own date. */
+const BUILD_DATE = new Date().toISOString();
+
 const AREA_SERVED_GB = { '@type': 'Country', name: 'United Kingdom', identifier: 'GB' } as const;
 
 function toSlugId(value: string): string {
@@ -57,7 +60,7 @@ function toSlugId(value: string): string {
 /**
  * Builds a unified, interlinked Schema.org @graph JSON-LD structure following
  * docs/superpowers/specs/2026-10-20-uk-redesign-spec.md §10:
- * Organization + ProfessionalService (areaServed GB, founder, sameAs, 512px logo),
+ * Organization + OnlineBusiness (no LocalBusiness subtype: there is no public address yet),
  * WebSite, WebPage/CollectionPage/AboutPage/ContactPage, BreadcrumbList,
  * Service on service pages, FAQPage only where FAQs render, Article on case studies.
  * No PostalAddress or geo data until company details are confirmed.
@@ -95,6 +98,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
     jobTitle: site.founder.role,
     url: site.founder.url,
     worksFor: { '@id': organizationId },
+    sameAs: credentialLinks.filter((c) => c.key === 'fiverr' || c.key === 'upwork').map((c) => c.href),
   };
 
   const ukDirectorEntity = {
@@ -108,7 +112,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
 
   // 1. Organization & ProfessionalService entity
   const organizationEntity: Record<string, any> = {
-    '@type': ['Organization', 'ProfessionalService'],
+    '@type': ['Organization', 'OnlineBusiness'],
     '@id': organizationId,
     name: site.name,
     alternateName: site.ukName,
@@ -154,7 +158,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
       })),
     },
     sameAs: [
-      ...credentialLinks.map((c) => c.href),
+      ...credentialLinks.filter((c) => c.key !== 'fiverr' && c.key !== 'upwork').map((c) => c.href),
       site.social.linkedin,
       site.social.facebook,
       site.social.instagram,
@@ -183,6 +187,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
     '@id': websiteId,
     url: `${siteUrl}/`,
     name: site.ukName,
+    alternateName: site.name,
     description: site.description,
     publisher: { '@id': organizationId },
     inLanguage: site.lang,
@@ -198,6 +203,7 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
     isPartOf: { '@id': websiteId },
     about: { '@id': organizationId },
     inLanguage: site.lang,
+    dateModified: BUILD_DATE,
   };
 
   if (ogImageUrl) {
@@ -281,14 +287,21 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
       isPartOf: { '@id': webpageId },
       headline: caseStudy.title,
       description: caseStudy.summary,
-      image: absolute(caseStudy.heroImageUrl),
+      image: {
+        '@type': 'ImageObject',
+        url: absolute(caseStudy.heroImageUrl),
+        width: 1200,
+        height: 630,
+      },
       datePublished: publishDate.toISOString(),
       dateModified: publishDate.toISOString(),
       inLanguage: site.lang,
       mainEntityOfPage: { '@id': webpageId },
-      author: { '@id': organizationId },
-      publisher: { '@id': organizationId },
+      author: { '@type': 'Organization', '@id': organizationId, name: site.ukName, url: `${siteUrl}/` },
+      publisher: { '@type': 'Organization', '@id': organizationId, name: site.ukName, logo: { '@id': logoId } },
     };
+    webpageEntity.datePublished = publishDate.toISOString();
+    webpageEntity.dateModified = publishDate.toISOString();
 
     if (caseStudy.industry) {
       articleEntity.about = { '@type': 'Thing', name: caseStudy.industry };
@@ -299,7 +312,9 @@ export function buildSchemaGraph(options: SchemaGeneratorOptions) {
     }
 
     if (caseStudy.liveUrl) {
-      articleEntity.relatedLink = caseStudy.liveUrl;
+      // relatedLink belongs to WebPage, not Article (schema.org validator warning otherwise).
+      webpageEntity.relatedLink = caseStudy.liveUrl;
+      articleEntity.citation = caseStudy.liveUrl;
     }
 
     webpageEntity.mainEntity = { '@id': articleId };

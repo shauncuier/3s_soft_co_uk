@@ -49,6 +49,15 @@ export default defineConfig({
     mdx(),
     sitemap({
       filter: (page) => !page.includes('/404') && !/\/case-studies\/$/.test(page),
+      lastmod: new Date(),
+      serialize: (item) => {
+        // Home and service pages are the conversion pages: hint their importance.
+        if (/\/$/.test(item.url) && (item.url.endsWith('3s-soft.co.uk/') || item.url.includes('/services/'))) {
+          item.priority = 0.9;
+          item.changefreq = 'monthly';
+        }
+        return item;
+      },
     }),
   ],
 });

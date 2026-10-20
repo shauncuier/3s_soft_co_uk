@@ -22,6 +22,10 @@ interface Props {
   service?: { name: string; description: string; url: string; slug: string };
   /** Hide the floating WhatsApp button (e.g. on the contact page). */
   hideWhatsApp?: boolean;
+  /** Alt text for the social image; defaults to the brand line. */
+  ogImageAlt?: string;
+  /** Use the title exactly as given (no " | 3s-Soft" suffix). */
+  rawTitle?: boolean;
 }
 
 const {
@@ -36,14 +40,21 @@ const {
   faqs,
   service,
   hideWhatsApp = false,
+  ogImageAlt,
+  rawTitle = false,
 } = Astro.props;
 
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+// Titles stay at or under ~60 characters so they are not truncated in search results.
+const suffix = ` | ${site.name}`;
 const formattedTitle = isHome
-  ? `E-commerce, Shopify & Amazon Support for UK Small Businesses | ${site.ukName}`
+  ? `Shopify, Amazon & Websites for UK Small Businesses${suffix}`
   : title
-    ? `${title} | ${site.ukName}`
+    ? rawTitle
+      ? title
+      : `${title}${suffix}`
     : `${site.ukName} | ${site.positioning}`;
+const isArticle = Boolean(caseStudy);
 
 const cleanPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const canonical = canonicalUrl || new URL(cleanPath, site.url).href;
@@ -74,6 +85,8 @@ const schemaGraph = buildSchemaGraph({
     <meta name="description" content={description} />
     <meta name="author" content="3s-Soft UK" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en-gb" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
     {noindex ? (
       <meta name="robots" content="noindex, nofollow" />
     ) : (
@@ -84,7 +97,7 @@ const schemaGraph = buildSchemaGraph({
     <Font cssVariable="--font-manrope" preload />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={isArticle ? 'article' : 'website'} />
     <meta property="og:site_name" content={site.ukName} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={formattedTitle} />
@@ -92,8 +105,15 @@ const schemaGraph = buildSchemaGraph({
     <meta property="og:image" content={fullOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.ukName} — ${site.positioning}`} />
+    <meta property="og:image:alt" content={ogImageAlt ?? `${site.ukName} — ${site.positioning}`} />
     <meta property="og:locale" content={site.locale} />
+    {isArticle && caseStudy?.publishDate && (
+      <>
+        <meta property="article:published_time" content={caseStudy.publishDate.toISOString()} />
+        <meta property="article:modified_time" content={caseStudy.publishDate.toISOString()} />
+        <meta property="article:author" content={site.ukName} />
+      </>
+    )}
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -109,6 +129,8 @@ const schemaGraph = buildSchemaGraph({
     <meta name="theme-color" content="#f7f6f2" />
 
     <meta name="google-site-verification" content="BCYfUnolXJvi3-Bgfaw3jm23PI6Ffi9jUGl5j-be0Lk" />
+
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KFB5J47T55"></script>

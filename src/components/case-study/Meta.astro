@@ -1,13 +1,24 @@
 ---
 import type { CaseStudy } from '../../utils/caseStudies';
 import Tag from '../ui/Tag.astro';
-import { ArrowUpRight } from '@lucide/astro';
+import { ArrowUpRight, ArrowRight } from '@lucide/astro';
+import { services } from '../../data/services';
+
+const serviceByCategory: Record<string, string> = {
+  marketplaces: 'amazon-marketplaces',
+  shopify: 'shopify',
+  ecommerce: 'shopify',
+  web: 'web-development',
+  technology: 'automation',
+  automation: 'automation',
+};
 
 interface Props {
   project: CaseStudy;
 }
 const { project } = Astro.props;
 const { data } = project;
+const relatedService = services.find((s) => s.slug === serviceByCategory[data.categories[0]]);
 
 const rows: { label: string; value: string }[] = [
   { label: 'Client', value: data.client },
@@ -54,5 +65,13 @@ const rows: { label: string; value: string }[] = [
       See it live
       <ArrowUpRight class="size-4" aria-hidden="true" />
     </a>
+  )}
+  {relatedService && (
+    <p class="mt-6 border-t border-line pt-5 text-small text-ink-2">
+      Need this for your business?
+      <a href={relatedService.href} class="ml-1 inline-flex items-center gap-1 font-semibold text-brand-700 hover:text-brand-800">
+        {relatedService.navLabel} <ArrowRight class="size-3.5" aria-hidden="true" />
+      </a>
+    </p>
   )}
 </aside>

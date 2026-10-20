@@ -21,9 +21,10 @@ const og = await getImage({ src: data.heroImage, width: 1200, height: 630, forma
 ---
 
 <Layout
-  title={`${data.title} — Case Study`}
+  title={data.title.length <= 38 ? `${data.title} Case Study` : data.title}
   description={data.summary}
   ogImage={og.src}
+  ogImageAlt={data.heroAlt}
   breadcrumbs={[{ label: 'Work', href: '/work/' }, { label: data.title }]}
   caseStudy={{
     title: data.title,

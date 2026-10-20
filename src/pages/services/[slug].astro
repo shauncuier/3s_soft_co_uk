@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 const { service } = Astro.props;
 const related = await getPublishedCaseStudy(service.relatedCaseStudyId);
 const workSlug = categories[service.relatedCategory].workSlug;
-const pageTitle = service.metaTitle.replace(/\s*\|\s*3s-Soft UK$/, '');
+const pageTitle = service.metaTitle;
 const art = heroArt[service.slug];
 ---
 

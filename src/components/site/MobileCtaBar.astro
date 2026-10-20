@@ -1,0 +1,20 @@
+---
+/** Phone-only floating action bar: booking first, WhatsApp beside it. */
+import { site, contactLinks } from '../../data/site';
+import WhatsAppIcon from '../icons/WhatsAppIcon.astro';
+import { ArrowRight } from '@lucide/astro';
+---
+
+<div class="fixed inset-x-4 bottom-4 z-30 md:hidden print:hidden">
+  <div class="flex items-center gap-2 rounded-full border border-white/10 bg-ink p-1.5 shadow-card-hover">
+    <a href={contactLinks.booking} target="_blank" rel="noopener noreferrer" class="flex flex-1 items-center justify-between gap-2 rounded-full bg-brand py-2.5 pl-5 pr-2 font-semibold text-white">
+      {site.booking.label}
+      <span class="inline-flex size-8 items-center justify-center rounded-full bg-white/20" aria-hidden="true"><ArrowRight class="size-4" /></span>
+    </a>
+    {contactLinks.whatsapp && (
+      <a href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-paper" aria-label={site.contact.whatsappLabel}>
+        <WhatsAppIcon class="size-5" />
+      </a>
+    )}
+  </div>
+</div>

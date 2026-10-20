@@ -1,0 +1,78 @@
+---
+/**
+ * Two slow-scrolling rows of REAL project screenshots (no demo imagery).
+ * The second copy of each row exists only for the seamless loop, so it is
+ * aria-hidden and contains no links.
+ */
+import { Image } from 'astro:assets';
+import tailwater from '../../assets/projects/tailwater-supply.jpg';
+import tailwaterDetail from '../../assets/projects/tailwater-detail.jpg';
+import dropshipzone from '../../assets/projects/dropshipzone-sync.jpg';
+import dropshipzoneDetail from '../../assets/projects/dropshipzone-detail.jpg';
+import brandStory from '../../assets/projects/ivan-troy/brand-story-preview.jpg';
+import ivoBlack from '../../assets/projects/ivan-troy/ivo-black-aplus.jpg';
+import ivoBlue from '../../assets/projects/ivan-troy/ivo-blue-aplus.jpg';
+import ivoCoffee from '../../assets/projects/ivan-troy/ivo-coffee-aplus.jpg';
+import ivoCognac from '../../assets/projects/ivan-troy/ivo-cognac-aplus.jpg';
+import ivoGreen from '../../assets/projects/ivan-troy/ivo-green-aplus.jpg';
+import ivoRed from '../../assets/projects/ivan-troy/ivo-red-aplus.jpg';
+
+const tw = '/case-studies/tailwater-supply-co/';
+const dz = '/case-studies/dropshipzone-price-stock-sync/';
+const it = '/case-studies/ivan-troy-amazon-brand-story/';
+
+type Tile = { src: ImageMetadata; alt: string; href: string; label: string };
+const rowOne: Tile[] = [
+  { src: tailwater, alt: 'Tailwater Supply Co. brand website homepage', href: tw, label: 'Tailwater Supply Co. — website' },
+  { src: brandStory, alt: 'Ivan Troy Amazon Brand Story module', href: it, label: 'Ivan Troy — Amazon Brand Story' },
+  { src: dropshipzone, alt: '3S Soft Price & Stock Sync plugin banner', href: dz, label: 'Dropshipzone — WooCommerce plugin' },
+  { src: ivoBlack, alt: 'Ivan Troy Ivo Black Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+  { src: tailwaterDetail, alt: 'Tailwater Supply Co. fly pattern detail page', href: tw, label: 'Tailwater — product pages' },
+  { src: ivoBlue, alt: 'Ivan Troy Ivo Blue Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+];
+const rowTwo: Tile[] = [
+  { src: ivoCoffee, alt: 'Ivan Troy Ivo Coffee Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+  { src: dropshipzoneDetail, alt: 'Dropshipzone sync plugin settings screen', href: dz, label: 'Dropshipzone — sync dashboard' },
+  { src: ivoCognac, alt: 'Ivan Troy Ivo Cognac Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+  { src: tailwater, alt: 'Tailwater Supply Co. brand website homepage', href: tw, label: 'Tailwater Supply Co. — website' },
+  { src: ivoGreen, alt: 'Ivan Troy Ivo Green Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+  { src: ivoRed, alt: 'Ivan Troy Ivo Red Croco belt A+ Content page', href: it, label: 'Ivan Troy — A+ Content' },
+];
+
+const tileClass = 'block w-[260px] shrink-0 overflow-hidden rounded-xl border border-line bg-surface shadow-card sm:w-[320px]';
+---
+
+<div class="space-y-5" aria-label="Recent projects">
+  <div class="marquee" style="--marquee-duration: 70s;">
+    <div class="marquee-track gap-5 pr-5">
+      {rowOne.map((t, i) => (
+        <a href={t.href} class:list={[tileClass, 'hover-lift']} aria-label={t.label}>
+          <Image src={t.src} alt={t.alt} width={640} height={480} widths={[320, 640]} sizes="320px" loading={i < 3 ? 'eager' : 'lazy'} priority={i === 0} class="aspect-[4/3] w-full object-cover object-top" />
+        </a>
+      ))}
+      <div class="contents" aria-hidden="true">
+        {rowOne.map((t) => (
+          <div class={tileClass}>
+            <Image src={t.src} alt="" width={640} height={480} widths={[320, 640]} sizes="320px" loading="lazy" class="aspect-[4/3] w-full object-cover object-top" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="marquee" style="--marquee-duration: 85s; --marquee-direction: reverse;">
+    <div class="marquee-track gap-5 pr-5">
+      {rowTwo.map((t) => (
+        <a href={t.href} class:list={[tileClass, 'hover-lift']} aria-label={t.label}>
+          <Image src={t.src} alt={t.alt} width={640} height={480} widths={[320, 640]} sizes="320px" loading="lazy" class="aspect-[4/3] w-full object-cover object-top" />
+        </a>
+      ))}
+      <div class="contents" aria-hidden="true">
+        {rowTwo.map((t) => (
+          <div class={tileClass}>
+            <Image src={t.src} alt="" width={640} height={480} widths={[320, 640]} sizes="320px" loading="lazy" class="aspect-[4/3] w-full object-cover object-top" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,11 +2,20 @@
 interface Props {
   tone?: 'default' | 'on-dark';
   as?: 'p' | 'span' | 'div';
+  /** Render as a small pill chip (reference style) instead of plain text. */
+  chip?: boolean;
   class?: string;
 }
-const { tone = 'default', as: Tag = 'p', class: className = '' } = Astro.props;
+const { tone = 'default', as: Tag = 'p', chip = false, class: className = '' } = Astro.props;
+const colour = tone === 'on-dark' ? 'text-on-graphite-2' : 'text-brand-700';
+const chipClasses = chip
+  ? tone === 'on-dark'
+    ? 'inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5'
+    : 'inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5'
+  : '';
 ---
 
-<Tag class:list={['eyebrow', tone === 'on-dark' ? 'text-on-graphite-2' : 'text-brand-700', className]}>
+<Tag class:list={['eyebrow', colour, chipClasses, className]}>
+  {chip && <span class="size-1.5 rounded-full bg-brand" aria-hidden="true"></span>}
   <slot />
 </Tag>

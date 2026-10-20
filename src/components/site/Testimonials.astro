@@ -1,0 +1,27 @@
+---
+import { testimonials } from '../../data/testimonials';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { Quote } from '@lucide/astro';
+if (testimonials.length === 0) return;
+const initials = (name: string) => name.split(/\s+/).map((p) => p[0]).slice(0, 2).join('');
+---
+
+<Section aria-labelledby="testimonials-heading">
+  <SectionHeading id="testimonials-heading" eyebrow="What clients say" title="In their words" accent="their words" size="lg" />
+  <ul class="no-scrollbar -mx-5 mt-12 flex snap-x gap-5 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible" data-reveal>
+    {testimonials.map((t) => (
+      <li class="flex w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-xl border border-line bg-surface p-7 shadow-card lg:w-auto lg:max-w-none">
+        <Quote class="size-6 text-brand" aria-hidden="true" />
+        <blockquote class="mt-4 flex-1 text-lede text-ink">“{t.quote}”</blockquote>
+        <footer class="mt-6 flex items-center gap-3">
+          <span class="flex size-11 items-center justify-center rounded-full bg-brand-100 font-bold text-brand-800" aria-hidden="true">{initials(t.name)}</span>
+          <div>
+            <p class="font-semibold text-ink">{t.name}</p>
+            <p class="text-small text-ink-3">{t.role}{t.source && ` · ${t.source}`}</p>
+          </div>
+        </footer>
+      </li>
+    ))}
+  </ul>
+</Section>

@@ -1,5 +1,5 @@
 ---
-/** Final call-to-action band, used once at the end of every page. */
+/** Final call-to-action panel, used once at the end of every page. */
 import { site, contactLinks } from '../../data/site';
 import Section from '../ui/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
@@ -8,23 +8,23 @@ import WhatsAppIcon from '../icons/WhatsAppIcon.astro';
 
 interface Props {
   title?: string;
+  accent?: string;
   lede?: string;
   eyebrow?: string;
 }
 const {
   title = "Tell us what's not working.",
+  accent = "not working",
   lede = "We'll tell you what it takes to fix it, in plain English, with a fixed price. No pressure, no jargon.",
   eyebrow = 'Next step',
 } = Astro.props;
 ---
 
-<Section tone="graphite" aria-labelledby="cta-heading">
-  <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
-    <div class="lg:col-span-8">
-      <SectionHeading id="cta-heading" tone="on-dark" eyebrow={eyebrow} title={title} lede={lede} />
-    </div>
-    <div class="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:justify-end">
-      <Button href={contactLinks.booking} external variant="primary-on-dark" size="lg">{site.booking.label}</Button>
+<Section tone="graphite" inset rings aria-labelledby="cta-heading" class="py-3">
+  <div class="mx-auto max-w-3xl text-center" data-reveal>
+    <SectionHeading id="cta-heading" tone="on-dark" eyebrow={eyebrow} title={title} accent={accent} lede={lede} align="center" size="xl" />
+    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <Button href={contactLinks.booking} external variant="primary" size="lg" arrow>{site.booking.label}</Button>
       {contactLinks.whatsapp && (
         <Button href={contactLinks.whatsapp} external variant="secondary-on-dark" size="lg">
           <WhatsAppIcon class="size-4" />
@@ -32,5 +32,6 @@ const {
         </Button>
       )}
     </div>
+    <p class="mt-6 text-small text-on-graphite-2">Free call · fixed-price plan · {site.contact.responsePromise}</p>
   </div>
 </Section>

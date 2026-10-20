@@ -1,11 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
-import Proof from '../components/home/Proof.astro';
-import ServicesGrid from '../components/home/ServicesGrid.astro';
+import Ticker from '../components/site/Ticker.astro';
+import Stats from '../components/home/Stats.astro';
+import Comparison from '../components/home/Comparison.astro';
+import ServicesPanel from '../components/home/ServicesPanel.astro';
 import FeaturedWork from '../components/home/FeaturedWork.astro';
 import ProcessSteps from '../components/site/ProcessSteps.astro';
 import WhyUs from '../components/home/WhyUs.astro';
+import Testimonials from '../components/site/Testimonials.astro';
 import HomeFaq from '../components/home/HomeFaq.astro';
 import CtaBand from '../components/site/CtaBand.astro';
 import { homeFaqs } from '../data/faq';
@@ -14,11 +17,14 @@ import { site } from '../data/site';
 
 <Layout description={site.description} faqs={[...homeFaqs]}>
   <Hero />
-  <Proof />
-  <ServicesGrid />
+  <Ticker />
+  <Stats />
+  <Comparison />
+  <ServicesPanel />
   <FeaturedWork />
-  <ProcessSteps tone="paper" />
+  <ProcessSteps />
   <WhyUs />
+  <Testimonials />
   <HomeFaq />
   <CtaBand />
 </Layout>

@@ -92,56 +92,36 @@ Navigation: Services · Work · About · Contact · [Book a call]. Footer: servi
 
 ---
 
-## 6. Design system
+## 6. Design system (v2, 20 Oct 2026 — revised to the owner's references)
+
+The first build (light editorial, serif headlines, flat sections) did not satisfy the owner. Reference sites supplied: forgestudio.space and designmingle.xyz. Their shared language, adopted here in 3s-Soft's brand colours:
 
 ### 6.1 Principles
-Light, editorial, unhurried. The work and the words carry the page; decoration is minimal. One accent colour. Large serif headlines give authority; Manrope keeps the interface friendly and legible.
+Cream page, bold sans headlines with one phrase in brand green, full-bleed **rounded dark panels** alternating with cream, pill buttons with an arrow-in-a-circle, real project screenshots as the hero visual, a scrolling ticker, numbered cards, big-numeral stats, and restrained motion (reveals, hover lifts, marquee). Decorative concentric rings in panel corners.
 
-### 6.2 Colour (Tailwind v4 `@theme` tokens)
-| Token | Value | Use |
-|---|---|---|
-| `paper` | `#f7f6f2` | Page background |
-| `paper-2` | `#eeece6` | Alternate section band, code background |
-| `surface` | `#ffffff` | Cards |
-| `line` | `#dcd9d1` | Borders, dividers |
-| `ink` | `#1b1f1d` | Headlines, body |
-| `ink-2` | `#474e4a` | Secondary text |
-| `ink-3` | `#646b67` | Captions, metadata (≥15px only); 4.6:1 on paper-2 |
-| `brand` | `#1e864a` | Buttons, accents; white text on it is 4.6:1 |
-| `brand-700` | `#176d3b` | Small links, hover |
-| `brand-100` | `#dff1e6` | Soft highlight, tags |
-| `brand-50` | `#f0f8f3` | Tinted panels |
-| `graphite` | `#161918` | Hero/CTA bands only |
-| `graphite-2` | `#212624` | Cards inside graphite bands |
-| `on-graphite` | `#f3f4f1` | Text on graphite |
-| `on-graphite-2` | `#b7bdb9` | Secondary text on graphite |
-
-Raw hex values are not allowed in components; a grep gate enforces this.
+### 6.2 Colour
+Unchanged tokens: `paper #f7f6f2`, `paper-2 #eeece6`, `surface #fff`, `line #dcd9d1`, `ink #1b1f1d`, `ink-2 #474e4a`, `ink-3 #646b67`, `brand #1e864a` (white text 4.6:1), `brand-700 #176d3b`, `brand-100 #dff1e6`, `brand-50 #f0f8f3`, `graphite #161918`, `graphite-2 #212624`, `on-graphite #f3f4f1`, `on-graphite-2 #b7bdb9`. Panels: graphite (statement, stats, work, final CTA) and one brand-green gradient panel (services).
 
 ### 6.3 Typography
-- **Display:** Instrument Serif (regular, italic), self-hosted via the Astro Fonts API. Used for `h1`, `h2`, and pull-quotes.
-- **Text/UI:** Manrope Variable (400–800), self-hosted. Everything else.
-- Fluid scale (min → max): display-xl 44→80px / 1.02; display-lg 34→56px / 1.06; display-md 26→36px / 1.15; lede 20px / 1.5; body 17px / 1.65; small 15px / 1.55; label 13px / 0.08em tracking, uppercase, Manrope 600.
-- No monospace. Nothing below 13px. Body copy never below 15px.
+Single family: **Manrope Variable**. Display = Manrope 800, tracking −0.03em to −0.035em (display-xl 40→76px, lg 32→52px, md 24→34px, sm 20→24px; stat numerals 40→64px). Lede 18–20px, body 17px, small 15px, label 13px uppercase tracked. Instrument Serif removed.
 
-### 6.4 Space, shape, elevation
-- 8pt grid. Content width 72rem; prose width 44rem. Section padding `clamp(4rem, 8vw, 7.5rem)`.
-- Radii: 6px (tags), 10px (buttons, inputs), 16px (cards), 24px (feature panels).
-- One card shadow: `0 1px 2px rgb(27 31 29 / .06), 0 10px 30px -14px rgb(27 31 29 / .14)`. Flat borders elsewhere.
+### 6.4 Shape, space, elevation
+Radii 8 / 12 / 20 / 28 / 36px (36px for full-bleed panels). Pill buttons. 8pt grid, content 72rem, section padding `clamp(4rem, 8vw, 7.5rem)`; inset panels sit in a 12–20px gutter. One card shadow; `hover-lift` raises cards 3px.
 
 ### 6.5 Motion
-Hover/focus transitions 150–200ms. Optional entrance fade + 12px rise on sections, 250ms, once, respecting `prefers-reduced-motion`. No infinite animation, no parallax, no scroll-progress bar, no header compression, no live clock.
+Scroll reveals (fade + 18px rise, 600ms, once; hidden only when JS is present; off under reduced motion). Two hero marquee rows of real screenshots (70s / 85s, opposite directions, pause on hover; static scroll under reduced motion). Services ticker (45s). Button arrow nudges on hover. No parallax, no counters, no scroll-progress bar.
 
-### 6.6 Logo
-Source: `brand-source/3s-soft-logo-source.png` (512px, graphite "3S" with green stroke, "SOFT" wordmark). A build script produces: trimmed transparent PNG (header/footer, rendered ≤160px wide), white variant for graphite bands, favicon 32/180/192/512, and `og-default.png` (1200×630 on paper with the mark and the positioning line). The mark is never recoloured on light surfaces, never stretched, never placed on a busy image.
+### 6.6 Navigation and calls to action
+Floating centred pill header (logo, four links, "Book a 15-minute call →"); mobile: logo, menu button, full-screen dialog. Phones get a fixed bottom bar: booking button + WhatsApp. Every page ends with the dark CTA panel.
 
-### 6.7 Iconography and imagery
-Lucide icons at 1.5px stroke, 20–24px, only where they aid scanning (contact methods, process steps). Imagery is real project output only: storefront screenshots, Amazon A+ modules, plugin screens. No stock photography, no abstract 3D.
+### 6.7 Logo and imagery
+Original mark on cream; white mark only where the logo appears on graphite. Imagery is real project output only (Tailwater, Dropshipzone, Ivan Troy A+ pages); work is shown in browser-window frames.
 
 ### 6.8 Component inventory
-`Button` (primary / secondary / ghost / link; sm / md / lg; `<a>` or `<button>`), `Eyebrow`, `SectionHeading` (eyebrow + title + lede), `Section` (tone: paper / paper-2 / graphite), `Container`, `Card`, `Tag`, `Logo`, `Faq` (`<details>`), `Header`, `MobileNav`, `Footer`, `WhatsAppButton` (mobile), `ProjectCard`, `ProjectGrid`, `CategoryNav`, case-study `Hero / Meta / Narrative / Outcomes / Gallery / Related`, services `ServiceHero / FitFor / Deliverables / ServiceFaq`, home `Hero / Proof / ServicesGrid / FeaturedWork / ProcessSteps / WhyUs / UkContactCard / Cta`.
+ui: Button (pill, `arrow`), Eyebrow (`chip`), SectionHeading (`accent`), Section (`inset`, `rings`, tone brand), Container, Card, Tag, Logo, Faq, BrowserFrame. site: Header (floating pill), MobileNav, MobileCtaBar, Footer, Ticker, CtaBand, ProcessSteps, PersonCard, CredentialList, Testimonials (renders only with real quotes in `src/data/testimonials.ts`). home: Hero, HeroMosaic, Stats, Comparison, ServicesPanel, FeaturedWork, WhyUs, HomeFaq. work and case-study and services components unchanged in role.
 
----
+### 6.9 Home order (v2)
+Hero (centred headline + mosaic) → Ticker → Stats panel (dark) → "The juggling act" comparison → Services panel (green) → Selected work (dark, browser frames) → How it works → Point of view + UK contact (dark) → Testimonials (when supplied) → FAQ → CTA panel (dark) → Footer.
 
 ## 7. Page specifications
 

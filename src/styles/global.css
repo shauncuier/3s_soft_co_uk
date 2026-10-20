@@ -37,19 +37,24 @@
 
   /* Type families (CSS variables come from the Astro Fonts API) */
   --font-sans: var(--font-manrope), system-ui, 'Segoe UI', Roboto, sans-serif;
-  --font-display: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --font-display: var(--font-manrope), system-ui, 'Segoe UI', Roboto, sans-serif;
 
   /* Fluid type scale */
-  --text-display-xl: clamp(2.75rem, 1.9rem + 3.6vw, 5rem);
-  --text-display-xl--line-height: 1.02;
-  --text-display-xl--letter-spacing: -0.015em;
-  --text-display-lg: clamp(2.125rem, 1.5rem + 2.4vw, 3.5rem);
-  --text-display-lg--line-height: 1.06;
-  --text-display-lg--letter-spacing: -0.01em;
-  --text-display-md: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  --text-display-xl: clamp(2.5rem, 1.4rem + 4.2vw, 4.75rem);
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-lg: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-md: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
   --text-display-md--line-height: 1.15;
-  --text-display-sm: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
-  --text-display-sm--line-height: 1.2;
+  --text-display-md--letter-spacing: -0.02em;
+  --text-display-sm: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-display-sm--line-height: 1.25;
+  --text-display-sm--letter-spacing: -0.015em;
+  --text-stat: clamp(2.5rem, 1.8rem + 3vw, 4rem);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.04em;
   --text-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
   --text-lede--line-height: 1.5;
   --text-body: 1.0625rem;
@@ -61,10 +66,11 @@
   --text-label--letter-spacing: 0.08em;
 
   /* Shape */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
 
   /* Layout */
   --spacing-section: clamp(4rem, 8vw, 7.5rem);
@@ -109,7 +115,8 @@
 
   h1, h2 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -205,14 +212,69 @@
   }
 }
 
-/* Entrance reveal: opt-in, once, respects reduced motion. Applied by a tiny
-   IntersectionObserver only if present; without JS everything is visible. */
-@utility reveal {
-  @media (prefers-reduced-motion: no-preference) {
-    &[data-reveal-pending] {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    transition: opacity 250ms var(--ease-soft), transform 250ms var(--ease-soft);
+/* ------------------------------------------------------------------ */
+/* Motion system: reveals, marquee, decorative rings                   */
+/* ------------------------------------------------------------------ */
+/* Reveal: hidden only when JS is present (html.js), visible otherwise. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease-soft), transform 600ms var(--ease-soft);
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+html.js [data-reveal-delay="1"] { transition-delay: 80ms; }
+html.js [data-reveal-delay="2"] { transition-delay: 160ms; }
+html.js [data-reveal-delay="3"] { transition-delay: 240ms; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@utility hover-lift {
+  transition: transform 250ms var(--ease-soft), box-shadow 250ms var(--ease-soft), border-color 250ms var(--ease-soft);
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Concentric decorative rings; parent must be relative + overflow hidden */
+@utility rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at var(--rings-x, 85%) var(--rings-y, 20%), transparent 0 11rem, currentColor 11rem calc(11rem + 1px), transparent calc(11rem + 1px) 19rem, currentColor 19rem calc(19rem + 1px), transparent calc(19rem + 1px) 27rem, currentColor 27rem calc(27rem + 1px), transparent calc(27rem + 1px));
+  opacity: 0.14;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
   }
 }

@@ -2,9 +2,13 @@
 import Container from './Container.astro';
 
 interface Props {
-  tone?: 'paper' | 'paper-2' | 'surface' | 'graphite';
+  tone?: 'paper' | 'paper-2' | 'surface' | 'graphite' | 'brand';
   padding?: 'default' | 'sm' | 'none';
   contained?: boolean;
+  /** Render as a full-bleed rounded panel with a small outer gutter (reference style). */
+  inset?: boolean;
+  /** Draw decorative concentric rings in the panel corner. */
+  rings?: boolean;
   id?: string;
   'aria-labelledby'?: string;
   'aria-label'?: string;
@@ -15,6 +19,8 @@ const {
   tone = 'paper',
   padding = 'default',
   contained = true,
+  inset = false,
+  rings = false,
   id,
   class: className = '',
   ...rest
@@ -25,16 +31,23 @@ const tones = {
   'paper-2': 'bg-paper-2 text-ink',
   surface: 'bg-surface text-ink',
   graphite: 'bg-graphite text-on-graphite',
+  brand: 'bg-gradient-to-br from-brand to-brand-800 text-white',
 };
+const ringColour = tone === 'graphite' ? 'text-white' : tone === 'brand' ? 'text-white' : 'text-brand';
 const paddings = { default: 'py-section', sm: 'py-section-sm', none: '' };
 ---
 
-<section id={id} class:list={[tones[tone], paddings[padding], className]} {...rest}>
-  {contained ? (
-    <Container>
-      <slot />
-    </Container>
-  ) : (
-    <slot />
-  )}
-</section>
+{inset ? (
+  <section id={id} class:list={['px-3 sm:px-5', className]} {...rest}>
+    <div class:list={['relative overflow-hidden rounded-2xl', tones[tone], paddings[padding]]}>
+      {rings && <div class:list={['rings', ringColour]} aria-hidden="true"></div>}
+      <div class="relative">
+        {contained ? <Container><slot /></Container> : <slot />}
+      </div>
+    </div>
+  </section>
+) : (
+  <section id={id} class:list={['relative', tones[tone], paddings[padding], className]} {...rest}>
+    {contained ? <Container><slot /></Container> : <slot />}
+  </section>
+)}

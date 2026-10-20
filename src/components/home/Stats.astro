@@ -1,0 +1,35 @@
+---
+import { site, getCredential } from '../../data/site';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { ArrowUpRight } from '@lucide/astro';
+
+const stats = [
+  { value: '185+', label: 'five-star client reviews', detail: 'Fiverr, 5.0 rating', href: getCredential('fiverr').href },
+  { value: '100%', label: 'job success score', detail: 'Upwork, Top Rated', href: getCredential('upwork').href },
+  { value: '30+', label: 'countries served', detail: 'Stores, listings and websites', href: '/about/#credentials' },
+  { value: 'Listed', label: "on Amazon's Service Provider Network", detail: 'A+ Content and Cataloguing', href: getCredential('amazonSpnAplus').href },
+];
+---
+
+<Section tone="graphite" inset rings aria-labelledby="stats-heading" class="py-3">
+  <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-5" data-reveal>
+      <SectionHeading id="stats-heading" tone="on-dark" eyebrow="Proof you can check" title="Numbers we can back up, and links to prove it." accent="back up" />
+    </div>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+      {stats.map((s, i) => (
+        <li data-reveal data-reveal-delay={String(Math.min(i, 3))}>
+          <a href={s.href} {...(s.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} class="group flex h-full flex-col rounded-xl border border-white/10 bg-white/[0.04] p-6 transition-colors duration-180 hover:bg-white/[0.08]">
+            <span class="font-display text-stat font-extrabold text-paper">{s.value}</span>
+            <span class="mt-3 text-body font-semibold text-on-graphite">{s.label}</span>
+            <span class="mt-auto inline-flex items-center gap-1 pt-4 text-small text-on-graphite-2 group-hover:text-paper">
+              {s.detail} <ArrowUpRight class="size-3.5" aria-hidden="true" />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <p class="mt-8 text-small text-on-graphite-2">{site.reach}. Amazon lists providers; it does not endorse them, and we never say it does.</p>
+</Section>

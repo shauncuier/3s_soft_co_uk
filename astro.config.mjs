@@ -41,28 +41,6 @@ export default defineConfig({
         ],
       },
     },
-    {
-      provider: fontProviders.local(),
-      name: 'Instrument Serif',
-      cssVariable: '--font-instrument-serif',
-      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
-      options: {
-        variants: [
-          {
-            src: ['./src/assets/fonts/instrument-serif-400-normal.woff2'],
-            weight: 400,
-            style: 'normal',
-            display: 'swap',
-          },
-          {
-            src: ['./src/assets/fonts/instrument-serif-400-italic.woff2'],
-            weight: 400,
-            style: 'italic',
-            display: 'swap',
-          },
-        ],
-      },
-    },
   ],
   vite: {
     plugins: [tailwindcss()],

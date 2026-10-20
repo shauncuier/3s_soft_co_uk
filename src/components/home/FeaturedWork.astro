@@ -1,19 +1,65 @@
 ---
+import { Image } from 'astro:assets';
 import { getFeaturedCaseStudies } from '../../utils/caseStudies';
 import Section from '../ui/Section.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Button from '../ui/Button.astro';
-import ProjectGrid from '../work/ProjectGrid.astro';
+import BrowserFrame from '../ui/BrowserFrame.astro';
+import { ArrowUpRight } from '@lucide/astro';
 
 const projects = await getFeaturedCaseStudies(3);
+const [lead, ...rest] = projects;
+const domain = (url?: string) => (url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : undefined);
 ---
 
-<Section tone="paper-2" aria-labelledby="work-heading">
-  <div class="flex flex-wrap items-end justify-between gap-6">
-    <SectionHeading id="work-heading" eyebrow="Selected work" title="Real brands, live links, honest outcomes" lede="No mock-ups and no 'demo briefs'. Each of these is a named client you can go and look at." />
-    <Button href="/work/" variant="link">See all work</Button>
+<Section tone="graphite" inset aria-labelledby="work-heading" class="py-3">
+  <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+    <SectionHeading id="work-heading" tone="on-dark" eyebrow="Selected work" title="Real brands, live links, honest outcomes." accent="honest outcomes" lede="No mock-ups and no 'demo briefs'. Each of these is a named client you can go and look at." />
+    <Button href="/work/" variant="primary-on-dark" arrow>See all work</Button>
   </div>
-  <div class="mt-12">
-    <ProjectGrid projects={projects} columns={3} />
-  </div>
+
+  {lead && (
+    <article class="group relative mt-12 grid gap-8 lg:grid-cols-12 lg:items-center" data-reveal>
+      <div class="lg:col-span-7">
+        <BrowserFrame tone="dark" url={domain(lead.data.liveUrl) ?? lead.data.client}>
+          <Image src={lead.data.heroImage} alt={lead.data.heroAlt} width={1200} height={750} widths={[640, 960, 1200]} sizes="(min-width: 1024px) 640px, 100vw" loading="lazy" class="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 ease-soft group-hover:scale-[1.02]" />
+        </BrowserFrame>
+      </div>
+      <div class="lg:col-span-5">
+        <ul class="flex flex-wrap gap-2">
+          <li class="rounded-full bg-brand px-3 py-1 text-small font-semibold text-white">{lead.data.categoryLabel}</li>
+          <li class="rounded-full border border-white/15 px-3 py-1 text-small text-on-graphite-2">{lead.data.year}</li>
+        </ul>
+        <h3 class="mt-5 text-display-md text-paper">
+          <a href={`/case-studies/${lead.id}/`} class="outline-none after:absolute after:inset-0 after:content-['']">{lead.data.title}</a>
+        </h3>
+        <p class="mt-4 text-lede text-on-graphite-2">{lead.data.tagline}</p>
+        <p class="mt-6 inline-flex items-center gap-2 font-semibold text-paper">
+          View case study <span class="inline-flex size-8 items-center justify-center rounded-full bg-paper text-ink transition-colors duration-180 group-hover:bg-brand group-hover:text-white" aria-hidden="true"><ArrowUpRight class="size-4" /></span>
+        </p>
+      </div>
+    </article>
+  )}
+
+  {rest.length > 0 && (
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {rest.map((p, i) => (
+        <article class="group relative" data-reveal data-reveal-delay={String(i + 1)}>
+          <BrowserFrame tone="dark" url={domain(p.data.liveUrl) ?? p.data.client}>
+            <Image src={p.data.heroImage} alt={p.data.heroAlt} width={900} height={600} widths={[480, 720, 900]} sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" class="aspect-[3/2] w-full object-cover object-top transition-transform duration-500 ease-soft group-hover:scale-[1.02]" />
+          </BrowserFrame>
+          <div class="mt-5 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-small text-brand-100">{p.data.categoryLabel}</p>
+              <h3 class="mt-1 text-display-sm text-paper">
+                <a href={`/case-studies/${p.id}/`} class="outline-none after:absolute after:inset-0 after:content-['']">{p.data.title}</a>
+              </h3>
+              <p class="mt-2 text-on-graphite-2">{p.data.tagline}</p>
+            </div>
+            <span class="mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-paper transition-colors duration-180 group-hover:border-brand group-hover:bg-brand" aria-hidden="true"><ArrowUpRight class="size-4" /></span>
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
 </Section>

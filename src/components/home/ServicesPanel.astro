@@ -1,0 +1,39 @@
+---
+import { capabilities, consultationTile } from '../../data/content';
+import { site, contactLinks } from '../../data/site';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import { ArrowUpRight } from '@lucide/astro';
+---
+
+<Section tone="brand" inset rings aria-labelledby="services-heading" class="py-3">
+  <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+    <SectionHeading id="services-heading" tone="on-brand" eyebrow="What we do" title="Four things, done properly, by one team." accent="one team" lede="Pick the one that sounds like your problem. If it's more than one, that's exactly what we're for." />
+    <Button href="/services/" variant="primary-on-dark" arrow>All services</Button>
+  </div>
+  <ul class="mt-12 grid gap-4 md:grid-cols-2">
+    {capabilities.map((cap, i) => (
+      <li data-reveal data-reveal-delay={String(Math.min(i, 3))}>
+        <a href={cap.href} class="group flex h-full flex-col rounded-xl bg-paper p-7 text-ink shadow-card hover-lift sm:p-8">
+          <div class="flex items-center justify-between">
+            <span class="eyebrow text-ink-3">0{i + 1}</span>
+            <span class="inline-flex size-9 items-center justify-center rounded-full bg-ink text-paper transition-colors duration-180 group-hover:bg-brand" aria-hidden="true"><ArrowUpRight class="size-4" /></span>
+          </div>
+          <h3 class="mt-5 text-display-sm text-ink">{cap.title}</h3>
+          <p class="mt-2 text-ink-2">{cap.forWho}</p>
+          <ul class="mt-5 flex flex-wrap gap-2">
+            {cap.bullets.map((b) => <li class="rounded-full bg-paper-2 px-3 py-1 text-small text-ink-2">{b}</li>)}
+          </ul>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-6 flex flex-col items-start justify-between gap-4 rounded-xl border border-white/20 bg-white/10 p-6 sm:flex-row sm:items-center" data-reveal>
+    <div>
+      <p class="text-display-sm text-white">{consultationTile.title}</p>
+      <p class="mt-1 text-white/85">{consultationTile.text}</p>
+    </div>
+    <Button href={contactLinks.booking} external variant="primary-on-dark" arrow>{site.booking.label}</Button>
+  </div>
+</Section>

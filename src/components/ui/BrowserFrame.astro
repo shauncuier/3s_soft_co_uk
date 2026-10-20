@@ -1,0 +1,22 @@
+---
+/** Browser-window chrome around a screenshot, as the references use for work. */
+interface Props {
+  url?: string;
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+const { url, tone = 'light', class: className = '' } = Astro.props;
+const bar = tone === 'dark' ? 'bg-graphite-2 border-white/10 text-on-graphite-2' : 'bg-paper-2 border-line text-ink-3';
+const dot = tone === 'dark' ? 'bg-white/20' : 'bg-line-strong';
+const frame = tone === 'dark' ? 'border-white/10 bg-graphite-2' : 'border-line bg-surface';
+---
+
+<div class:list={['overflow-hidden rounded-xl border shadow-card', frame, className]}>
+  <div class:list={['flex items-center gap-2 border-b px-4 py-2.5 text-small', bar]} aria-hidden="true">
+    <span class:list={['size-2.5 rounded-full', dot]}></span>
+    <span class:list={['size-2.5 rounded-full', dot]}></span>
+    <span class:list={['size-2.5 rounded-full', dot]}></span>
+    {url && <span class="ml-3 truncate">{url}</span>}
+  </div>
+  <slot />
+</div>

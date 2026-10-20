@@ -1,6 +1,5 @@
 ---
 import { navigation, contactLinks, site } from '../../data/site';
-import Container from '../ui/Container.astro';
 import Button from '../ui/Button.astro';
 import Logo from '../ui/Logo.astro';
 import MobileNav from './MobileNav.astro';
@@ -13,12 +12,10 @@ const { currentPath = Astro.url.pathname } = Astro.props;
 const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : currentPath.startsWith(href));
 ---
 
-<header class="sticky top-0 z-40 border-b border-line bg-paper">
-  <Container class="flex h-18 items-center justify-between gap-6">
+<header class="fixed inset-x-0 top-3 z-40 px-3 sm:top-4 sm:px-5">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 rounded-full border border-line bg-paper/90 py-1.5 pl-4 pr-1.5 shadow-card backdrop-blur-md sm:pl-5">
     <a href="/" class="inline-flex shrink-0 items-center rounded-sm" aria-label="3s-Soft UK home">
-      <Logo width={84} class="sm:hidden" />
-      <Logo width={96} class="hidden sm:block" />
-      <span class="sr-only">3s-Soft UK</span>
+      <Logo width={64} />
     </a>
 
     <nav class="hidden md:block" aria-label="Main">
@@ -30,8 +27,8 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
               <a
                 href={item.href}
                 class:list={[
-                  'inline-flex rounded-md px-3.5 py-2 text-body font-medium transition-colors duration-180',
-                  active ? 'text-ink underline decoration-brand decoration-2 underline-offset-8' : 'text-ink-2 hover:text-ink hover:bg-paper-2',
+                  'inline-flex rounded-full px-3.5 py-2 text-small font-semibold transition-colors duration-180',
+                  active ? 'bg-ink text-paper' : 'text-ink-2 hover:bg-paper-2 hover:text-ink',
                 ]}
                 aria-current={active ? 'page' : undefined}
               >
@@ -43,14 +40,14 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
       </ul>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <div class="hidden md:block">
-        <Button href={contactLinks.booking} external size="sm">{site.booking.label}</Button>
+        <Button href={contactLinks.booking} external size="sm" arrow>{site.booking.label}</Button>
       </div>
       <button
         type="button"
         id="mobile-nav-open"
-        class="inline-flex size-11 items-center justify-center rounded-md border border-line bg-surface text-ink hover:bg-paper-2 md:hidden"
+        class="inline-flex size-10 items-center justify-center rounded-full bg-ink text-paper md:hidden"
         aria-controls="mobile-nav"
         aria-expanded="false"
         aria-label="Open menu"
@@ -58,7 +55,7 @@ const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : curren
         <Menu class="size-5" aria-hidden="true" />
       </button>
     </div>
-  </Container>
+  </div>
 
   <MobileNav currentPath={currentPath} />
 </header>

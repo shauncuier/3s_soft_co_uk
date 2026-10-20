@@ -1,0 +1,51 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { X, Check } from '@lucide/astro';
+
+const before = [
+  'A web designer who has never opened Shopify.',
+  'A Shopify freelancer who has never opened Seller Central.',
+  'An Amazon consultant who cannot touch your website.',
+  'Three invoices, three timelines, and you in the middle.',
+];
+const after = [
+  'Website, store and listings built by the same people.',
+  'Stock and prices kept in step between all of them.',
+  'One UK contact and one fixed-price plan.',
+  'The same team on the phone after launch.',
+];
+---
+
+<Section aria-labelledby="compare-heading">
+  <SectionHeading id="compare-heading" eyebrow="The juggling act" title="Same shop. Two very different ways to run it online." accent="Two very different" align="center" lede="Most small sellers end up managing three suppliers who never talk to each other. That is the problem we were set up to remove." />
+  <div class="mx-auto mt-12 grid max-w-5xl gap-5 md:grid-cols-2">
+    <div class="rounded-xl border border-line bg-surface p-7 sm:p-8" data-reveal>
+      <p class="eyebrow text-ink-3">The usual way</p>
+      <h3 class="mt-3 text-display-sm text-ink">Three separate suppliers</h3>
+      <ul class="mt-6 space-y-3">
+        {before.map((item) => (
+          <li class="flex gap-3 text-ink-2">
+            <span class="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-paper-2 text-ink-3"><X class="size-3.5" aria-hidden="true" /></span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="relative overflow-hidden rounded-xl border border-brand-100 bg-brand-50 p-7 sm:p-8" data-reveal data-reveal-delay="1">
+      <div class="rings text-brand" style="--rings-x: 100%; --rings-y: 100%;" aria-hidden="true"></div>
+      <div class="relative">
+        <p class="eyebrow text-brand-700">With 3s-Soft</p>
+        <h3 class="mt-3 text-display-sm text-ink">One team for all of it</h3>
+        <ul class="mt-6 space-y-3">
+          {after.map((item) => (
+            <li class="flex gap-3 text-ink-2">
+              <span class="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Check class="size-3.5" aria-hidden="true" /></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,25 @@
+---
+/** Scrolling strip of services; CSS-only, pauses on hover, static under reduced motion. */
+import { ArrowRight } from '@lucide/astro';
+
+interface Props {
+  items?: string[];
+  tone?: 'paper' | 'graphite';
+}
+const {
+  items = ['Shopify stores', 'Amazon & eBay listings', 'A+ Content & Brand Stores', 'Stock & price automation', 'Small business websites', 'One UK team', 'Fixed-price plans'],
+  tone = 'paper',
+} = Astro.props;
+const colours = tone === 'graphite' ? 'border-white/10 bg-graphite text-on-graphite-2' : 'border-line bg-paper text-ink-2';
+---
+
+<div class:list={['marquee border-y py-4', colours]} aria-hidden="true">
+  <div class="marquee-track items-center gap-10 pr-10" style="--marquee-duration: 45s;">
+    {[0, 1].map(() => items.map((item) => (
+      <span class="inline-flex items-center gap-10 whitespace-nowrap eyebrow">
+        {item}
+        <ArrowRight class="size-4 text-brand" />
+      </span>
+    )))}
+  </div>
+</div>

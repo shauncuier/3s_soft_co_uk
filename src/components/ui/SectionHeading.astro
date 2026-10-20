@@ -4,11 +4,13 @@ import Eyebrow from './Eyebrow.astro';
 interface Props {
   eyebrow?: string;
   title: string;
+  /** A phrase inside `title` to colour in brand green (or paper-on-dark). */
+  accent?: string;
   lede?: string;
   as?: 'h1' | 'h2' | 'h3';
   size?: 'xl' | 'lg' | 'md';
   align?: 'left' | 'center';
-  tone?: 'default' | 'on-dark';
+  tone?: 'default' | 'on-dark' | 'on-brand';
   id?: string;
   class?: string;
 }
@@ -16,6 +18,7 @@ interface Props {
 const {
   eyebrow,
   title,
+  accent,
   lede,
   as: Heading = 'h2',
   size = 'lg',
@@ -25,18 +28,20 @@ const {
   class: className = '',
 } = Astro.props;
 
-const sizes = {
-  xl: 'text-display-xl',
-  lg: 'text-display-lg',
-  md: 'text-display-md',
-};
-const titleColour = tone === 'on-dark' ? 'text-on-graphite' : 'text-ink';
-const ledeColour = tone === 'on-dark' ? 'text-on-graphite-2' : 'text-ink-2';
+const sizes = { xl: 'text-display-xl', lg: 'text-display-lg', md: 'text-display-md' };
+const titleColour = tone === 'on-dark' ? 'text-on-graphite' : tone === 'on-brand' ? 'text-white' : 'text-ink';
+const ledeColour = tone === 'on-dark' ? 'text-on-graphite-2' : tone === 'on-brand' ? 'text-white/85' : 'text-ink-2';
+const accentColour = tone === 'on-dark' ? 'text-brand-100' : tone === 'on-brand' ? 'text-brand-100' : 'text-brand';
+
+const idx = accent ? title.indexOf(accent) : -1;
+const parts = idx >= 0 ? [title.slice(0, idx), accent!, title.slice(idx + accent!.length)] : null;
 ---
 
 <div class:list={['max-w-prose', align === 'center' && 'mx-auto text-center', className]}>
-  {eyebrow && <Eyebrow tone={tone} class="mb-4">{eyebrow}</Eyebrow>}
-  <Heading id={id} class:list={['font-display font-normal', sizes[size], titleColour]}>{title}</Heading>
+  {eyebrow && <Eyebrow tone={tone === 'default' ? 'default' : 'on-dark'} class="mb-4">{eyebrow}</Eyebrow>}
+  <Heading id={id} class:list={['font-display font-extrabold', sizes[size], titleColour]}>
+    {parts ? (<>{parts[0]}<span class={accentColour}>{parts[1]}</span>{parts[2]}</>) : title}
+  </Heading>
   {lede && <p class:list={['mt-5 text-lede', ledeColour]}>{lede}</p>}
   <slot />
 </div>

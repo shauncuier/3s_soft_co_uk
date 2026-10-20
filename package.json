@@ -25,6 +25,9 @@
     "esbuild": true
   },
   "devDependencies": {
-    "potrace": "^2.1.8"
+    "@astrojs/check": "^0.9.11",
+    "potrace": "^2.1.8",
+    "sharp": "^0.35.5",
+    "typescript": "^6.0.3"
   }
 }

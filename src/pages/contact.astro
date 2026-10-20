@@ -1,196 +1,105 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { site, contactLinks, activeSocials } from '../data/site';
-import { Mail, Phone, ArrowUpRight, Clock, ShieldCheck } from '@lucide/astro';
+import ProcessSteps from '../components/site/ProcessSteps.astro';
 import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro';
+import { site, contactLinks } from '../data/site';
+import { CalendarCheck, Phone, Mail, Check } from '@lucide/astro';
+
+const callCovers = [
+  'What you sell, where you sell it and what is not working.',
+  'Whether we can help, and roughly what it would involve.',
+  'What we would need from you to write a fixed-price plan.',
+];
+const haveReady = [
+  'Links to your store, website or Amazon listings.',
+  'Anything you have already tried.',
+  'A rough idea of what "better" would look like for you.',
+];
 ---
 
 <Layout
-  title="Contact 3s-Soft UK — Start a Project or Technical Consultation"
-  description="Connect directly with 3s-Soft UK via WhatsApp, email, or telephone for immediate project scoping, architecture reviews, or digital commerce audits."
+  title="Contact 3s-Soft UK — Book a 15-minute Call"
+  description="Book a free 15-minute call, message us on WhatsApp, or phone the UK team. We reply within one UK business day."
   pageType="ContactPage"
   breadcrumbs={[{ label: 'Contact' }]}
+  hideWhatsApp
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-14 sm:pb-32 space-y-20">
-    
-    <!-- Breadcrumbs -->
-    <Breadcrumbs items={[{ label: 'Contact' }]} />
+  <Section padding="sm">
+    <Breadcrumbs items={[{ label: 'Contact' }]} class="mb-8" />
+    <SectionHeading
+      as="h1"
+      size="xl"
+      eyebrow="Contact"
+      title="Tell us what's not working."
+      lede="Pick whichever route suits you. There's nothing to pay for the call or the plan, and no obligation afterwards."
+    />
+  </Section>
 
-    <!-- Page Header -->
-    <div class="max-w-4xl space-y-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono tracking-widest text-emerald-400 uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>[ 01 // INITIATE DIALOGUE ]</span>
-      </div>
-      
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white text-balance leading-[1.05]">
-        Have a project in mind?
-      </h1>
-      
-      <p class="text-xl sm:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-normal text-pretty">
-        Tell us what you're working on. We'll get back to you to discuss the next step.
-      </p>
-    </div>
-
-    <!-- Direct Contact Methods (Primary Conversion Cards) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <!-- 1. WhatsApp Card (Primary Preferred) -->
-      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-emerald-500/30 shadow-2xl flex flex-col justify-between space-y-8 hover:border-emerald-500/60 transition-colors relative overflow-hidden group">
-        <div class="absolute -right-12 -top-12 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
-        <div class="space-y-4 relative z-10">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
-            <WhatsAppIcon class="w-6 h-6" />
+  <Section padding="sm" aria-label="Ways to get in touch">
+    <div class="grid gap-6 lg:grid-cols-12">
+      <div class="rounded-lg border border-brand-100 bg-brand-50 p-7 shadow-card sm:p-9 lg:col-span-7">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex size-11 items-center justify-center rounded-md bg-brand text-white"><CalendarCheck class="size-5" aria-hidden="true" /></span>
+          <h2 class="text-display-sm text-ink">{site.booking.label}</h2>
+        </div>
+        <p class="mt-4 text-ink-2">Fifteen minutes on a video or phone call, at a time you choose. Most people leave knowing whether we can help and what the next step is.</p>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+          <div>
+            <h3 class="eyebrow text-ink-3">What the call covers</h3>
+            <ul class="mt-3 space-y-2 text-small text-ink-2">
+              {callCovers.map((i) => <li class="flex gap-2"><Check class="mt-0.5 size-4 shrink-0 text-brand" aria-hidden="true" />{i}</li>)}
+            </ul>
           </div>
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Fastest Route</span>
-            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">WhatsApp</h2>
-            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
-              Direct chat with our UK team. Ideal for project outlines, quick questions, or scheduling a technical consultation.
-            </p>
+            <h3 class="eyebrow text-ink-3">Useful to have ready</h3>
+            <ul class="mt-3 space-y-2 text-small text-ink-2">
+              {haveReady.map((i) => <li class="flex gap-2"><Check class="mt-0.5 size-4 shrink-0 text-brand" aria-hidden="true" />{i}</li>)}
+            </ul>
           </div>
         </div>
+        <div class="mt-8">
+          <Button href={contactLinks.booking} external size="lg">Choose a time</Button>
+        </div>
+      </div>
 
-        {contactLinks.whatsapp ? (
-          <a
-            href={contactLinks.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-emerald-500 text-neutral-950 hover:bg-emerald-400 hover:text-neutral-950 transition-colors shadow-lg shadow-emerald-500/20 relative z-10"
-          >
-            <WhatsAppIcon class="w-4 h-4 text-neutral-950" />
-            <span>Chat on WhatsApp</span>
-          </a>
-        ) : (
-          <span class="text-xs font-mono text-neutral-500 italic">WhatsApp updating</span>
+      <div class="grid gap-6 lg:col-span-5">
+        {contactLinks.whatsapp && (
+          <div class="rounded-lg border border-line bg-surface p-6 shadow-card">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex size-11 items-center justify-center rounded-md bg-brand-100 text-brand-800"><WhatsAppIcon class="size-5" /></span>
+              <h2 class="text-display-sm text-ink">WhatsApp</h2>
+            </div>
+            <p class="mt-3 text-small text-ink-2">Quickest for a question or to send a link. Opens a chat with our UK team.</p>
+            <div class="mt-5"><Button href={contactLinks.whatsapp} external variant="secondary">{site.contact.whatsappLabel}</Button></div>
+          </div>
         )}
-      </div>
-
-      <!-- 2. Email Card -->
-      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-white/[0.08] shadow-2xl flex flex-col justify-between space-y-8 hover:border-white/[0.2] transition-colors">
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-white/[0.04] text-white border border-white/[0.08] flex items-center justify-center">
-            <Mail class="w-6 h-6" />
+        {contactLinks.phone && (
+          <div class="rounded-lg border border-line bg-surface p-6 shadow-card">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex size-11 items-center justify-center rounded-md bg-brand-100 text-brand-800"><Phone class="size-5" aria-hidden="true" /></span>
+              <h2 class="text-display-sm text-ink">Phone</h2>
+            </div>
+            <p class="mt-3 text-small text-ink-2">UK business hours, Monday to Friday. Ask for {site.ukDirector.name.split(' ')[0]}.</p>
+            <a href={contactLinks.phone} class="mt-4 inline-block text-lede font-semibold text-ink hover:text-brand-700">{site.contact.phoneDisplay}</a>
           </div>
-          <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">Detailed Briefs</span>
-            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Email</h2>
-            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
-              Send us RFP documents, catalogue links, or a detailed breakdown of your technical requirements.
-            </p>
-          </div>
-        </div>
-
-        {contactLinks.email ? (
-          <div class="space-y-3">
-            <a
-              href={contactLinks.email}
-              class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-bold text-sm bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-colors shadow-sm"
-            >
-              <Mail class="w-4 h-4 text-neutral-950" />
-              <span>{site.contact.email}</span>
-            </a>
-            {contactLinks.emailSecondary && (
-              <a
-                href={contactLinks.emailSecondary}
-                class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full font-mono text-xs bg-white/[0.04] text-white border border-white/[0.1] hover:bg-white/[0.08] transition-colors"
-              >
-                <Mail class="w-4 h-4 text-neutral-400" />
-                <span>{site.contact.emailSecondary}</span>
-              </a>
-            )}
-          </div>
-        ) : (
-          <span class="text-xs font-mono text-neutral-500 italic">Email updating</span>
         )}
-      </div>
-
-      <!-- 3. Direct UK Phone Card -->
-      <div class="rounded-3xl p-8 sm:p-10 bg-[#111413] border border-white/[0.08] shadow-2xl flex flex-col justify-between space-y-8 hover:border-white/[0.2] transition-colors">
-        <div class="space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-white/[0.04] text-white border border-white/[0.08] flex items-center justify-center">
-            <Phone class="w-6 h-6" />
+        {contactLinks.email && (
+          <div class="rounded-lg border border-line bg-surface p-6 shadow-card">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex size-11 items-center justify-center rounded-md bg-brand-100 text-brand-800"><Mail class="size-5" aria-hidden="true" /></span>
+              <h2 class="text-display-sm text-ink">Email</h2>
+            </div>
+            <p class="mt-3 text-small text-ink-2">Best for briefs, documents and anything you want in writing. {site.contact.responsePromise}</p>
+            <a href={contactLinks.email} class="mt-4 inline-block text-lede font-semibold text-ink hover:text-brand-700">{site.contact.email}</a>
           </div>
-          <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">UK Phone</span>
-            <h2 class="text-2xl font-bold text-white tracking-tight mt-1">Direct Call</h2>
-            <p class="text-xs text-neutral-400 leading-relaxed mt-2 font-normal">
-              Speak directly with our UK business development contact during normal UK business hours (Mon–Fri).
-            </p>
-          </div>
-        </div>
-
-        {contactLinks.phone ? (
-          <a
-            href={contactLinks.phone}
-            class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-mono text-xs font-semibold bg-white/[0.04] text-white border border-white/[0.1] hover:bg-white/[0.08] transition-colors"
-          >
-            <Phone class="w-4 h-4 text-neutral-400" />
-            <span>{site.contact.phoneDisplay}</span>
-          </a>
-        ) : (
-          <span class="text-xs font-mono text-neutral-500 italic">Phone updating</span>
         )}
-      </div>
-
-    </div>
-
-    <!-- Reassurance / Communication Standards -->
-    <div class="rounded-3xl p-8 sm:p-12 bg-[#0c0e0d] border border-white/[0.08] grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="space-y-2">
-        <div class="flex items-center gap-2 text-emerald-400">
-          <Clock class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Prompt Response</h3>
-        </div>
-        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
-          We typically acknowledge project enquiries within one business day during UK working hours (Mon–Fri).
-        </p>
-      </div>
-
-      <div class="space-y-2">
-        <div class="flex items-center gap-2 text-emerald-400">
-          <ShieldCheck class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">No Agency Theater</h3>
-        </div>
-        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
-          Direct, practical communication focused on technical feasibility and straightforward recommendations.
-        </p>
-      </div>
-
-      <div class="space-y-2">
-        <div class="flex items-center gap-2 text-emerald-400">
-          <WhatsAppIcon class="w-4 h-4" />
-          <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Direct Conversation</h3>
-        </div>
-        <p class="text-xs text-neutral-400 leading-relaxed font-normal">
-          Connect directly with experienced professionals who understand digital commerce and systems architecture.
-        </p>
       </div>
     </div>
+  </Section>
 
-    <!-- Active Social Channels -->
-    {activeSocials.length > 0 && (
-      <div class="pt-10 border-t border-white/[0.08] space-y-4">
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
-          Connect on Social Platforms
-        </h3>
-        <div class="flex flex-wrap gap-4">
-          {activeSocials.map((social) => (
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#111413] border border-white/[0.08] text-xs font-mono text-neutral-300 hover:text-white hover:border-white/[0.2] transition-colors"
-            >
-              <span>{social.label}</span>
-              <ArrowUpRight class="w-3.5 h-3.5 text-neutral-500" />
-            </a>
-          ))}
-        </div>
-      </div>
-    )}
-
-  </div>
+  <ProcessSteps eyebrow="What happens next" title="After you get in touch" lede="No sales process, just three steps." />
 </Layout>

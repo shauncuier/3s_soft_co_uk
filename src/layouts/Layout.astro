@@ -5,7 +5,7 @@ import Header from '../components/site/Header.astro';
 import Footer from '../components/site/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { site } from '../data/site';
-import { buildSchemaGraph, type BreadcrumbItem, type CaseStudySchemaInput } from '../utils/schema';
+import { buildSchemaGraph, type BreadcrumbItem, type CaseStudySchemaInput, type SchemaPageType } from '../utils/schema';
 
 interface Props {
   title?: string;
@@ -13,7 +13,7 @@ interface Props {
   ogImage?: string;
   canonicalUrl?: string;
   noindex?: boolean;
-  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+  pageType?: SchemaPageType;
   breadcrumbs?: BreadcrumbItem[];
   caseStudy?: CaseStudySchemaInput;
   /** Optional FAQ pairs rendered on the page; emitted as FAQPage schema when the schema builder supports it. */

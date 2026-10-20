@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/ui/Section.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceCard from '../../components/services/ServiceCard.astro';
+import ConsultationTile from '../../components/services/ConsultationTile.astro';
+import ProcessSteps from '../../components/site/ProcessSteps.astro';
+import CtaBand from '../../components/site/CtaBand.astro';
+import { capabilities } from '../../data/content';
+import { servicesHub } from '../../data/services';
+---
+
+<Layout
+  title={servicesHub.title}
+  description={servicesHub.metaDescription}
+  pageType="CollectionPage"
+  breadcrumbs={[{ label: 'Services' }]}
+>
+  <Section padding="sm">
+    <Breadcrumbs items={[{ label: 'Services' }]} class="mb-8" />
+    <SectionHeading as="h1" size="xl" eyebrow="Services" title={servicesHub.heading} lede={servicesHub.lede} />
+  </Section>
+
+  <Section padding="sm" aria-label="Our services">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {capabilities.map((cap) => (
+        <ServiceCard headingLevel="h2" title={cap.title} forWho={cap.forWho} bullets={cap.bullets} href={cap.href} />
+      ))}
+      <ConsultationTile headingLevel="h2" />
+    </div>
+  </Section>
+
+  <ProcessSteps />
+  <CtaBand />
+</Layout>

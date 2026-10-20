@@ -1,0 +1,19 @@
+---
+import { getFeaturedCaseStudies } from '../../utils/caseStudies';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import ProjectGrid from '../work/ProjectGrid.astro';
+
+const projects = await getFeaturedCaseStudies(3);
+---
+
+<Section tone="paper-2" aria-labelledby="work-heading">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <SectionHeading id="work-heading" eyebrow="Selected work" title="Real brands, live links, honest outcomes" lede="No mock-ups and no 'demo briefs'. Each of these is a named client you can go and look at." />
+    <Button href="/work/" variant="link">See all work</Button>
+  </div>
+  <div class="mt-12">
+    <ProjectGrid projects={projects} columns={3} />
+  </div>
+</Section>

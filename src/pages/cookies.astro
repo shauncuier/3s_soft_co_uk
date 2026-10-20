@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Cookies" description="Which cookies this website sets, what they do and how to turn them off." breadcrumbs={[{ label: 'Cookies' }]}>
+  <Section padding="sm">
+    <Breadcrumbs items={[{ label: 'Cookies' }]} class="mb-8" />
+    <SectionHeading as="h1" size="lg" eyebrow="Legal" title="Cookies on this site" lede={`Last updated ${site.legal.lastUpdated}.`} />
+  </Section>
+  <Section padding="sm">
+    <div class="prose-editorial">
+      <p>A cookie is a small text file a website stores in your browser. This site sets cookies for one purpose: measuring how it is used.</p>
+
+      <h2>Cookies we set</h2>
+      <table>
+        <thead><tr><th>Cookie</th><th>Set by</th><th>Purpose</th><th>Lasts</th></tr></thead>
+        <tbody>
+          <tr><td><code>_ga</code></td><td>Google Analytics</td><td>Tells repeat visits apart from new ones</td><td>2 years</td></tr>
+          <tr><td><code>_ga_*</code></td><td>Google Analytics</td><td>Keeps track of a visit while it is happening</td><td>2 years</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What we do with the data</h2>
+      <p>We look at which pages are read, how people arrive and which devices they use, so we can make the site clearer and faster. We do not use it for advertising and we do not combine it with anything that identifies you.</p>
+
+      <h2>How to turn cookies off</h2>
+      <p>You can block or delete cookies in your browser settings; every browser has instructions in its help pages. You can also install Google's <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer">opt-out browser add-on</a>, which stops Google Analytics on every site. The site works the same with cookies off.</p>
+
+      <h2>Questions</h2>
+      <p>Email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>. Our <a href="/privacy/">privacy policy</a> explains how we handle the information you send us.</p>
+    </div>
+  </Section>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+
+interface Props {
+  name: string;
+  role: string;
+  summary?: string;
+  url?: string;
+  class?: string;
+}
+const { name, role, summary, url, class: className = '' } = Astro.props;
+const initials = name.split(/\s+/).map((p) => p[0]).slice(0, 2).join('');
+---
+
+<div class:list={['flex gap-5 rounded-lg border border-line bg-surface p-6 shadow-card', className]}>
+  <span class="flex size-14 shrink-0 items-center justify-center rounded-full bg-brand-100 font-display text-display-sm text-brand-800" aria-hidden="true">{initials}</span>
+  <div>
+    <p class="text-lede font-semibold text-ink">{name}</p>
+    <p class="text-small text-brand-700">{role}</p>
+    {summary && <p class="mt-2 text-small text-ink-2">{summary}</p>}
+    {url && (
+      <a href={url} target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-small font-semibold text-ink-2 hover:text-ink">
+        Personal site <ArrowUpRight class="size-3.5" aria-hidden="true" />
+      </a>
+    )}
+  </div>
+</div>

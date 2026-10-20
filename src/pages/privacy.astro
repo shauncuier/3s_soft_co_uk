@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Privacy Policy" description="How 3s-Soft UK handles the personal information you share when you contact us or visit this website." breadcrumbs={[{ label: 'Privacy' }]}>
+  <Section padding="sm">
+    <Breadcrumbs items={[{ label: 'Privacy' }]} class="mb-8" />
+    <SectionHeading as="h1" size="lg" eyebrow="Legal" title="Privacy policy" lede={`Last updated ${site.legal.lastUpdated}. Plain English, because you should be able to read it.`} />
+  </Section>
+  <Section padding="sm">
+    <div class="prose-editorial">
+      <h2>Who we are</h2>
+      <p>This website is run by {site.ukName}, the UK-facing team of 3s-Soft. You can contact us at <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+
+      <h2>What we collect and why</h2>
+      <p><strong>When you contact us.</strong> If you email us, message us on WhatsApp, phone us or book a call, we receive the details you choose to share: your name, contact details, your business and what you need help with. We use them to reply to you and, if you go ahead, to do the work. We keep them for as long as we are working together and for a reasonable period afterwards for our records.</p>
+      <p><strong>Booking a call.</strong> Calls are booked through Cal.com. Cal.com processes your name, email address and chosen time under its own privacy policy.</p>
+      <p><strong>WhatsApp.</strong> Messages sent to us on WhatsApp are handled by WhatsApp (Meta) under its own terms. Do not send sensitive information such as passwords over WhatsApp.</p>
+      <p><strong>Analytics.</strong> We use Google Analytics 4 to understand how people use this site: which pages are visited, roughly where visitors are from and which device they use. Google sets cookies to do this. See our <a href="/cookies/">cookie page</a> for the list and how to opt out. We do not use this data to identify you.</p>
+
+      <h2>What we do not do</h2>
+      <p>We do not sell your information. We do not add you to a mailing list without asking. We do not run advertising trackers on this site.</p>
+
+      <h2>Your rights</h2>
+      <p>Under UK data protection law you can ask what information we hold about you, ask us to correct it or delete it, and object to how we use it. Email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> and we will respond within one month. If you are not satisfied, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk" rel="noopener noreferrer">ico.org.uk</a>.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes we will update the date at the top of this page.</p>
+    </div>
+  </Section>
+</Layout>

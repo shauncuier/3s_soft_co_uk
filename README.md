@@ -1,6 +1,8 @@
 # 3s-Soft UK — Corporate Website
 
-Official UK digital presence for **3s-Soft**: Digital Commerce & Technology Partner.
+Official UK digital presence for **3s-Soft**: one UK team for small businesses' websites, online stores and marketplace listings.
+
+Design and content follow the research-led specification in `docs/superpowers/specs/2026-10-20-uk-redesign-spec.md`. Read it before changing copy, colours or page structure.
 
 - **Production Domain**: [https://3s-soft.co.uk](https://3s-soft.co.uk)
 - **Global Presence**: [https://3s-soft.com](https://3s-soft.com)
@@ -11,8 +13,8 @@ Official UK digital presence for **3s-Soft**: Digital Commerce & Technology Part
 ## Technology Stack
 
 - **Framework**: [Astro](https://astro.build) (Static Site Generation)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com) v4 + Custom Design System
-- **Typography**: [Manrope Variable](https://fontsource.org/fonts/manrope)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) v4 with design tokens in an `@theme` block (`src/styles/global.css`)
+- **Typography**: Instrument Serif (headlines) + Manrope Variable (text), self-hosted via the Astro Fonts API (`src/assets/fonts/`)
 - **Content**: Astro Content Collections with MDX
 - **Icons**: [@lucide/astro](https://lucide.dev)
 - **SEO**: Structured Data (Schema.org JSON-LD), Open Graph, Twitter Cards, Sitemap, Canonical URLs
@@ -72,61 +74,40 @@ npm run preview
 
 ```text
 3s_soft_co_uk/
-├── .github/workflows/
-│   └── deploy.yml              # Automated GitHub Pages CI/CD workflow
-├── public/
-│   ├── CNAME                   # 3s-soft.co.uk custom domain mapping
-│   ├── robots.txt              # Search engine directives & sitemap location
-│   ├── site.webmanifest        # PWA / web manifest
-│   ├── favicon.ico             # 16/32/48 multi-size icon
-│   ├── favicon-32.png          # High-DPI browser tab icon
-│   ├── apple-touch-icon.png    # iOS bookmark icon
-│   └── og-default.png          # 1200×630 Open Graph sharing image
-├── scripts/
-│   ├── generate-brand-assets.mjs # Derives transparent logo, favicons & OG image
-│   └── generate-mockups.mjs      # Generates project preview mockups and crops
+├── .github/workflows/deploy.yml   # GitHub Pages deployment on push to main
+├── brand-source/                  # Official logo artwork (source of truth)
+├── docs/
+│   ├── audits/                    # Lighthouse baselines and QA notes
+│   └── superpowers/specs/         # Design specifications (read first)
+├── public/                        # CNAME, robots.txt, manifest, icons, og-default.png
+├── scripts/build-brand-logos.mjs  # Regenerates logo, favicons, 512 icon and OG image
 ├── src/
 │   ├── assets/
-│   │   ├── brand/              # 3s-Soft official brand assets
-│   │   └── projects/           # High-resolution case study and project imagery
-│   ├── components/             # Reusable Astro UI components
-│   │   ├── Header.astro        # Sticky navigation with mobile menu
-│   │   ├── Footer.astro        # Corporate footer with active socials & contacts
-│   │   ├── Hero.astro          # Hero section with headline and CTAs
-│   │   ├── HeroVisual.astro    # Layered project mockup composition
-│   │   ├── SectionHeading.astro# Editorial section titles & subtitles
-│   │   ├── ProjectCard.astro   # Portfolio card with hover zoom & tags
-│   │   ├── ProjectGrid.astro   # Responsive editorial project grid
-│   │   ├── CaseStudyHero.astro # Case study metadata and hero image
-│   │   ├── CaseStudySection.astro # Challenge, Approach, Solution, Outcomes
-│   │   ├── TechStack.astro     # Platforms grouped by capability
-│   │   ├── CTA.astro           # "Let's build something useful" banner
-│   │   ├── ContactButtons.astro# WhatsApp, Email, and Phone CTAs
-│   │   ├── WhatsAppButton.astro# Floating non-obstructive WhatsApp widget
-│   │   └── Breadcrumbs.astro   # Breadcrumb navigation with JSON-LD
-│   ├── content/
-│   │   └── case-studies/       # Content collection MDX files
+│   │   ├── brand/                 # logo.png, logo-white.png (generated)
+│   │   ├── fonts/                 # woff2 files served by the Fonts API
+│   │   └── projects/              # Case study imagery (ivan-troy/, *.jpg)
+│   ├── components/
+│   │   ├── ui/                    # Primitives: Button, Section, Container, Card, Tag, Eyebrow, SectionHeading, Logo, Faq
+│   │   ├── site/                  # Header, MobileNav (dialog), Footer, CtaBand, ProcessSteps, PersonCard, CredentialList
+│   │   ├── home/                  # Hero, Proof, ServicesGrid, FeaturedWork, WhyUs, HomeFaq
+│   │   ├── services/              # ServiceCard, ConsultationTile
+│   │   ├── work/                  # ProjectCard, ProjectGrid, CategoryNav, WorkListing
+│   │   ├── case-study/            # Hero, Meta, Narrative, Outcomes, Gallery, Related
+│   │   ├── icons/WhatsAppIcon.astro
+│   │   ├── Breadcrumbs.astro
+│   │   └── WhatsAppButton.astro   # Floating button, phones only
+│   ├── content/case-studies/      # One MDX per project; `placeholder: true` entries are never built
 │   ├── data/
-│   │   ├── site.ts             # Central configuration (contact, socials, UK presence)
-│   │   └── content.ts          # Capabilities, categories, and process copy
-│   ├── layouts/
-│   │   ├── Layout.astro        # Master HTML layout with technical SEO
-│   │   └── CaseStudyLayout.astro # Case study layout with Article/CreativeWork schema
-│   ├── pages/
-│   │   ├── index.astro         # Homepage
-│   │   ├── work/
-│   │   │   ├── index.astro     # All work with client-side category filters
-│   │   │   └── [category].astro# Dedicated category pages (/work/shopify, etc.)
-│   │   ├── case-studies/
-│   │   │   ├── index.astro     # Case studies index with category tabs
-│   │   │   └── [id].astro      # Dynamic case study detail pages
-│   │   ├── about.astro         # About 3s-Soft UK & Operating model
-│   │   ├── contact.astro       # Contact channels (WhatsApp, Email, Phone)
-│   │   └── 404.astro           # Custom 404 error page
-│   ├── styles/
-│   │   └── global.css          # Design tokens, typography & Tailwind v4
-│   └── content.config.ts       # Astro Content Collections schema
-└── astro.config.mjs            # Astro configuration with custom domain & sitemap
+│   │   ├── site.ts                # Contact, booking, credentials, proof, people, legal
+│   │   ├── content.ts             # Categories, work category pages, capabilities, process, why-us
+│   │   ├── services.ts            # Copy for the four /services/ pages
+│   │   └── faq.ts                 # Home FAQ
+│   ├── layouts/                   # Layout.astro (SEO, fonts, GA4, schema), CaseStudyLayout.astro
+│   ├── pages/                     # index, services/, work/, case-studies/, about, contact, privacy, cookies, 404
+│   ├── styles/                    # global.css (tokens + base), prose.css (MDX bodies)
+│   ├── utils/                     # caseStudies.ts (published-only queries), schema.ts (JSON-LD @graph)
+│   └── content.config.ts          # Case study schema
+└── astro.config.mjs               # Site URL, fonts, prefetch, sitemap filter
 ```
 
 ---
@@ -237,19 +218,21 @@ Write custom editorial narrative or implementation notes here in standard Markdo
 
 ### 6. How to Re-generate Brand Assets
 
-The official 3s-Soft logo is preserved in `brand-source/3s-soft-logo-source.png`. To regenerate all derived web assets:
+The official artwork lives in `brand-source/3s-soft-logo-source.png`. One script derives everything else:
 
 ```bash
-node scripts/generate-brand-assets.mjs
+node scripts/build-brand-logos.mjs
 ```
 
-This updates:
-- `src/assets/brand/3s-soft-logo.png` (transparent trimmed header logo)
-- `public/favicon.ico`
-- `public/favicon-32.png`
-- `public/apple-touch-icon.png`
-- `public/icon-192.png` & `public/icon-512.png`
-- `public/og-default.png` (1200×630 Open Graph sharing image)
+It writes `src/assets/brand/logo.png` (trimmed, original colours), `src/assets/brand/logo-white.png` (for dark bands), `public/favicon-32.png`, `public/apple-touch-icon.png`, `public/icon-192.png`, `public/icon-512.png` and `public/og-default.png`. Commit the outputs; the script is not run in CI.
+
+### 7. Design rules that are enforced
+
+- Colours, radii and type sizes come from the `@theme` tokens in `src/styles/global.css`. Raw hex values are not used in components or pages.
+- No text below 13px; body copy is 17px.
+- Every page ends with `CtaBand`; the primary action everywhere is the Cal.com booking link from `site.booking`.
+- Amazon credentials are always worded "Listed on Amazon's Service Provider Network".
+- Case studies with `placeholder: true` are excluded everywhere by `src/utils/caseStudies.ts`.
 
 ---
 

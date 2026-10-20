@@ -1,47 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { ArrowLeft, ArrowRight } from '@lucide/astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
-<Layout
-  title="Page Not Found (404)"
-  description="The page you are looking for does not exist or may have been moved."
-  noindex={true}
->
-  <div class="min-h-[75vh] flex items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-[#090b0a]">
-    <div class="max-w-xl mx-auto text-center space-y-8">
-      
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.1] text-xs font-mono font-semibold text-neutral-400">
-        <span class="w-2 h-2 rounded-full bg-red-400"></span>
-        <span>ERROR 404 // ROUTE NOT FOUND</span>
-      </div>
-
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white text-balance">
-        This page doesn't exist.
-      </h1>
-
-      <p class="text-base sm:text-lg text-neutral-400 leading-relaxed text-pretty font-normal">
-        The page you're looking for may have moved, been renamed, or is no longer available in this directory.
-      </p>
-
-      <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-white text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 transition-colors shadow-md"
-        >
-          <ArrowLeft class="w-4 h-4 text-neutral-950" />
-          <span>Back to Home</span>
-        </a>
-
-        <a
-          href="/work/"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-mono font-bold bg-[#111413] text-white border border-white/[0.12] hover:border-white/[0.24] hover:bg-white/[0.04] transition-colors group"
-        >
-          <span>Explore Work</span>
-          <ArrowRight class="w-4 h-4 text-neutral-400 group-hover:text-white transition-colors" />
-        </a>
-      </div>
-
+<Layout title="Page not found" description="That page doesn't exist or has moved." noindex>
+  <Section class="min-h-[60vh] flex items-center">
+    <SectionHeading
+      as="h1"
+      size="xl"
+      eyebrow="404"
+      title="That page isn't here."
+      lede="The link may be out of date, or the page has moved. Here are the two places most people are looking for."
+    />
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button href="/services/">See our services</Button>
+      <Button href="/work/" variant="secondary">See our work</Button>
+      <Button href="/" variant="link">Back to the home page</Button>
     </div>
-  </div>
+  </Section>
 </Layout>

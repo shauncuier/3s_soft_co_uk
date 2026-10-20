@@ -1,0 +1,107 @@
+---
+/**
+ * Mobile navigation as a native <dialog>: focus trap, Escape and backdrop
+ * come from the platform. ~20 lines of script, nothing else.
+ */
+import { navigation, contactLinks, site } from '../../data/site';
+import Button from '../ui/Button.astro';
+import Logo from '../ui/Logo.astro';
+import WhatsAppIcon from '../icons/WhatsAppIcon.astro';
+import { X, Phone, Mail } from '@lucide/astro';
+
+interface Props {
+  currentPath: string;
+}
+const { currentPath } = Astro.props;
+const isCurrent = (href: string) => (href === '/' ? currentPath === '/' : currentPath.startsWith(href));
+---
+
+<dialog
+  id="mobile-nav"
+  class="m-0 h-dvh max-h-none w-full max-w-none bg-paper text-ink p-0 backdrop:bg-ink/40 open:flex open:flex-col"
+  aria-label="Site navigation"
+>
+  <div class="flex items-center justify-between border-b border-line px-5 py-4">
+    <a href="/" class="inline-flex rounded-sm" aria-label="3s-Soft UK home">
+      <Logo width={88} loading="lazy" />
+    </a>
+    <button
+      type="button"
+      class="inline-flex size-11 items-center justify-center rounded-md border border-line bg-surface text-ink hover:bg-paper-2"
+      data-mobile-nav-close
+      aria-label="Close menu"
+    >
+      <X class="size-5" aria-hidden="true" />
+    </button>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto px-5 py-6" aria-label="Mobile">
+    <ul class="divide-y divide-line border-y border-line">
+      {navigation.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center justify-between py-4 font-display text-display-sm',
+              isCurrent(item.href) ? 'text-brand-700' : 'text-ink',
+            ]}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-8 flex flex-col gap-3">
+      <Button href={contactLinks.booking} external size="lg">{site.booking.label}</Button>
+      {contactLinks.whatsapp && (
+        <Button href={contactLinks.whatsapp} external variant="secondary" size="lg">
+          <WhatsAppIcon class="size-4" />
+          {site.contact.whatsappLabel}
+        </Button>
+      )}
+    </div>
+
+    <ul class="mt-8 space-y-3 text-small text-ink-2">
+      {contactLinks.phone && (
+        <li>
+          <a href={contactLinks.phone} class="inline-flex items-center gap-2 hover:text-ink">
+            <Phone class="size-4" aria-hidden="true" />
+            {site.contact.phoneDisplay}
+          </a>
+        </li>
+      )}
+      {contactLinks.email && (
+        <li>
+          <a href={contactLinks.email} class="inline-flex items-center gap-2 hover:text-ink">
+            <Mail class="size-4" aria-hidden="true" />
+            {site.contact.email}
+          </a>
+        </li>
+      )}
+    </ul>
+  </nav>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('mobile-nav') as HTMLDialogElement | null;
+  const openBtn = document.getElementById('mobile-nav-open');
+  if (dialog && openBtn) {
+    const sync = () => openBtn.setAttribute('aria-expanded', String(dialog.open));
+    openBtn.addEventListener('click', () => {
+      dialog.showModal();
+      sync();
+    });
+    dialog.addEventListener('close', sync);
+    dialog.querySelectorAll<HTMLElement>('[data-mobile-nav-close], a[href]').forEach((el) =>
+      el.addEventListener('click', () => dialog.close()),
+    );
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
+      if (e.matches && dialog.open) dialog.close();
+    });
+  }
+</script>

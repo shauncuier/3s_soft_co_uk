@@ -1,0 +1,123 @@
+---
+import { site, footerNavigation, contactLinks, activeSocials, credentialLinks } from '../../data/site';
+import Container from '../ui/Container.astro';
+import Logo from '../ui/Logo.astro';
+import WhatsAppIcon from '../icons/WhatsAppIcon.astro';
+import { ArrowUpRight } from '@lucide/astro';
+
+/** Service links mirror src/data/services.ts slugs (spec §5). */
+const serviceLinks = [
+  { label: 'Shopify & e-commerce stores', href: '/services/shopify/' },
+  { label: 'Amazon & marketplace listings', href: '/services/amazon-marketplaces/' },
+  { label: 'Automation & integrations', href: '/services/automation/' },
+  { label: 'Websites for small businesses', href: '/services/web-development/' },
+];
+
+const year = new Date().getFullYear();
+const hasLegal = Boolean(site.legal.companyName);
+const amazonListed = site.credentials.filter((c) => c.key.startsWith('amazonSpn'));
+---
+
+<footer class="border-t border-line bg-paper-2 text-ink-2">
+  <Container class="py-14 sm:py-16">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <a href="/" class="inline-flex rounded-sm" aria-label="3s-Soft UK home">
+          <Logo width={110} loading="lazy" />
+        </a>
+        <p class="mt-5 max-w-sm text-body text-ink">
+          {site.headline}
+        </p>
+        <p class="mt-3 max-w-sm text-small">
+          {site.tagline} Part of the <a href={site.mainSiteUrl} class="link-underline text-ink" rel="noopener noreferrer">3s-Soft global network</a>.
+        </p>
+      </div>
+
+      <nav class="lg:col-span-2" aria-label="Footer">
+        <h2 class="eyebrow text-ink-3">Company</h2>
+        <ul class="mt-4 space-y-2.5">
+          {footerNavigation.map((item) => (
+            <li><a href={item.href} class="text-body text-ink-2 hover:text-ink">{item.label}</a></li>
+          ))}
+          <li><a href="/privacy/" class="text-body text-ink-2 hover:text-ink">Privacy</a></li>
+          <li><a href="/cookies/" class="text-body text-ink-2 hover:text-ink">Cookies</a></li>
+        </ul>
+      </nav>
+
+      <nav class="lg:col-span-3" aria-label="Services">
+        <h2 class="eyebrow text-ink-3">Services</h2>
+        <ul class="mt-4 space-y-2.5">
+          {serviceLinks.map((item) => (
+            <li><a href={item.href} class="text-body text-ink-2 hover:text-ink">{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-3">
+        <h2 class="eyebrow text-ink-3">Contact</h2>
+        <ul class="mt-4 space-y-2.5 text-body">
+          <li>
+            <a href={contactLinks.booking} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-brand-800">
+              {site.booking.label}
+              <ArrowUpRight class="size-4" aria-hidden="true" />
+            </a>
+          </li>
+          {contactLinks.whatsapp && (
+            <li>
+              <a href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-ink-2 hover:text-ink">
+                <WhatsAppIcon class="size-4 text-brand" />
+                {site.contact.whatsappLabel}
+              </a>
+            </li>
+          )}
+          {contactLinks.phone && (
+            <li><a href={contactLinks.phone} class="text-ink-2 hover:text-ink">{site.contact.phoneDisplay}</a></li>
+          )}
+          {contactLinks.email && (
+            <li><a href={contactLinks.email} class="text-ink-2 hover:text-ink">{site.contact.email}</a></li>
+          )}
+        </ul>
+
+        {activeSocials.length > 0 && (
+          <ul class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-small" aria-label="Social profiles">
+            {activeSocials.map((s) => (
+              <li><a href={s.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">{s.label}</a></li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-line pt-8">
+      <h2 class="eyebrow text-ink-3">Credentials</h2>
+      <ul class="mt-4 grid gap-x-8 gap-y-2 text-small sm:grid-cols-2 lg:grid-cols-3">
+        {amazonListed.map((c) => (
+          <li>
+            {c.href ? (
+              <a href={c.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">{c.label} — {c.detail}</a>
+            ) : (
+              <span>{c.label} — {c.detail}</span>
+            )}
+          </li>
+        ))}
+        {credentialLinks.filter((c) => !c.key.startsWith('amazonSpn')).map((c) => (
+          <li>
+            <a href={c.href} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-ink">{c.label} ({c.detail})</a>
+          </li>
+        ))}
+        <li>{site.reach}</li>
+      </ul>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-small text-ink-3 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {site.ukName}. All rights reserved.</p>
+      {hasLegal && (
+        <p>
+          {site.legal.companyName}
+          {site.legal.companyNumber && ` · Company no. ${site.legal.companyNumber}`}
+          {site.legal.registeredAddress && ` · ${site.legal.registeredAddress}`}
+        </p>
+      )}
+    </div>
+  </Container>
+</footer>
